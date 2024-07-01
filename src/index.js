@@ -1,5 +1,6 @@
 const express = require("express");
 const dotenv = require("dotenv");
+const expressEjsLayouts = require("express-ejs-layouts");
 
 dotenv.config({
 	path: ".env"
@@ -13,6 +14,7 @@ const mainRouter = require("./routes");
 const app = express();
 
 // Enable EJS
+app.use(expressEjsLayouts);
 app.set("view engine", "ejs");
 app.set(`views`, `${process.cwd()}/views`);
 

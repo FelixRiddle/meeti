@@ -1,0 +1,33 @@
+/* Powered by */
+.website-powered-by {
+	display: flex;
+	position:absolute;
+	margin-top: -35px;
+	margin-left: 120px;
+	
+	/* border: green 1px solid; */
+}
+
+/* .logo {
+	border: purple 1px solid;
+} */
+
+.website-powered-by p {
+	/* I don't where the margin was even coming from */
+	margin: 0;
+}
+
+.framework-nextjs {
+	/* NextJS has black and white colors, I need something that I can visually detect */
+	color: cornflowerblue;
+	font-weight: bold;
+	padding-left: 3px;
+}
+
+.framework-ejs {
+	color: rgb(207, 0, 138);
+	font-weight: bold;
+	padding-left: 3px;
+	
+	/* border: red 1px solid; */
+}

@@ -19,6 +19,9 @@ registerRouter.post("/", async (req, res) => {
 				});
 		}
 		
+		// Lowercase the email
+		userData.email = userData.email.toLowerCase();
+		
 		const User = req.models.User;
 		await User.create(userData);
 		

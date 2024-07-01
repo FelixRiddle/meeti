@@ -30,6 +30,7 @@ registerRouter.post(
 	// No need to check length if we're comparing them anyways
 	body("confirmPassword", "Confirm password is required").notEmpty(),
 	async (req, res) => {
+		const title = "Register";
 		try {
 			const userData = req.body;
 			
@@ -49,7 +50,7 @@ registerRouter.post(
 				return res
 					.status(400)
 					.render("auth/register", {
-						title: "Register",
+						title,
 						messages,
 						userData,
 					});
@@ -63,7 +64,7 @@ registerRouter.post(
 				return res
 					.status(400)
 					.render("auth/register", {
-						title: message,
+						title,
 						messages: [{
 							message,
 							error: true,
@@ -88,16 +89,28 @@ registerRouter.post(
 				return res
 					.status(400)
 					.render("auth/register", {
-						title: "Register",
+						title,
 						messages: [...errorsSequelize],
 						userData,
 					});
 			}
 			
-			return res.render("status", {
-				title: "Account created successfully",
-				subtitle: "",
-			});
+			const message = "Account created successfully";
+			return res
+				.render("auth/register", {
+					title,
+					messages: [{
+						message,
+						error: false,
+						type: "success"
+					}],
+					userData: {
+						email: "",
+						name: "",
+						password: "",
+						confirmPassword: ""
+					}
+				});
 		} catch(err) {
 			console.error(err);
 			

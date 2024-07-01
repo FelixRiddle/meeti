@@ -1,5 +1,6 @@
+<!-- If you don't use locals it throws an error when it's not defined -->
 <% if(locals.messages) { %>
-	<% locals.messages.map((message) => { %>
+	<% messages.map((message) => { %>
 		<div class="alertas">
 			<p class="alerta <%= message.type %>"><%= message.message %></p>
 		</div>

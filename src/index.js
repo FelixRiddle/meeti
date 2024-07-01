@@ -2,6 +2,7 @@ const bodyParser = require("body-parser");
 const dotenv = require("dotenv");
 const express = require("express");
 const expressEjsLayouts = require("express-ejs-layouts");
+const expressValidator = require("express-validator");
 const flash = require("connect-flash");
 const cookieParser = require("cookie-parser");
 const session = require("express-session");
@@ -22,10 +23,7 @@ const Models = require("./models/Models");
  */
 async function main() {
 	const models = new Models();
-	await models.sync()
-		.then(() => {
-			console.log(`DB synched`);
-		});
+	await models.sync();
 	
 	const app = express();
 	

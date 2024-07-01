@@ -1,5 +1,6 @@
-const express = require("express");
+const bodyParser = require("body-parser");
 const dotenv = require("dotenv");
+const express = require("express");
 const expressEjsLayouts = require("express-ejs-layouts");
 
 dotenv.config({
@@ -25,6 +26,11 @@ async function main() {
 	
 	const app = express();
 	
+	app.use(bodyParser.json());
+	app.use(bodyParser.urlencoded({
+		extended: true,
+	}));
+	
 	// Enable EJS
 	app.use(expressEjsLayouts);
 	app.set("view engine", "ejs");
@@ -32,6 +38,17 @@ async function main() {
 	
 	app.use("/public", express.static("public"));
 	
+	// Middleware(user logged in, flash messages)
+	app.use((req, res, next) => {
+		req.models = models;
+		
+		const date = new Date();
+		res.locals.year = date.getFullYear();
+		
+		next();
+	});
+	
+	// Routes
 	app.use(mainRouter);
 	
 	app.listen(PORT, () => {

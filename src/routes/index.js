@@ -1,15 +1,8 @@
 const express = require("express");
 const authRouter = require("./auth");
+const { pageNotFoundMessage } = require("../lib/status/messages");
 
 const mainRouter = express.Router();
-
-// Middleware(user logged in, flash messages)
-mainRouter.use((req, res, next) => {
-	const date = new Date();
-	res.locals.year = date.getFullYear();
-	
-	next();
-});
 
 mainRouter.use("/auth", authRouter);
 
@@ -22,7 +15,10 @@ mainRouter.get("/home", renderHome);
 mainRouter.get("/", renderHome);
 
 mainRouter.use((req, res, next) => {
-	return res.render("404");
+	return res.render("status", {
+		title: pageNotFoundMessage.message,
+		messages: [pageNotFoundMessage]
+	});
 });
 
 module.exports = mainRouter;

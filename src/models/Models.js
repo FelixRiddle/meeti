@@ -1,5 +1,5 @@
 const postgressConnection = require("../lib/connection/postgresConnection");
-const User = require("./User");
+const createUserModel = require("./User");
 
 /**
  * Models
@@ -8,7 +8,7 @@ class Models {
 	constructor() {
 		this.conn = postgressConnection();
 		
-		this.User = User;
+		this.User = createUserModel(this.conn);
 	}
 	
 	async sync() {

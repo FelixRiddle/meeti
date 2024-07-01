@@ -1,0 +1,7 @@
+<% if(locals.messages) { %>
+	<% locals.messages.map((message) => { %>
+		<div class="alertas">
+			<p class="alerta <%= message.type %>"><%= message.message %></p>
+		</div>
+	<% }) %>
+<% } %>

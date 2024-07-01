@@ -9,6 +9,10 @@ These are the environment variables that can be configured.
 ```
 PORT=
 
+# Secret token and key
+SECRET_KEY=
+SECRET_KEY_NAME=
+
 # PostgreSQL database
 # The database should never be visible from the outside(From internet)
 # It should be accessed through specific endpoints in the backend

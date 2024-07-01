@@ -2,6 +2,9 @@ const bodyParser = require("body-parser");
 const dotenv = require("dotenv");
 const express = require("express");
 const expressEjsLayouts = require("express-ejs-layouts");
+const flash = require("connect-flash");
+const cookieParser = require("cookie-parser");
+const session = require("express-session");
 
 dotenv.config({
 	path: ".env"
@@ -31,6 +34,17 @@ async function main() {
 		extended: true,
 	}));
 	
+	app.use(cookieParser());
+	app.use(session({
+		secret: process.env.SECRET_KEY,
+		key: process.env.SECRET_KEY_NAME,
+		resave: false,
+		saveUninitialized: false,
+	}));
+	
+	// Agregate flash
+	app.use(flash());
+	
 	// Enable EJS
 	app.use(expressEjsLayouts);
 	app.set("view engine", "ejs");
@@ -40,6 +54,7 @@ async function main() {
 	
 	// Middleware(user logged in, flash messages)
 	app.use((req, res, next) => {
+		// res.locals.messages = req.flash();
 		req.models = models;
 		
 		const date = new Date();

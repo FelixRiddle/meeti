@@ -14,7 +14,9 @@ mainRouter.use((req, res, next) => {
 mainRouter.use("/auth", authRouter);
 
 const renderHome = (req, res) => {
-	return res.render("home");
+	return res.render("home", {
+		title: "Home"
+	});
 }
 mainRouter.get("/home", renderHome);
 mainRouter.get("/", renderHome);

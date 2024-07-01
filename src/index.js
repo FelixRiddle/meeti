@@ -6,6 +6,16 @@ dotenv.config({
 	path: ".env"
 });
 
+const postgressConnection = require("./lib/connection/postgresConnection");
+const conn = postgressConnection();
+conn.sync()
+	.then(() => {
+		console.log(`DB connected`);
+	})
+	.catch((err) => {
+		console.error(err);
+	});
+
 // All impotyd should be after dotenv initialization
 // So that they can read environment variables
 const { PORT } = require("./lib/config/env");

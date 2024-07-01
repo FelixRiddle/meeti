@@ -1,6 +1,6 @@
 const express = require("express");
 const { renderDataInternalErrorMessage } = require("../../../lib/status/messages");
-const { body } = require("express-validator");
+const { body, validationResult } = require("express-validator");
 const { SHORT_STRING_LENGTH } = require("../../auth/register");
 
 const registerRouter = express.Router();
@@ -62,6 +62,7 @@ registerRouter.post(
 				messages: [{
 					message: "Account created",
 					error: false,
+					type: "success"
 				}]
 			});
 		} catch(err) {

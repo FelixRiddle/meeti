@@ -1,1 +1,23 @@
-<h1><%- title %></h1>
+<main class="contenedor contenedor-formularios">
+	<h1><%= title %></h1>
+	
+	<form
+		action="/auth/login"
+		method="POST"
+		class="default-form"
+	>
+		<div class="campo">
+			<label for="email">Email</label>
+			<input type="email" id="email" name="email" placeholder="Email" value="<%= userData.email %>" required />
+		</div>
+		
+		<div class="campo">
+			<label for="password">Password</label>
+			<input type="password" id="password" name="password" placeholder="Password" value="<%= userData.password %>" required />
+		</div>
+		
+		<div class="campo">
+			<input type="submit" value="Login" class="btn btn-rosa" />
+		</div>
+	</form>
+</main>

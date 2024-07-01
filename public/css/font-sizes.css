@@ -1,0 +1,18 @@
+
+/*
+// <uniquifier>: Use a unique and descriptive class name
+// <weight>: Use a value from 100 to 900
+*/
+
+.raleway-400 {
+	font-family: "Raleway", sans-serif;
+	font-optical-sizing: auto;
+	font-weight: 400;
+	font-style: normal;
+}
+
+.staatliches-regular {
+	font-family: "Staatliches", sans-serif;
+	font-weight: 400;
+	font-style: normal;
+}  

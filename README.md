@@ -2,6 +2,18 @@
 
 Meetup clone
 
+# Setup
+
+These are the setup steps
+
+## Dependency
+
+Like 'dev-jobs' it's required to build and put the distribution files of the following packages:
+
+* Trix 2.1.1
+
+Its directory should be: public/package/trix@2.1.1/dist
+
 ## Environment variables
 
 These are the environment variables that can be configured.

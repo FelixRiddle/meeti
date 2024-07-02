@@ -4,6 +4,7 @@ const LocalStrategy = require("passport-local").Strategy;
 
 const sequelizeModels = new Models();
 
+// FIXME: Authentication is not working somewhere because the function '.isAuthenticated()' always fails.
 passport.use(new LocalStrategy({
 		usernameField: "email",
 		passwordField: "password"

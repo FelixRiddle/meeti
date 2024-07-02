@@ -3,12 +3,18 @@ const authRouter = require("./auth");
 const { pageNotFoundMessage } = require("../lib/status/messages");
 const restRouter = require("./rest");
 const userRouter = require("./user");
+const userIsAuthenticated = require("../lib/auth/userIsAuthenticated");
 
 const mainRouter = express.Router();
 
 mainRouter.use("/auth", authRouter);
 mainRouter.use("/rest", restRouter);
-mainRouter.use("/user", userRouter);
+mainRouter.use(
+	"/user",
+	// FIXME: Authentication is broken
+	// userIsAuthenticated,
+	userRouter
+);
 
 const renderHome = (req, res) => {
 	return res.render("home", {

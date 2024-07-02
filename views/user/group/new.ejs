@@ -6,6 +6,8 @@
 	
 	<h1><%= title %></h1>
 	
+	<pre><% JSON.stringify(categories, undefined, 4) %></pre>
+	
 	<form action="/user/group/new" class="default-form" method="POST">
 		<div class="campo">
 			<label for="name">Name</label>
@@ -24,6 +26,9 @@
 			<label for="category">Category</label>
 			<select name="category" id="category">
 				<option value="" select disabled>- Select one -</option>
+				<% categories.forEach((category) => { %>
+					<option value="<%= category.id %>"><%= category.name %> </option>
+				<% }) %> 
 			</select>
 		</div>
 		

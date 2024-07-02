@@ -2,11 +2,13 @@ const express = require("express");
 const authRouter = require("./auth");
 const { pageNotFoundMessage } = require("../lib/status/messages");
 const restRouter = require("./rest");
+const userRouter = require("./user");
 
 const mainRouter = express.Router();
 
 mainRouter.use("/auth", authRouter);
 mainRouter.use("/rest", restRouter);
+mainRouter.use("/user", userRouter);
 
 const renderHome = (req, res) => {
 	return res.render("home", {

@@ -10,7 +10,6 @@ passport.use(new LocalStrategy({
 	},
 	async(email, password, done) => {
 		const User = sequelizeModels.User;
-		console.log(`User: `, User);
 		
 		// Find user
 		const user = await User.findOne({
@@ -20,11 +19,9 @@ passport.use(new LocalStrategy({
 			}
 		});
 		
-		console.log(`User found: `, user);
-		
 		// Check if user exists
 		if(!user) {
-			console.log(`User doesn't exists`);
+			console.log(`User doesn't exists or the account has not confirmed email`);
 			
 			// FIXME: The messages are not shown
 			// I'll finish the course first and then see how to fix it
@@ -52,6 +49,8 @@ passport.use(new LocalStrategy({
 				messages
 			});
 		}
+		
+		console.log("User logged in.");
 		
 		return done(null, user);
 	}

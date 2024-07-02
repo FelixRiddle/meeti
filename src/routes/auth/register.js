@@ -77,6 +77,8 @@ registerRouter.post(
 					});
 			}
 			
+			let user = undefined;
+			let magicLink = "";
 			try {
 				const token = uuidv4();
 				const newUser = {
@@ -85,29 +87,9 @@ registerRouter.post(
 				};
 				
 				const User = req.models.User;
-				const user = await User.create(newUser);
 				
-				const magicLink = `http://${req.headers.host}/confirm-account/${token}`;
-				
-				try {
-					// Send confirmation email
-					await sendMail({
-						user,
-						magicLink,
-						subject: "Confirm your account",
-						// EJS file
-						filename: 'confirm-account',
-					});
-				} catch(err) {
-					console.error(err);
-					return res
-						.status(500)
-						.render("status", {
-							title,
-							...renderDataInternalErrorMessage,
-							userData
-						});
-				}
+				user = await User.create(newUser).lean();
+				magicLink = `http://${req.headers.host}/confirm-account/${token}`;
 			} catch(err) {
 				const errorsSequelize = err.errors.map((err) => {
 					return {
@@ -124,6 +106,22 @@ registerRouter.post(
 						messages: [...errorsSequelize],
 						userData,
 					});
+			}
+			
+			try {
+				// Send confirmation email
+				await sendMail({
+					user,
+					magicLink,
+					subject: "Confirm your account",
+					// EJS file
+					filename: 'confirm-account',
+				});
+			} catch(err) {
+				console.error(err);
+				return res
+					.status(500)
+					.send(renderDataInternalErrorMessage);
 			}
 			
 			const message = "Account created successfully";

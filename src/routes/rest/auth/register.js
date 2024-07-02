@@ -55,8 +55,44 @@ registerRouter.post(
 			// Lowercase the email
 			userData.email = userData.email.toLowerCase();
 			
-			const User = req.models.User;
-			await User.create(userData);
+			try {
+				const User = req.models.User;
+				const user = await User.create(userData);
+				
+				const magicLink = `http://${req.headers.host}/confirm-account/${user.email}`;
+				
+				try {
+					// Send confirmation email
+					await sendMail({
+						user,
+						magicLink,
+						subject: "Confirm your account",
+						// EJS file
+						filename: 'confirm-account',
+					});
+				} catch(err) {
+					console.error(err);
+					return res
+						.status(500)
+						.render("status", renderDataInternalErrorMessage);
+				}
+			} catch(err) {
+				const errorsSequelize = err.errors.map((err) => {
+					return {
+						message: err.message,
+						error: true,
+						type: "error"
+					};
+				});
+				
+				return res
+					.status(400)
+					.render("auth/register", {
+						title,
+						messages: [...errorsSequelize],
+						userData,
+					});
+			}
 			
 			return res.send({
 				messages: [{

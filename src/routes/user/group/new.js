@@ -6,7 +6,6 @@ const newRouter = express.Router();
 
 newRouter.get("/", async (req, res) => {
 	const SocialCategory = req.models.SocialCategory;
-	
 	const categories = await SocialCategory.findAll({
 		raw: true,
 	});

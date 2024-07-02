@@ -1,6 +1,7 @@
 const express = require("express");
 const { renderDataInternalErrorMessage } = require("../../lib/status/messages");
 const { body, validationResult } = require("express-validator");
+const sendMail = require("../../lib/handler/emails");
 
 const registerRouter = express.Router();
 
@@ -77,6 +78,24 @@ registerRouter.post(
 			try {
 				const User = req.models.User;
 				const user = await User.create(userData);
+			
+				const magicLink = `http://${req.headers.host}/confirm-account/${user.email}`;
+				
+				try {
+					// Send confirmation email
+					await sendMail({
+						user,
+						magicLink,
+						subject: "Confirm your account",
+						// EJS file
+						filename: 'confirm-account',
+					});
+				} catch(err) {
+					console.error(err);
+					return res
+						.status(500)
+						.render("status", renderDataInternalErrorMessage);
+				}
 			} catch(err) {
 				const errorsSequelize = err.errors.map((err) => {
 					return {

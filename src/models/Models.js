@@ -1,4 +1,5 @@
 const postgressConnection = require("../lib/connection/postgresConnection");
+const createSocialCategoryModel = require("./SocialCategory");
 const createUserModel = require("./User");
 
 /**
@@ -9,12 +10,13 @@ class Models {
 		this.conn = postgressConnection();
 		
 		this.User = createUserModel(this.conn);
+		this.SocialCategory = createSocialCategoryModel(this.conn);
 	}
 	
 	async sync() {
-		// This doesn't updates tables, you've got to delete them
-		// It's only for creating tables
 		await this.conn.sync();
+		await this.User.sync();
+		await this.SocialCategory.sync();
 	}
 }
 

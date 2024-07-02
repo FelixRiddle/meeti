@@ -2,6 +2,8 @@ const express = require("express");
 const { renderDataInternalErrorMessage } = require("../../../lib/status/messages");
 const { body, validationResult } = require("express-validator");
 const { SHORT_STRING_LENGTH } = require("../../auth/register");
+const { v4: uuidv4 } = require("uuid");
+const sendMail = require("../../../lib/handler/emails");
 
 const registerRouter = express.Router();
 
@@ -55,6 +57,8 @@ registerRouter.post(
 			// Lowercase the email
 			userData.email = userData.email.toLowerCase();
 			
+			let user = undefined;
+			let magicLink = "";
 			try {
 				const token = uuidv4();
 				const newUser = {
@@ -63,26 +67,11 @@ registerRouter.post(
 				};
 				
 				const User = req.models.User;
-				const user = await User.create(newUser);
 				
-				const magicLink = `http://${req.headers.host}/confirm-account/${token}`;
-				
-				try {
-					// Send confirmation email
-					await sendMail({
-						user,
-						magicLink,
-						subject: "Confirm your account",
-						// EJS file
-						filename: 'confirm-account',
-					});
-				} catch(err) {
-					console.error(err);
-					return res
-						.status(500)
-						.send(renderDataInternalErrorMessage);
-				}
+				user = await User.create(newUser);
+				magicLink = `http://${req.headers.host}/confirm-account/${token}`;
 			} catch(err) {
+				console.log(`Error: `, err);
 				const errorsSequelize = err.errors.map((err) => {
 					return {
 						message: err.message,
@@ -94,10 +83,25 @@ registerRouter.post(
 				return res
 					.status(400)
 					.send({
-						title,
 						messages: [...errorsSequelize],
 						userData,
 					});
+			}
+			
+			try {
+				// Send confirmation email
+				await sendMail({
+					user,
+					magicLink,
+					subject: "Confirm your account",
+					// EJS file
+					filename: 'confirm-account',
+				});
+			} catch(err) {
+				console.error(err);
+				return res
+					.status(500)
+					.send(renderDataInternalErrorMessage);
 			}
 			
 			return res.send({

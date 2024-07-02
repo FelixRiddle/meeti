@@ -1,6 +1,7 @@
 <!-- If you don't use locals it throws an error when it's not defined -->
-<% if(locals.messages) { %>
-	<% messages.map((message) => { %>
+<!-- It may not be an array -->
+<% if(locals.messages && locals.messages.constructor === Array) { %>
+	<% locals.messages.map((message) => { %>
 		<div class="alertas">
 			<p class="alerta <%= message.type %>"><%= message.message %></p>
 		</div>

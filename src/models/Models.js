@@ -12,7 +12,9 @@ class Models {
 	}
 	
 	async sync() {
-		this.conn.sync();
+		// This doesn't updates tables, you've got to delete them
+		// It's only for creating tables
+		await this.conn.sync();
 	}
 }
 

@@ -27,7 +27,7 @@ function createUserModel(conn) {
 			},
 			unique: {
 				args: true,
-				msg: "Either email or password is incorrect"
+				msg: "The email is already registered"
 			}
 		},
 		password: {
@@ -59,6 +59,9 @@ function createUserModel(conn) {
 		logging: false,
 	});
 	
+	/**
+	 * Validate user password
+	 */
 	User.prototype.validatePassword = function (password) {
 		return bcrypt.compareSync(password, this.password);
 	}

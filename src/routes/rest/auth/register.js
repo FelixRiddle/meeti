@@ -56,10 +56,16 @@ registerRouter.post(
 			userData.email = userData.email.toLowerCase();
 			
 			try {
-				const User = req.models.User;
-				const user = await User.create(userData);
+				const token = uuidv4();
+				const newUser = {
+					...userData,
+					token,
+				};
 				
-				const magicLink = `http://${req.headers.host}/confirm-account/${user.email}`;
+				const User = req.models.User;
+				const user = await User.create(newUser);
+				
+				const magicLink = `http://${req.headers.host}/confirm-account/${token}`;
 				
 				try {
 					// Send confirmation email
@@ -74,7 +80,7 @@ registerRouter.post(
 					console.error(err);
 					return res
 						.status(500)
-						.render("status", renderDataInternalErrorMessage);
+						.send(renderDataInternalErrorMessage);
 				}
 			} catch(err) {
 				const errorsSequelize = err.errors.map((err) => {
@@ -87,7 +93,7 @@ registerRouter.post(
 				
 				return res
 					.status(400)
-					.render("auth/register", {
+					.send({
 						title,
 						messages: [...errorsSequelize],
 						userData,

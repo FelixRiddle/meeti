@@ -43,7 +43,8 @@ function createUserModel(conn) {
 			type: Sequelize.BOOLEAN(),
 			defaultValue: false,
 		},
-		tokenPassword: {
+		// Token for email and password
+		token: {
 			type: Sequelize.STRING(64),
 		},
 		tokenExpires: {

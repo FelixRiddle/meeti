@@ -1,6 +1,8 @@
 const express = require("express");
-const { renderDataInternalErrorMessage } = require("../../lib/status/messages");
 const { body, validationResult } = require("express-validator");
+const { v4: uuidv4 } = require('uuid');
+
+const { renderDataInternalErrorMessage } = require("../../lib/status/messages");
 const sendMail = require("../../lib/handler/emails");
 
 const registerRouter = express.Router();
@@ -76,10 +78,16 @@ registerRouter.post(
 			}
 			
 			try {
+				const token = uuidv4();
+				const newUser = {
+					...userData,
+					token,
+				};
+				
 				const User = req.models.User;
-				const user = await User.create(userData);
-			
-				const magicLink = `http://${req.headers.host}/confirm-account/${user.email}`;
+				const user = await User.create(newUser);
+				
+				const magicLink = `http://${req.headers.host}/confirm-account/${token}`;
 				
 				try {
 					// Send confirmation email
@@ -94,7 +102,11 @@ registerRouter.post(
 					console.error(err);
 					return res
 						.status(500)
-						.render("status", renderDataInternalErrorMessage);
+						.render("status", {
+							title,
+							...renderDataInternalErrorMessage,
+							userData
+						});
 				}
 			} catch(err) {
 				const errorsSequelize = err.errors.map((err) => {

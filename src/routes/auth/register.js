@@ -88,7 +88,7 @@ registerRouter.post(
 				
 				const User = req.models.User;
 				
-				user = await User.create(newUser).lean();
+				user = await User.create(newUser);
 				magicLink = `http://${req.headers.host}/confirm-account/${token}`;
 			} catch(err) {
 				const errorsSequelize = err.errors.map((err) => {

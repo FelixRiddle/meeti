@@ -9,7 +9,7 @@ function createGroupsModel(conn, SocialCategory, User) {
 		id: {
 			type: Sequelize.UUID,
 			primaryKey: true,
-			autoIncrement: true,
+			allowNull: false,
 			defaultValue: uuidv4(),
 		},
 		name: {

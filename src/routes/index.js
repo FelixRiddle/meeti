@@ -12,7 +12,7 @@ mainRouter.use("/rest", restRouter);
 mainRouter.use(
 	"/user",
 	// FIXME: Authentication is broken
-	// userIsAuthenticated,
+	userIsAuthenticated,
 	userRouter
 );
 

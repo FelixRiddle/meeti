@@ -28,7 +28,9 @@ async function startServer(sequelizeModels) {
 		saveUninitialized: false,
 	}));
 	
-	app.use(passport.initialize())
+	app.use(passport.initialize());
+	// I've forgot to put this one before
+	app.use(passport.session());
 	
 	// Agregate flash
 	app.use(flash());

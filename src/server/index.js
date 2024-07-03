@@ -4,6 +4,7 @@ const expressEjsLayouts = require("express-ejs-layouts");
 const flash = require("connect-flash");
 const session = require("express-session");
 const SequelizeStore = require("connect-session-sequelize")(session.Store);
+const cookieParser = require("cookie-parser");
 
 const { PORT } = require("../lib/config/env");
 const mainRouter = require("../routes");
@@ -19,6 +20,7 @@ async function startServer(sequelizeModels) {
 	app.use(bodyParser.urlencoded({
 		extended: true,
 	}));
+	app.use(cookieParser(process.env.SECRET_KEY));
 	
 	const sequelizeStore = new SequelizeStore({
 		db: sequelizeModels.conn,

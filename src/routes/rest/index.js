@@ -7,6 +7,10 @@ const restRouter = express.Router();
 
 restRouter.use("/auth", authRouter);
 restRouter.use("/group", groupRouter);
-restRouter.use("/user", userRouter);
+restRouter.use("/user", (req, res, next) => {
+	console.log(`Unsigned cookies: `, req.cookies);
+	console.log(`Signed cookies: `, req.signedCookies);
+	next();
+}, userRouter);
 
 module.exports = restRouter;

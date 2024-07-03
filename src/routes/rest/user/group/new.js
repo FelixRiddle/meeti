@@ -11,10 +11,11 @@ newRouter.post(
 	async (req, res) => {
 		try {
 			const groupData = req.body;
-			
 			const group = {
 				...groupData,
 				id: uuidv4(),
+				userId: req.user.id,
+				socialCategoryId: Number(groupData.category),
 				// For now
 				image: ""
 			};

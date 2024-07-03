@@ -1,5 +1,4 @@
 const express = require("express");
-const { renderDataInternalErrorMessage } = require("../../lib/status/messages");
 const passport = require("../../lib/config/passport");
 
 const loginRouter = express.Router();
@@ -22,20 +21,6 @@ const authenticate = passport.authenticate('local', {
 });
 
 loginRouter.post("/", authenticate);
-
-// loginRouter.post("/", async (req, res) => {
-// 	try {
-		
-// 		return res.redirect("/");
-// 	} catch(err) {
-// 		console.err(err);
-// 		return res
-// 			.status(500)
-// 			.render("status", {
-// 				...renderDataInternalErrorMessage
-// 			});
-// 	}
-// });
 
 module.exports = loginRouter;
 

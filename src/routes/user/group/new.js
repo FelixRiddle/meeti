@@ -27,6 +27,8 @@ newRouter.post(
 			const group = {
 				...groupData,
 				id: uuidv4(),
+				userId: req.user.id,
+				socialCategoryId: Number(groupData.category),
 				// For now
 				image: ""
 			};

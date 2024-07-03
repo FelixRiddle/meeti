@@ -24,7 +24,7 @@
 		
 		<div class="campo">
 			<label for="category">Category</label>
-			<select name="category" id="category">
+			<select name="category" id="category" required>
 				<option value="" select disabled>- Select one -</option>
 				<% categories.forEach((category) => { %>
 					<option value="<%= category.id %>"><%= category.name %> </option>

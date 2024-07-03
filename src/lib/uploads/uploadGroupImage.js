@@ -18,6 +18,15 @@ const upload = multer({
 		},
 	}),
 	fileFilter: (req, file, cb) => {
+		// Check if it's an image
+		const isImage = file.mimetype.startsWith("image/");
+		if(!isImage) {
+            return cb(new multer.MulterError({
+                code: "LIMIT_FILE_TYPE",
+                message: "Only images are allowed."
+            }));
+        }
+		
 		// Check size
 		if(file.size > maxFileSize) {
 			return cb(null, false);
@@ -39,8 +48,10 @@ function uploadGroupImage(req, res, next) {
 				if(err.code === "LIMIT_FILE_SIZE") {
 					req.flash("error", "File size is too big");
 				} else {
-					req.flash("error", err.message)
+					req.flash("error", err.message);
 				}
+			} else if(err.hasOwnProperty("message")) {
+				req.flash("error", err.message);
 			}
 			
 			return res.redirect("back");

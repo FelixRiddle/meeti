@@ -1,7 +1,9 @@
 const express = require('express');
 const { v4: uuidv4 } = require("uuid");
+
 const expandData = require("../../../lib/misc/expandData");
 const { renderDataInternalErrorMessage } = require('../../../lib/status/messages');
+const CREATE_GROUP_VALIDATION = require("../../../lib/routes/validation/createGroupValidation");
 
 const newRouter = express.Router();
 
@@ -20,7 +22,7 @@ newRouter.get("/", async (req, res) => {
 
 newRouter.post(
 	"/",
-	// TODO: Limit body to 4096 bytes
+	CREATE_GROUP_VALIDATION,
 	async (req, res) => {
 		try {
 			const groupData = req.body;
@@ -44,11 +46,15 @@ newRouter.post(
 			} catch(err) {
 				console.error(err);
 				
-				req.flash('messages', [{
-					message: err.msg,
-					error: true,
-					type: "error"
-				}]);
+				const errorsSequelize = err.errors.map((err) => {
+					return {
+						message: err.message,
+						error: true,
+						type: "error"
+					};
+				});
+				
+				req.flash('messages', [...errorsSequelize]);
 				
 				return res
 					.status(400)
@@ -56,6 +62,7 @@ newRouter.post(
 						title: "Create new group",
 						...expandData(req),
 						categories,
+						groupData,
 					});
 			}
 			

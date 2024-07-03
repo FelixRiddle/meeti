@@ -1,22 +1,15 @@
 const express = require("express");
 const { renderDataInternalErrorMessage } = require("../../../lib/status/messages");
 const { body, validationResult } = require("express-validator");
-const { SHORT_STRING_LENGTH } = require("../../auth/register");
 const { v4: uuidv4 } = require("uuid");
 const sendMail = require("../../../lib/handler/emails");
+const REGISTER_VALIDATION = require("../../../lib/routes/validation/registerValidation");
 
 const registerRouter = express.Router();
 
 registerRouter.post(
 	"/",
-	body("email", "The email can't be empty").escape().notEmpty(),
-	body("email", "The email is too long").isLength({ max: SHORT_STRING_LENGTH }),
-	body("email", "The email is wrong").isEmail(),
-	body("name", "The name is too long").escape().isLength({ max: SHORT_STRING_LENGTH }),
-	body("password", "Password is required, otherwise everyone would acces your account").notEmpty(),
-	body("password", "Password is too long").isLength({ max: SHORT_STRING_LENGTH }),
-	// No need to check length if we're comparing them anyways
-	body("confirmPassword", "Confirm password is required").notEmpty(),
+	REGISTER_VALIDATION,
 	async (req, res) => {
 		try {
 			const userData = req.body;

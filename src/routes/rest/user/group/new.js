@@ -2,12 +2,13 @@ const express = require('express');
 const expandData = require("../../../../lib/misc/expandData");
 const { renderDataInternalErrorMessage } = require('../../../../lib/status/messages');
 const { v4: uuidv4 } = require("uuid");
+const CREATE_GROUP_VALIDATION = require("../../../../lib/routes/validation/createGroupValidation");
 
 const newRouter = express.Router();
 
 newRouter.post(
 	"/",
-	// TODO: Limit body to 4096 bytes
+	CREATE_GROUP_VALIDATION,
 	async (req, res) => {
 		try {
 			const groupData = req.body;

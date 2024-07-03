@@ -81,20 +81,23 @@ registerRouter.post(
 					});
 			}
 			
-			try {
-				// Send confirmation email
-				await sendMail({
-					user,
-					magicLink,
-					subject: "Confirm your account",
-					// EJS file
-					filename: 'confirm-account',
-				});
-			} catch(err) {
-				console.error(err);
-				return res
-					.status(500)
-					.send(renderDataInternalErrorMessage);
+			// Check if mail is enabled
+			if(!process.env.DISABLE_MAIl) {
+				try {
+					// Send confirmation email
+					await sendMail({
+						user,
+						magicLink,
+						subject: "Confirm your account",
+						// EJS file
+						filename: 'confirm-account',
+					});
+				} catch(err) {
+					console.error(err);
+					return res
+						.status(500)
+						.send(renderDataInternalErrorMessage);
+				}
 			}
 			
 			return res.send({

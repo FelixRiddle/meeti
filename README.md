@@ -19,6 +19,11 @@ Its directory should be: public/package/trix@2.1.1/dist
 These are the environment variables that can be configured.
 
 ```
+# App configuration
+# Don't use mail in the app
+DISABLE_MAIL=
+
+# Server configuration
 PORT=
 
 # Secret token and key

@@ -20,6 +20,7 @@ class Models {
 		await this.conn.sync();
 		await this.User.sync();
 		await this.SocialCategory.sync();
+		
 		await this.Groups.sync();
 	}
 }

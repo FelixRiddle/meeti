@@ -2,8 +2,8 @@ const bodyParser = require("body-parser");
 const express = require("express");
 const expressEjsLayouts = require("express-ejs-layouts");
 const flash = require("connect-flash");
-const cookieParser = require("cookie-parser");
 const session = require("express-session");
+const SequelizeStore = require("connect-session-sequelize")(session.Store);
 
 const { PORT } = require("../lib/config/env");
 const mainRouter = require("../routes");
@@ -20,19 +20,27 @@ async function startServer(sequelizeModels) {
 		extended: true,
 	}));
 	
-	app.use(cookieParser());
+	const sequelizeStore = new SequelizeStore({
+		db: sequelizeModels.conn,
+		tableName: "session"
+	});
+	
+	// Create table
+	sequelizeStore.sync();
+	
 	app.use(session({
+		store: sequelizeStore,
 		secret: process.env.SECRET_KEY,
 		key: process.env.SECRET_KEY_NAME,
 		resave: false,
-		saveUninitialized: false,
+		saveUninitialized: true,
 	}));
 	
 	app.use(passport.initialize());
 	// I've forgot to put this one before
 	app.use(passport.session());
 	
-	// Agregate flash
+	// Use flash
 	app.use(flash());
 	
 	// Enable EJS

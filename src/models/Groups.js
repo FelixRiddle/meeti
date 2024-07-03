@@ -1,5 +1,4 @@
 const Sequelize = require("sequelize");
-const { v4: uuidv4 } = require("uuid");
 
 /**
  * Create category model
@@ -10,7 +9,6 @@ function createGroupsModel(conn, SocialCategory, User) {
 			type: Sequelize.UUID,
 			primaryKey: true,
 			allowNull: false,
-			defaultValue: uuidv4(),
 		},
 		name: {
 			type: Sequelize.STRING(256),

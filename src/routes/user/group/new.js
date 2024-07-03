@@ -36,6 +36,8 @@ newRouter.post(
 				image: req.file ? req.file.filename : "",
 			};
 			
+			console.log(`Group data: `, group);
+			
 			const SocialCategory = req.models.SocialCategory;
 			const categories = await SocialCategory.findAll({
 				raw: true,

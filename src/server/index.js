@@ -8,7 +8,7 @@ const cookieParser = require("cookie-parser");
 
 const { PORT } = require("../lib/config/env");
 const mainRouter = require("../routes");
-const passport = require("../lib/config/passport");
+const passportInstance = require("../lib/config/passport");
 
 /**
  * Main function
@@ -38,6 +38,8 @@ async function startServer(sequelizeModels) {
 		saveUninitialized: true,
 	}));
 	
+	// Passport
+	const passport = passportInstance(sequelizeModels);
 	app.use(passport.initialize());
 	// I've forgot to put this one before
 	app.use(passport.session());
@@ -64,7 +66,7 @@ async function startServer(sequelizeModels) {
 	});
 	
 	// Routes
-	app.use(mainRouter);
+	app.use(mainRouter(passport));
 	
 	app.listen(PORT, () => {
 		console.log(`Server listening at http://localhost:${PORT}`);

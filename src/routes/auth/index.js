@@ -5,10 +5,17 @@ const registerRouter = require("./register");
 const loginRouter = require("./login");
 const confirmEmailRouter = require("./confirmEmail");
 
-const authRouter = express.Router();
+/**
+ * Auth router
+ */
+function authRouter(passport) {
+	const router = express.Router();
 
-authRouter.use("/confirm-email", notAuthenticated, confirmEmailRouter);
-authRouter.use("/register", notAuthenticated, registerRouter);
-authRouter.use("/login", notAuthenticated, loginRouter);
+	router.use("/confirm-email", notAuthenticated, confirmEmailRouter);
+	router.use("/login", notAuthenticated, loginRouter(passport));
+	router.use("/register", notAuthenticated, registerRouter);
+	
+	return router;
+}
 
 module.exports = authRouter;

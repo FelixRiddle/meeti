@@ -9,7 +9,6 @@ function expandData(req) {
 	// User
 	let user = undefined;
 	if(req.user) {
-		console.log(`Request user: `, req.user);
 		user = JSON.parse(JSON.stringify(req.user));
 	}
 	

@@ -1,13 +1,16 @@
 const express = require('express');
+const { v4: uuidv4 } = require("uuid");
+
 const expandData = require("../../../../lib/misc/expandData");
 const { renderDataInternalErrorMessage } = require('../../../../lib/status/messages');
-const { v4: uuidv4 } = require("uuid");
 const CREATE_GROUP_VALIDATION = require("../../../../lib/routes/validation/createGroupValidation");
+const uploadGroupImage = require('../../../../lib/uploads/uploadGroupImage');
 
 const newRouter = express.Router();
 
 newRouter.post(
 	"/",
+	uploadGroupImage,
 	CREATE_GROUP_VALIDATION,
 	async (req, res) => {
 		try {
@@ -17,8 +20,7 @@ newRouter.post(
 				id: uuidv4(),
 				userId: req.user.id,
 				socialCategoryId: Number(groupData.category),
-				// For now
-				image: ""
+				image: req.file ? req.file.filename : "",
 			};
 			
 			try {

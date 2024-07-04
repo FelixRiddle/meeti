@@ -1,10 +1,12 @@
 const express = require("express");
+
 const authRouter = require("./auth");
 const { pageNotFoundMessage } = require("../lib/status/messages");
 const restRouter = require("./rest");
 const userRouter = require("./user");
 const userIsAuthenticated = require("../lib/auth/userIsAuthenticated");
 const expandData = require("../lib/misc/expandData");
+const error500Router = require("./500");
 
 /**
  * Should all routes be functions?
@@ -21,6 +23,7 @@ function mainRouter(passport) {
 		userIsAuthenticated,
 		userRouter
 	);
+	router.use("/500", error500Router);
 	
 	const renderHome = (req, res) => {
 		return res.render("home", {

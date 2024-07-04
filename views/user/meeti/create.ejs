@@ -13,6 +13,11 @@
 			<label for="group">Group</label>
 			<select name="groupId" id="groupId">
 				<option value="" disabled selected>-- Select a group --</option>
+				<% if(locals.groups && locals.groups.length > 0) { %>
+					<% groups.forEach((group) => { %>
+						<option value="<%- group.id %>"><%- group.name %></option>
+					<% }) %>  
+				<% } %> 
 			</select>
 		</div>
 		

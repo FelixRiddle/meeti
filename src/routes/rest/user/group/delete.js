@@ -1,4 +1,5 @@
 const express = require("express");
+const color = require("ansi-color");
 
 const userGroupRest = require("../../../../lib/middleware/rest/userGroupRest");
 const expandData = require("../../../../lib/misc/expandData");
@@ -8,6 +9,7 @@ const deleteRouter = express.Router();
 
 deleteRouter.delete("/:groupId", userGroupRest, async(req, res) => {
 	try {
+		console.log(`[DELETE] /rest/user/group/delete/${req.params.groupId}`);
 		const group = req.group;
 		
 		// Group

@@ -45,7 +45,7 @@ const upload = multer({
  * Upload group image
  */
 function restUploadGroupImage(req, res, next) {
-	upload(req, res, function (err) {
+	return upload(req, res, function (err) {
 		if(err) {
 			console.error(err);
 			if(err instanceof multer.MulterError) {

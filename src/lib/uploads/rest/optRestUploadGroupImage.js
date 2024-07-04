@@ -21,12 +21,12 @@ const upload = multer({
 	fileFilter: (req, file, cb) => {
 		// Check size
 		if(file.size > maxFileSize) {
+			const message = "Max file size exceeded";
+			console.log(color.set(message, "red"));
 			return cb(null, false);
 		}
 		
 		// When there's no image this will be 'application/octet-stream'
-		console.log(`Mime type: `, file.mimetype);
-		
 		const mimetype = file.mimetype;
 		const isOctetStream = mimetype === "application/octet-stream";
 		if(!isOctetStream) {
@@ -51,7 +51,7 @@ const upload = multer({
  * Upload group image
  */
 function optRestUploadGroupImage(req, res, next) {
-	upload(req, res, function (err) {
+	return upload(req, res, function (err) {
 		if(err) {
 			console.error(err);
 			if(err instanceof multer.MulterError) {
@@ -70,8 +70,10 @@ function optRestUploadGroupImage(req, res, next) {
 				req.flash("error", message);
 			}
 			
+			console.log(`Go back`);
 			return res.redirect("back");
 		} else {
+			console.log(`Proceed`);
 			return next();
 		}
 	});

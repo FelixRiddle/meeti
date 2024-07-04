@@ -14,6 +14,8 @@ newRouter.post(
 	CREATE_GROUP_VALIDATION,
 	async (req, res) => {
 		try {
+			console.log(`[POST] /rest/user/group/new`);
+			
 			const groupData = req.body;
 			const group = {
 				...groupData,

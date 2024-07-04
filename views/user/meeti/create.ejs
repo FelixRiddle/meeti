@@ -1,0 +1,95 @@
+<main class="contenedor contenedor-formularios">
+	<!-- Page specific CSS -->
+	<link rel="stylesheet" href="/public/package/trix@2.1.1/dist/trix.css">
+	
+	<script src="/public/package/trix@2.1.1/dist/trix.umd.js"></script>
+	
+	<h1><%= title %></h1>
+	
+	<form class="default-form" method="POST">
+		<legend>About Meeti</legend>
+		
+		<div class="campo">
+			<label for="group">Group</label>
+			<select name="groupId" id="groupId">
+				<option value="" disabled selected>-- Select a group --</option>
+			</select>
+		</div>
+		
+		<div class="campo">
+			<label for="title">Title</label>
+			<input type="text" name="title" id="title" placeholder="Meeti title" />
+		</div>
+		
+		<div class="campo">
+			<label for="featuring">Featuring</label>
+			<input type="text" name="featuring" id="featuring" placeholder="Featured person(Optional)" />
+		</div>
+		
+		<!-- Time -->
+		<div class="columnas-2 grid">
+			<div class="campo">
+				<label for="date">Date</label>
+				<input type="date" name="date" id="date" placeholder="Meeti date" />
+			</div>
+			<div class="campo">
+				<label for="time">Time</label>
+				<input type="time" name="time" placeholder="Meeti time" />
+			</div>
+		</div>
+		
+		<div class="campo">
+			<label for="coupon">Coupon</label>
+			<input type="number" min="1" name="coupon" placeholder="Meeti coupons(Optional)" />
+		</div>
+		
+		<div class="campo descripcion">
+			<label for="description">Description</label>
+			<div class="contenedor-editor">
+				<input type="hidden" name="description" id="description" placeholder="Description" />
+				<trix-editor input="description"></trix-editor>
+			</div>
+		</div>
+		
+		<!-- Location -->
+		<legend>Meeti location</legend>
+		<div class="campo buscador">
+			<label for="location">Search Meeti location</label>
+			<div class="contenedor-input">
+				<input type="text" name="location" id="location" placeholder="Location" />
+				<small>An assitant will create an aproximate location</small>
+			</div>
+		</div>
+		
+		<p class="informacion">Confirm that the location is correct</p>
+		<div class="campo">
+			<label for="street">Street</label>
+			<input type="text" name="street" id="street" placeholder="Street" />
+		</div>
+		<div class="campo">
+			<label for="city">City</label>
+			<input type="text" name="city" id="city" placeholder="City" />
+		</div>
+		<div class="campo">
+			<label for="state">State/Province</label>
+			<input type="text" name="state" id="state" placeholder="State/Province" />
+		</div>
+		<div class="campo">
+			<label for="country">Country</label>
+			<input type="text" name="country" id="country" placeholder="Country" />
+		</div>
+		<div class="campo">
+			<label for="latitude">Latitude</label>
+			<input type="text" name="latitude" id="latitude" placeholder="Latitude" />
+		</div>
+		<div class="campo">
+			<label for="longitude">Longitude</label>
+			<input type="text" name="longitude" id="longitude" placeholder="Longitude" />
+		</div>
+		
+		<!-- Submit -->
+		<div class="campo enviar">
+			<input type="submit" value="Create Meeti" class="btn btn-rosa" />
+		</div>
+	</form>
+</main>

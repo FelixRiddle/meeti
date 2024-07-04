@@ -31,10 +31,12 @@ function mainRouter(passport) {
 	router.get("/home", renderHome);
 	router.get("/", renderHome);
 	
+	// 404
 	router.use((req, res, next) => {
 		return res.render("status", {
 			title: pageNotFoundMessage.message,
-			messages: [pageNotFoundMessage]
+			...expandData(req),
+			messages: [pageNotFoundMessage],
 		});
 	});
 	

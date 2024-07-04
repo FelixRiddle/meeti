@@ -24,16 +24,22 @@ const upload = multer({
 			return cb(null, false);
 		}
 		
-		// Check if it's an image
+		// When there's no image this will be 'application/octet-stream'
+		console.log(`Mime type: `, file.mimetype);
+		
 		const mimetype = file.mimetype;
-		const isImage = mimetype.startsWith("image/");
-		if(!isImage) {
-			const message = "Only images are allowed.";
-			console.log(color.set(message, "red"));
-			return cb(new multer.MulterError({
-				code: "LIMIT_FILE_TYPE",
-				message,
-			}));
+		const isOctetStream = mimetype === "application/octet-stream";
+		if(!isOctetStream) {
+			// Check if it's an image
+			const isImage = mimetype.startsWith("image/");
+			if(!isImage) {
+				const message = "Only images are allowed.";
+				console.log(color.set(message, "red"));
+				return cb(new multer.MulterError({
+					code: "LIMIT_FILE_TYPE",
+					message,
+				}));
+			}
 		}
 		
 		return cb(null, true);
@@ -44,7 +50,7 @@ const upload = multer({
 /**
  * Upload group image
  */
-function restUploadGroupImage(req, res, next) {
+function optRestUploadGroupImage(req, res, next) {
 	upload(req, res, function (err) {
 		if(err) {
 			console.error(err);
@@ -71,4 +77,4 @@ function restUploadGroupImage(req, res, next) {
 	});
 }
 
-module.exports = restUploadGroupImage;
+module.exports = optRestUploadGroupImage;

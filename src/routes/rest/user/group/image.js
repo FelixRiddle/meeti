@@ -12,7 +12,6 @@ const imageRouter = express.Router();
 imageRouter.post(
 	"/:groupId",
 	// Upload image, decode multipart form data
-	// FIXME: This is for the frontend
 	restUploadGroupImage,
 	// Validate group exists and the user owns it
 	userGroupRest,

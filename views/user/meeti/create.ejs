@@ -1,6 +1,8 @@
 <main class="contenedor contenedor-formularios">
 	<!-- Page specific CSS -->
 	<link rel="stylesheet" href="/public/package/trix@2.1.1/dist/trix.css">
+	<link rel="stylesheet" href="/public/package/leaflet@1.9.4/dist/leaflet.css">
+	<link rel="stylesheet" href="/public/css/routes/user/meeti/create.css">
 	
 	<script src="/public/package/trix@2.1.1/dist/trix.umd.js"></script>
 	
@@ -66,6 +68,13 @@
 			</div>
 		</div>
 		
+		<div class="campo mapa">
+			<div
+				class="mapa" id="map"
+			></div>
+		</div>
+		<p class="information">Move the pin to the location of the Meeti</p>
+		
 		<p class="informacion">Confirm that the location is correct</p>
 		<div class="campo">
 			<label for="street">Street</label>
@@ -97,4 +106,7 @@
 			<input type="submit" value="Create Meeti" class="btn btn-rosa" />
 		</div>
 	</form>
+	
+	<script src="/public/package/leaflet@1.9.4/dist/leaflet.js"></script>
+	<script src="/public/js/routes/user/meeti/create.js"></script>
 </main>

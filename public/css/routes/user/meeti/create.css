@@ -1,0 +1,6 @@
+
+/* If you don't set the size manually it doesn't displays the map */
+#map {
+	width: 1366px;
+	height: 720px;
+}

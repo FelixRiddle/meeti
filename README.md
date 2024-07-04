@@ -10,9 +10,12 @@ These are the setup steps
 
 Like 'dev-jobs' it's required to build and put the distribution files of the following packages:
 
-* Trix 2.1.1
+- Leaflet 1.9.4
+- Trix 2.1.1
 
-Its directory should be: public/package/trix@2.1.1/dist
+Their directories have to be placed at: public/package/PACKAGE_NAME@PACKAGE_VERSION/dist
+
+For example for trix: public/package/trix@2.1.1/dist
 
 ## Environment variables
 

@@ -1,14 +1,16 @@
-const expandData = require("../misc/expandData");
 const color = require("ansi-color");
 
-const { renderDataInternalErrorMessage } = require("../status/messages");
+const expandData = require("../../misc/expandData");
+const { renderDataInternalErrorMessage } = require("../../status/messages");
 
 /**
  * Validate that a group exists and the user owns it
  * 
  * The group id comes from the params 'groupId'
+ * 
+ * This is for the rest api
  */
-async function groupExistsUserOwnsIt(req, res, next) {
+async function userGroupRest(req, res, next) {
 	try {
 		const groupId = req.params.groupId;
 		
@@ -31,7 +33,9 @@ async function groupExistsUserOwnsIt(req, res, next) {
 			
 			return res
 				.status(404)
-				.redirect("/user/admin");
+				.send({
+					...expandData(req)
+				});
 		}
 		
 		// Validate ownership
@@ -47,7 +51,9 @@ async function groupExistsUserOwnsIt(req, res, next) {
 			
 			return res
 				.status(403)
-				.redirect("/user/admin");
+				.send({
+					...expandData(req)
+				});
 		}
 		
 		// Set group in the request
@@ -58,10 +64,10 @@ async function groupExistsUserOwnsIt(req, res, next) {
 		console.error(err);
 		return res
 			.status(500)
-			.render("status", {
+			.send({
 				...renderDataInternalErrorMessage,
 			});
 	}
 }
 
-module.exports = groupExistsUserOwnsIt;
+module.exports = userGroupRest;

@@ -1,10 +1,10 @@
 const express = require("express");
-const groupExistsUserOwnsIt = require("../../../../lib/middleware/groupExistsUserOwnsIt");
 const { renderDataInternalErrorMessage } = require("../../../../lib/status/messages");
+const userGroupRest = require("../../../../lib/middleware/rest/userGroupRest");
 
 const getRouter = express.Router();
 
-getRouter.get("/:groupId", groupExistsUserOwnsIt, async (req, res) => {
+getRouter.get("/:groupId", userGroupRest, async (req, res) => {
 	try {
 		const group = req.group.get({ raw: true });
 		

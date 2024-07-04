@@ -61,7 +61,7 @@ imageRouter.post(
 				}]);
 				
 				return res
-					.render("user/group/image", {
+					.render(`user/group/image/${group.id}`, {
 						title: "Change image",
 						...expandData(req),
 					});

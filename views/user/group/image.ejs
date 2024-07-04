@@ -1,0 +1,23 @@
+<main class="contenedor contenedor-formulario no-padding">
+	<h1><%= title %></h1>
+	
+	<form class="default-form" method="POST" enctype="multipart/form-data">
+		<div class="campo">
+			<label for="image">Image</label>
+			<input type="file" name="image" placeholder="Group image" />
+		</div>
+		
+		<% if(locals.group?.image) { %> 
+			<div class="campo">
+				<label for="">Current image</label>
+				<img src="/public/uploads/groups/<%- group.image %>" alt="Group image" width="400" />
+			</div>
+		<% } else { %>
+			<p>This group has no image</p>
+		<% } %> 
+			
+		<div class="campo enviar">
+			<input type="submit" value="Save changes" class="btn btn-rosa" />
+		</div>
+	</form>
+</main>

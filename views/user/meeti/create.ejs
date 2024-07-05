@@ -3,6 +3,10 @@
 	<link rel="stylesheet" href="/public/package/trix@2.1.1/dist/trix.css">
 	<link rel="stylesheet" href="/public/package/leaflet@1.9.4/dist/leaflet.css">
 	<link rel="stylesheet" href="/public/css/routes/user/meeti/create.css">
+	<link
+		rel="stylesheet"
+		href="/public/package/leaflet-geosearch@4.0.0/dist/geosearch.css"
+	/>
 	
 	<script src="/public/package/trix@2.1.1/dist/trix.umd.js"></script>
 	
@@ -64,7 +68,6 @@
 			<label>Search Meeti location</label>
 			<div class="contenedor-input">
 				<input type="text" id="browser" placeholder="Browse location" />
-				<small>An assitant will create an aproximate location</small>
 			</div>
 		</div>
 		
@@ -108,5 +111,9 @@
 	</form>
 	
 	<script src="/public/package/leaflet@1.9.4/dist/leaflet.js"></script>
+	
+	<!-- Make sure you put this AFTER leaflet.js, when using with leaflet -->
+	<script src="/public/package/leaflet-geosearch@4.0.0/dist/geosearch.js"></script>
+	
 	<script src="/public/js/routes/user/meeti/create.js"></script>
 </main>

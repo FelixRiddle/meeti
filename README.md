@@ -6,16 +6,21 @@ Meetup clone
 
 These are the setup steps
 
-## Dependency
+## Manually installing dependencies(Required)
 
-Like 'dev-jobs' it's required to build and put the distribution files of the following packages:
-
-- Leaflet 1.9.4
-- Trix 2.1.1
+The reason for doing it this way is because styles are not imported from Javascript, and neither are the images.
 
 Their directories have to be placed at: public/package/PACKAGE_NAME@PACKAGE_VERSION/dist
 
 For example for trix: public/package/trix@2.1.1/dist
+
+In public/package you will have the following folders with packages data
+
+```
+leaflet-geosearch@4.0.0
+leaflet@1.9.4
+trix@2.1.1
+```
 
 ## Environment variables
 

@@ -15,6 +15,43 @@ let markerLocation = L.marker(londonCoordinates, {
 	.bindPopup('Meeti location')
 	.openPopup();
 
+/**
+ * Update marker
+ */
+async function updateMarker(lat, lng) {
+	// Down to building information
+	const zoom = 18;
+	let extraParams = "";
+	
+	// Webpack environment plugin is not working
+	// // Append email if given
+	// const email = process.env.SERVICE_EMAIL;
+	// if(email) {
+	// 	extraParams += `&email=${email}`;
+	// }
+	
+	// We've got to reverse geocode the location
+	// Nominatim is free and does exactly that
+	const response = await fetch(
+		`https://nominatim.openstreetmap.org/reverse?lat=${lat}&lon=${lng}&format=json&zoom=${zoom}${extraParams}`
+	);
+	
+	if(response.ok) {
+		const place = await response.json();
+		
+		// Update marker
+		const location = [lat, lng];
+		const placeName = place.display_name;
+		markerLocation.setLatLng(location)
+			.bindPopup(placeName)
+			.openPopup();
+		
+		// Place address
+		const address = place.address;
+		console.log(`Place address: `, address);
+	}
+}
+
 // Wait until the website loads
 document.addEventListener("DOMContentLoaded", () => {
 	// Create tile layer
@@ -34,57 +71,20 @@ document.addEventListener("DOMContentLoaded", () => {
 	// Go to location through the search
 	map.on("geosearch/showlocation", (e) => {
 		const place = e.location;
-		console.log(`Place: `, place);
-		const location = [place.y, place.x];
-		console.log(`Location: `, location);
+		const lat = place.y;
+		const lng = place.x;
 		
-		// Update marker
-		const placeName = place.label;
-		markerLocation.setLatLng(location)
-			.bindPopup(placeName)
-			.openPopup();
+		updateMarker(lat, lng);
 	});
 	
 	// Update marker info
 	markerLocation.on("dragend", async (e) => {
-		console.log(`Event: `, e);
 		const place = e.target;
 		const latLng = place._latlng;
-		const location = [latLng.lat, latLng.lng];
-		
-		console.log(`Location: `, location);
 		
 		const lat = latLng.lat;
 		const lng = latLng.lng;
-		// Down to building information
-		const zoom = 18;
-		let extraParams = "";
 		
-		// Webpack environment plugin is not working
-		// // Append email if given
-		// const email = process.env.SERVICE_EMAIL;
-		// if(email) {
-		// 	extraParams += `&email=${email}`;
-		// }
-		
-		// We've got to reverse geocode the location
-		// Nominatim is free and does exactly that
-		const response = await fetch(
-			`https://nominatim.openstreetmap.org/reverse?lat=${lat}&lon=${lng}&format=json&zoom=${zoom}${extraParams}`
-		);
-		
-		if(response.ok) {
-			const place = await response.json();
-			
-			// Update marker
-			const placeName = place.display_name;
-			markerLocation.setLatLng(location)
-				.bindPopup(placeName)
-				.openPopup();
-			
-			// Place address
-			const address = place.address;
-			console.log(`Place address: `, address);
-		}
+		await updateMarker(lat, lng);
 	});
 });

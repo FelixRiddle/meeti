@@ -108,7 +108,6 @@ export default class SelectLocationMap {
 			const address = place.address;
 			selectLocation.address = address;
 			
-			console.log(`Select location: `, selectLocation);
 			if(selectLocation.updateCallback) {
 				selectLocation.updateCallback();
 			}
@@ -121,6 +120,8 @@ export default class SelectLocationMap {
 	setUpdateCallback(cb) {
 		this.updateCallback = () => cb({
 			address: this.address,
+			latitude: this.lat,
+			longitude: this.lng
 		});
 	}
 }

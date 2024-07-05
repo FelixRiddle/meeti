@@ -7,7 +7,7 @@ const bcrypt = require('bcrypt');
 function createUserModel(conn) {
 	const User = conn.define('user', {
 		id: {
-			type: Sequelize.INTEGER,
+			type: Sequelize.BIGINT,
 			primaryKey :true,
 			autoIncrement: true,
 		},

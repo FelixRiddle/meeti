@@ -67,8 +67,8 @@ module.exports = {
     },
     plugins: [
 		new webpack.EnvironmentPlugin({
-			NODE_ENV: process.env.NODE_ENV,
-			SERVICE_EMAIL: process.env.SERVICE_EMAIL,
+			NODE_ENV: process.env.NODE_ENV || "development",
+			SERVICE_EMAIL: process.env.SERVICE_EMAIL || "",
 		}),
         // new CopyPlugin({
         //     patterns: [

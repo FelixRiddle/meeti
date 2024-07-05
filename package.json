@@ -46,6 +46,7 @@
 		"pg": "^8.12.0",
 		"sass-loader": "^14.2.1",
 		"sequelize": "^6.37.3",
+		"shortid": "^2.2.16",
 		"style-loader": "^4.0.0",
 		"uuid": "^10.0.0"
 	}

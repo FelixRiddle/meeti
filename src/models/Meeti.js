@@ -1,5 +1,6 @@
 const Sequelize = require("sequelize");
 const shortid = require("shortid");
+const slug = require("slug");
 
 /**
  * Create category model
@@ -55,10 +56,6 @@ function createMeetiModel(conn, User, Group, Address) {
 				}
 			}
 		},
-		going: {
-			type: Sequelize.ARRAY(Sequelize.BIGINT),
-			defaultValue: []
-		},
 		slug: {
 			type: Sequelize.STRING,
 		}
@@ -67,11 +64,12 @@ function createMeetiModel(conn, User, Group, Address) {
 			async beforeCreate(meeti) {
 				const title = meeti.title.toLowerCase();
 				const url = slug(`${title}-${shortid.generate()}`);
+				meeti.slug = url;
 			}
 		}
 	});
 	
-	Meeti.belongsTo(User);
+	Meeti.belongsToMany(User, { through: "junction-user-meeti" });
 	Meeti.belongsTo(Group);
 	Meeti.belongsTo(Address);
 	

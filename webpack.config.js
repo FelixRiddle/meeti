@@ -1,5 +1,6 @@
 const path = require('path');
 // const CopyPlugin = require("copy-webpack-plugin");
+const webpack = require("webpack");
 
 const publicFolder = "./src/public";
 const jsPath = "./src/public/js/";
@@ -65,6 +66,10 @@ module.exports = {
         assetModuleFilename: '[name][ext]'
     },
     plugins: [
+		new webpack.EnvironmentPlugin({
+			NODE_ENV: process.env.NODE_ENV,
+			SERVICE_EMAIL: process.env.SERVICE_EMAIL,
+		}),
         // new CopyPlugin({
         //     patterns: [
         //         { from: "src/public/image", to: "image" }

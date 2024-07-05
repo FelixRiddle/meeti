@@ -30,6 +30,8 @@ These are the environment variables that can be configured.
 # App configuration
 # Don't use mail in the app
 DISABLE_MAIL=
+# Email sender / App main mail user
+SERVICE_EMAIL=
 
 # Server configuration
 PORT=

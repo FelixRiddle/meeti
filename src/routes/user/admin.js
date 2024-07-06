@@ -1,5 +1,6 @@
 const express = require("express");
 const { Op } = require("sequelize");
+const moment = require("moment");
 
 const expandData = require("../../lib/misc/expandData");
 
@@ -56,7 +57,8 @@ adminRouter.get("/", async (req, res) => {
 			title: "Admin dashboard",
 			...expandData(req),
 			groups,
-			meetis
+			meetis,
+			moment,
 		});
 });
 

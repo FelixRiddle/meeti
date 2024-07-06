@@ -18,7 +18,9 @@
 					<li>
 						<div class="informacion-admin">
 							<p class="fecha">
-								<%= moment(meeti.date).format("LL") %> 
+								<% moment.locale("en"); %>
+								<% const timeDate = `${meeti.date} ${meeti.time}`; %> 
+								<%= moment(timeDate).format("LLLL") %> 
 							</p>
 							<h3><%= meeti.title %></h3>
 							<small><%- meeti.participants.length %> going</small>

@@ -1,17 +1,17 @@
 const { body } = require("express-validator");
-const { DESCRIPTION_LENGTH, STRING_LENGTH, LONG_STRING_LENGTH } = require("./constants");
+const { STRING_LENGTH, LONG_STRING_LENGTH } = require("./constants");
 
 const CREATE_MEETI_VALIDATION = [
 	// Title
 	body("title", "Title can't be empty").escape().notEmpty(),
 	body("title", "Title must be shorter than 256 characters")
 		.isLength({ max: STRING_LENGTH }),
-	// Description
-	body("description", "Description can't be empty")
-		// Should try to escape bad html tags
-		.notEmpty(),
-	body("description", "Description must be shorter than 8192 characters")
-		.isLength({ max: DESCRIPTION_LENGTH }),
+	// // Description
+	// body("description", "Description can't be empty")
+	// 	// Should try to escape bad html tags
+	// 	.notEmpty(),
+	// body("description", "Description must be shorter than 8192 characters")
+	// 	.isLength({ max: DESCRIPTION_LENGTH }),
 	// Featuring
 	body("featuring", "Featuring too long")
 		.escape()
@@ -64,6 +64,12 @@ const CREATE_MEETI_VALIDATION = [
 		.notEmpty(),
 	body("longitude", "Longitude must be a number")
 		.isNumeric(),
+	// Group id
+	body("groupId", "Please select a group")
+		.escape()
+		.notEmpty(),
+	body("groupId", "The group id is a uuid which can have at most 36 characters")
+		.isLength({ min: 36, max: 40 })
 ];
 
 module.exports = CREATE_MEETI_VALIDATION;

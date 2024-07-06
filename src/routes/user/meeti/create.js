@@ -1,6 +1,7 @@
 const express = require('express');
 const expandData = require('../../../lib/misc/expandData');
 const CREATE_MEETI_VALIDATION = require('../../../lib/routes/validation/createMeetiValidation');
+const { validationResult } = require('express-validator');
 
 const createMeetiRouter = express.Router();
 
@@ -30,6 +31,37 @@ createMeetiRouter.post(
 	CREATE_MEETI_VALIDATION,
 	async(req, res) => {
 		try {
+			// Validate data
+			const result = validationResult(req);
+			if(!result.isEmpty()) {
+				const resultMessages = result.array();
+				
+				// Store messages
+				const messages = resultMessages.map((data) => {
+					return {
+						message: data.msg,
+						error: true,
+						type: "error"
+					}
+				});
+				req.flash("messages", messages);
+				
+				// Find user groups again
+				const Groups = req.models.Groups;
+				const groups = await Groups.findAll({
+					where: {
+						userId: req.user.id
+					},
+					raw: true,
+				});
+				
+				return res.render("user/meeti/create", {
+					title: "Create Meeti",
+					groups,
+					...expandData(req),
+				});
+			}
+			
 			const {
 				Address,
 				Meeti,

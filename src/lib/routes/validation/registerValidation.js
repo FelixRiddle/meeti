@@ -1,6 +1,5 @@
 const { body } = require("express-validator");
-
-const SHORT_STRING_LENGTH = 64;
+const { SHORT_STRING_LENGTH } = require("./constants");
 
 // Express validation things
 const REGISTER_VALIDATION = [

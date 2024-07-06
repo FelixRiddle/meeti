@@ -26,8 +26,8 @@ adminRouter.get("/", async (req, res) => {
 	]);
 	
 	// Find meeti particpants
-	let meetis = [];
-	meetiModels.map(async (meetiModel, index) => {
+	let meetis = [ ];
+	for(const meetiModel of meetiModels) {
 		const meeti = JSON.parse(JSON.stringify(meetiModel));
 		const participantIds = await MeetiParticipants.findAll({
 			where: {
@@ -42,11 +42,12 @@ adminRouter.get("/", async (req, res) => {
 					// Find an array of participants
 					[Op.or]: participantIds,
 				}
-			}
+			},
+			raw: true,
 		});
 		
 		meetis.push(meeti);
-	});
+	}
 	
 	console.log(`Meetis: `, meetis);
 	

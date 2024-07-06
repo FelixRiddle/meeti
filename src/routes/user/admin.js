@@ -1,4 +1,6 @@
 const express = require("express");
+const { Op } = require("sequelize");
+
 const expandData = require("../../lib/misc/expandData");
 
 const adminRouter = express.Router();
@@ -7,9 +9,10 @@ adminRouter.get("/", async (req, res) => {
 	const {
 		Groups,
 		Meeti,
+		MeetiParticipants,
 		User,
 	} = req.models;
-	const [groups, meetis] = await Promise.all([
+	const [groups, meetiModels] = await Promise.all([
 		Groups.findAll({
 			where: {
 				userId: req.user.id,
@@ -19,11 +22,32 @@ adminRouter.get("/", async (req, res) => {
 			where: {
 				userId: req.user.id
 			},
-			include: [User]
 		})
 	]);
 	
-	console.log(`Groups: `, groups);
+	// Find meeti particpants
+	let meetis = [];
+	meetiModels.map(async (meetiModel, index) => {
+		const meeti = JSON.parse(JSON.stringify(meetiModel));
+		const participantIds = await MeetiParticipants.findAll({
+			where: {
+				meetiId: meeti.id,
+			},
+			raw: true,
+		});
+		
+		meeti.participants = await User.findAll({
+			where: {
+				userId: {
+					// Find an array of participants
+					[Op.or]: participantIds,
+				}
+			}
+		});
+		
+		meetis.push(meeti);
+	});
+	
 	console.log(`Meetis: `, meetis);
 	
 	return res

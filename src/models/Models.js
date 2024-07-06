@@ -1,6 +1,7 @@
 const postgressConnection = require("../lib/connection/postgresConnection");
 const createAddressModel = require("./Address");
 const createGroupsModel = require("./Groups");
+const createMeetiParticipantsModel = require("./MeetiParticipants");
 const createMeetiModel = require("./Meeti");
 const createSocialCategoryModel = require("./SocialCategory");
 const createUserModel = require("./User");
@@ -19,18 +20,47 @@ class Models {
 		this.Groups = createGroupsModel(this.conn, this.SocialCategory, this.User);
 		
 		this.Meeti = createMeetiModel(this.conn, this.User, this.Groups, this.Address);
+		
+		// Meeti participants
+		this.MeetiParticipants = createMeetiParticipantsModel(this.conn, this.Meeti, this.User);
 	}
 	
+	/**
+	 * Create all tables
+	 */
 	async sync() {
 		await this.conn.sync();
 		
-		await this.User.sync();
-		await this.SocialCategory.sync();
-		await this.Address.sync();
-		
-		await this.Groups.sync();
-		
-		await this.Meeti.sync();
+		for(const model of this.models()) {
+			await model.sync();
+		}
+	}
+	
+	/**
+	 * Drop all tables
+	 */
+	async dropAll() {
+		for(const model of this.models().reverse()) {
+			try {
+				await model.drop();
+			} catch(err) {
+				
+			}
+		}
+	}
+	
+	/**
+	 * Get models from least dependent to most
+	 */
+	models() {
+		return [
+			this.User,
+			this.SocialCategory,
+			this.Address,
+			this.Groups,
+			this.Meeti,
+			this.MeetiParticipants,
+		];
 	}
 }
 

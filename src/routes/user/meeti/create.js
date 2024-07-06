@@ -83,7 +83,7 @@ createMeetiRouter.post(
 			
 			const addressModel = await Address.create(address);
 			
-			const meeti = {
+			const meetiData = {
 				title: formData.title,
 				featuring: formData.featuring,
 				coupon: formData.coupon,
@@ -95,9 +95,9 @@ createMeetiRouter.post(
 				userId,
 			};
 			
-			const user = await User.findByPk(userId);
-			const meetiModel = await Meeti.create(meeti);
-			await meetiModel.addUser(user);
+			const userModel = await User.findByPk(userId);
+			const meetiModel = await Meeti.create(meetiData);
+			await meetiModel.addUser(userModel);
 			
 			req.flash("messages", [{
 				message: "Meeti created",

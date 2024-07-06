@@ -10,11 +10,12 @@
 		<a href="/user/profile/image/edit" class="btn btn-verde">Change pfp</a>
 	</div>
 	
+	<!-- Future meetis -->
 	<div class="seccion-admin">
-		<h2>Your Meeti's</h2>
-		<% if(locals.meetis && locals.meetis.length > 0) { %> 
+		<h2>Your future Meeti's</h2>
+		<% if(locals.futureMeetis && locals.futureMeetis.length > 0) { %> 
 			<ul>
-				<% locals.meetis.forEach((meeti) => { %>
+				<% locals.futureMeetis.forEach((meeti) => { %>
 					<li>
 						<div class="informacion-admin">
 							<p class="fecha">
@@ -37,10 +38,11 @@
 				<% }) %>
 			</ul>
 		<% } else { %>
-			<p>You haven't created any meeti</p>
+			<p>There are no Meeti's in this section</p>
 		<% } %> 
 	</div>
 	
+	<!-- User groups -->
 	<div class="seccion-admin">
 		<h2>Your groups</h2>
 		
@@ -69,6 +71,38 @@
 					</a>
 				</div>
 			<% } %> 
+		<% } %> 
+	</div>
+	
+	<!-- Past meetis -->
+	<div class="seccion-admin">
+		<h2>Your past Meeti's</h2>
+		<% if(locals.pastMeetis && locals.pastMeetis.length > 0) { %> 
+			<ul>
+				<% locals.pastMeetis.forEach((meeti) => { %>
+					<li>
+						<div class="informacion-admin">
+							<p class="fecha">
+								<% moment.locale("en"); %>
+								<% const timeDate = `${meeti.date} ${meeti.time}`; %> 
+								<%= moment(timeDate).format("LLLL") %> 
+							</p>
+							<h3><%= meeti.title %></h3>
+							<small><%- meeti.participants.length %> going</small>
+						</div>
+						<div class="acciones contenedor-bottones">
+							<a href="/user/meeti/edit/<%- meeti.id %>" class="btn btn-verde">Edit</a>
+							<a
+								href="/user/meeti/people/<%- meeti.id %>"
+								class="btn btn-azul2"
+							>People list</a>
+							<a href="/user/meeti/delete/<%- meeti.id %>" class="btn btn-rojo">Delete</a>
+						</div>
+					</li>
+				<% }) %>
+			</ul>
+		<% } else { %>
+			<p>There are no Meeti's in this section</p>
 		<% } %> 
 	</div>
 </main>

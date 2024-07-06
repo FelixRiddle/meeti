@@ -16,13 +16,18 @@ adminRouter.get("/", async (req, res) => {
 		const meetiUtils = new MeetiUtils(req.models, req.user);
 		
 		// Get meetis and groups
-		const [groups, meetis] = await Promise.all([
+		const [groups, futureMeetis, pastMeetis] = await Promise.all([
 			Groups.findAll({
 				where: {
 					userId: req.user.id,
 				}
 			}),
-			meetiUtils.meetiAndParticipants()
+			meetiUtils.meetiAndParticipants({
+				meetisTime: "future"
+			}),
+			meetiUtils.meetiAndParticipants({
+				meetisTime: "past"
+			}),
 		]);
 		
 		return res
@@ -30,10 +35,13 @@ adminRouter.get("/", async (req, res) => {
 				title: "Admin dashboard",
 				...expandData(req),
 				groups,
-				meetis,
+				futureMeetis,
+				pastMeetis,
 				moment,
 			});
 	} catch(err) {
+		console.error(err);
+		
 		req.flash("messages", [{
 			message: "Internal error",
 			type: "error"

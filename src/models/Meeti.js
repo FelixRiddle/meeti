@@ -69,6 +69,9 @@ function createMeetiModel(conn, User, Group, Address) {
 		}
 	});
 	
+	// For owner
+	Meeti.belongsTo(User);
+	// For participants
 	Meeti.belongsToMany(User, { through: "junction-user-meeti" });
 	Meeti.belongsTo(Group);
 	Meeti.belongsTo(Address);

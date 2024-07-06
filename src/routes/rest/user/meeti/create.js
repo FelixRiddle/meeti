@@ -74,7 +74,8 @@ createMeetiRouter.post(
 				date: formData.date,
 				time: formData.time,
 				groupId: formData.groupId,
-				addressId: addressModel.id
+				addressId: addressModel.id,
+				userId,
 			};
 			
 			const user = await User.findByPk(userId);

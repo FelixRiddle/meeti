@@ -12,36 +12,28 @@
 	
 	<div class="seccion-admin">
 		<h2>Your Meeti's</h2>
-		<ul>
-			<li>
-				<div class="informacion-admin">
-					<p class="fecha">
-						Tuesday, 2 July 2024
-					</p>
-					<h3>E-Commerce Argentina</h3>
-					<small>23 going</small>
-				</div>
-				<div class="acciones contenedor-bottones">
-					<a href="#" class="btn btn-verde">Edit</a>
-					<a href="#" class="btn btn-azul2">People list</a>
-					<a href="#" class="btn btn-rojo">Delete</a>
-				</div>
-			</li>
-			<li>
-				<div class="informacion-admin">
-					<p class="fecha">
-						Tuesday, 12 July 2024
-					</p>
-					<h3>Blockchain and cryptocurrencies</h3>
-					<small>3 going</small>
-				</div>
-				<div class="acciones contenedor-bottones">
-					<a href="#" class="btn btn-verde">Edit</a>
-					<a href="#" class="btn btn-azul2">People list</a>
-					<a href="#" class="btn btn-rojo">Delete</a>
-				</div>
-			</li>
-		</ul>
+		<% if(locals.meetis && locals.meetis.length > 0) { %> 
+			<ul>
+				<% locals.meetis.forEach((meeti) => { %>
+					<li>
+						<div class="informacion-admin">
+							<p class="fecha">
+								<%= meeti.date %> 
+							</p>
+							<h3><%= meeti.title %></h3>
+							<small>23 going</small>
+						</div>
+						<div class="acciones contenedor-bottones">
+							<a href="/user/meeti/edit/<%- meeti.id %>" class="btn btn-verde">Edit</a>
+							<a href="#" class="btn btn-azul2">People list</a>
+							<a href="#" class="btn btn-rojo">Delete</a>
+						</div>
+					</li>
+				<% }) %>
+			</ul>
+		<% } else { %>
+			<p>You haven't created any meeti</p>
+		<% } %> 
 	</div>
 	
 	<div class="seccion-admin">

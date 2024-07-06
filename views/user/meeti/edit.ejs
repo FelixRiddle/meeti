@@ -1,0 +1,107 @@
+<main class="contenedor contenedor-formularios">
+	<!-- Page specific CSS -->
+	<link rel="stylesheet" href="/public/package/trix@2.1.1/dist/trix.css">
+	<link rel="stylesheet" href="/public/package/leaflet@1.9.4/dist/leaflet.css">
+	<link rel="stylesheet" href="/public/css/routes/user/meeti/create.css">
+	<link
+		rel="stylesheet"
+		href="/public/package/leaflet-geosearch@4.0.0/dist/geosearch.css"
+	/>
+	
+	<script src="/public/package/trix@2.1.1/dist/trix.umd.js"></script>
+	
+	<h1><%= title %></h1>
+	
+	<form class="default-form" method="POST" action="/user/meeti/create">
+		<legend>Edit Meeti</legend>
+		
+		<div class="campo">
+			<label for="group">Group</label>
+			<select name="groupId" id="groupId">
+				<option value="" disabled selected>-- Select a group --</option>
+				<% if(locals.groups && locals.groups.length > 0) { %>
+					<% groups.forEach((group) => { %>
+						<option value="<%- group.id %>"><%- group.name %></option>
+					<% }) %>  
+				<% } %> 
+			</select>
+		</div>
+		
+		<div class="campo">
+			<label for="title">Title</label>
+			<input type="text" name="title" id="title" placeholder="Meeti title" />
+		</div>
+		
+		<div class="campo">
+			<label for="featuring">Featuring</label>
+			<input type="text" name="featuring" id="featuring" placeholder="Featured person(Optional)" />
+		</div>
+		
+		<!-- Time -->
+		<div class="columnas-2 grid">
+			<div class="campo">
+				<label for="date">Date</label>
+				<input type="date" name="date" id="date" placeholder="Meeti date" />
+			</div>
+			<div class="campo">
+				<label for="time">Time</label>
+				<input type="time" name="time" placeholder="Meeti time" />
+			</div>
+		</div>
+		
+		<div class="campo">
+			<label for="coupon">Coupon</label>
+			<input type="number" min="1" name="coupon" placeholder="Meeti coupons(Optional)" />
+		</div>
+		
+		<div class="campo descripcion">
+			<label for="description">Description</label>
+			<div class="contenedor-editor">
+				<input type="hidden" name="description" id="description" placeholder="Description" />
+				<trix-editor input="description"></trix-editor>
+			</div>
+		</div>
+		
+		<!-- Location -->
+		<legend>Meeti location</legend>
+		<p class="information">Move the pin to the location of the Meeti</p>
+		
+		<div class="campo mapa">
+			<div
+				class="mapa" id="map"
+			></div>
+		</div>
+		
+		<p class="informacion">Confirm that the location is correct</p>
+		<div class="campo">
+			<label for="street">Street</label>
+			<input type="text" name="street" id="street" placeholder="Street" />
+		</div>
+		<div class="campo">
+			<label for="city">City</label>
+			<input type="text" name="city" id="city" placeholder="City" />
+		</div>
+		<div class="campo">
+			<label for="state">State/Province</label>
+			<input type="text" name="state" id="state" placeholder="State/Province" />
+		</div>
+		<div class="campo">
+			<label for="country">Country</label>
+			<input type="text" name="country" id="country" placeholder="Country" />
+		</div>
+		<input type="hidden" name="latitude" id="latitude" placeholder="Latitude" readonly />
+		<input type="hidden" name="longitude" id="longitude" placeholder="Longitude" readonly />
+		
+		<!-- Submit -->
+		<div class="campo enviar">
+			<input type="submit" value="Create Meeti" class="btn btn-rosa" />
+		</div>
+	</form>
+	
+	<script src="/public/package/leaflet@1.9.4/dist/leaflet.js"></script>
+	
+	<!-- Make sure you put this AFTER leaflet.js, when using with leaflet -->
+	<script src="/public/package/leaflet-geosearch@4.0.0/dist/geosearch.js"></script>
+	
+	<script src="/public/js/routes/user/meeti/create.js"></script>
+</main>

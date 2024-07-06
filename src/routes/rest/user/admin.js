@@ -1,11 +1,12 @@
 const express = require("express");
-const moment = require("moment");
-
-const expandData = require("../../lib/misc/expandData");
-const MeetiUtils = require("../../lib/models/MeetiUtils");
+const MeetiUtils = require("../../../lib/models/MeetiUtils");
+const expandData = require("../../../lib/misc/expandData");
 
 const adminRouter = express.Router();
 
+/**
+ * Emulate EJS frontend get admin route
+ */
 adminRouter.get("/", async (req, res) => {
 	try {
 		const {
@@ -26,12 +27,11 @@ adminRouter.get("/", async (req, res) => {
 		]);
 		
 		return res
-			.render("user/admin", {
+			.send({
 				title: "Admin dashboard",
 				...expandData(req),
 				groups,
 				meetis,
-				moment,
 			});
 	} catch(err) {
 		req.flash("messages", [{
@@ -41,10 +41,9 @@ adminRouter.get("/", async (req, res) => {
 		
 		return res
 			.status(500)
-			.render("user/admin", {
+			.send({
 				title: "Admin dashboard",
 				...expandData(req),
-				moment,
 			});
 	}
 });

@@ -7,6 +7,7 @@ editRouter.get("/:meetiId", async (req, res) => {
 	try {
 		const meetiId = req.params.meetiId;
 		const {
+			Address,
 			Groups,
 			Meeti,
 		} = req.models;
@@ -17,7 +18,13 @@ editRouter.get("/:meetiId", async (req, res) => {
 			}
 		});
 		const meetiModel = await Meeti.findByPk(meetiId);
-		const meeti = meetiModel.get({ raw: true });
+		const meeti = meetiModel.get({
+			raw: true
+		});
+		
+		meeti.address = await Address.findByPk(meeti.id, {
+			raw: true,
+		});
 		
 		return res.render("user/meeti/edit", {
 			title: `Edit Meeti ${meeti.title}`,

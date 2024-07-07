@@ -18,46 +18,81 @@
 		<div class="campo">
 			<label for="group">Group</label>
 			<select name="groupId" id="groupId">
-				<option value="" disabled selected>-- Select a group --</option>
+				<option value="<%- meeti.groupId %>" disabled selected>-- Select a group --</option>
 				<% if(locals.groups && locals.groups.length > 0) { %>
 					<% groups.forEach((group) => { %>
 						<option value="<%- group.id %>"><%- group.name %></option>
-					<% }) %>  
-				<% } %> 
+					<% }) %>
+				<% } %>
 			</select>
 		</div>
 		
 		<div class="campo">
 			<label for="title">Title</label>
-			<input type="text" name="title" id="title" placeholder="Meeti title" />
+			<input
+				type="text"
+				name="title"
+				id="title"
+				placeholder="Meeti title"
+				value="<%- meeti.title %>"
+			/>
 		</div>
 		
 		<div class="campo">
 			<label for="featuring">Featuring</label>
-			<input type="text" name="featuring" id="featuring" placeholder="Featured person(Optional)" />
+			<input
+				type="text"
+				name="featuring"
+				id="featuring"
+				placeholder="Featured person(Optional)"
+				value="<%- meeti.featuring %>"
+			/>
 		</div>
 		
 		<!-- Time -->
 		<div class="columnas-2 grid">
 			<div class="campo">
 				<label for="date">Date</label>
-				<input type="date" name="date" id="date" placeholder="Meeti date" />
+				<input
+					type="date"
+					name="date"
+					id="date"
+					placeholder="Meeti date"
+					value="<%- meeti.date %>"
+				/>
 			</div>
 			<div class="campo">
 				<label for="time">Time</label>
-				<input type="time" name="time" placeholder="Meeti time" />
+				<input
+					type="time"
+					name="time"
+					placeholder="Meeti time"
+					value="<%- meeti.time %>"
+				/>
 			</div>
 		</div>
 		
 		<div class="campo">
 			<label for="coupon">Coupon</label>
-			<input type="number" min="1" name="coupon" placeholder="Meeti coupons(Optional)" />
+			<input
+				type="number"
+				min="1"
+				name="coupon"
+				placeholder="Meeti coupons(Optional)"
+				value="<%- meeti.coupon %>"
+			/>
 		</div>
 		
 		<div class="campo descripcion">
 			<label for="description">Description</label>
 			<div class="contenedor-editor">
-				<input type="hidden" name="description" id="description" placeholder="Description" />
+				<input
+					type="hidden"
+					name="description"
+					id="description"
+					placeholder="Description"
+					value="<%- meeti.description %>"
+				/>
 				<trix-editor input="description"></trix-editor>
 			</div>
 		</div>
@@ -75,22 +110,60 @@
 		<p class="informacion">Confirm that the location is correct</p>
 		<div class="campo">
 			<label for="street">Street</label>
-			<input type="text" name="street" id="street" placeholder="Street" />
+			<input
+				type="text"
+				name="street"
+				id="street"
+				placeholder="Street"
+				value="<%- meeti.address.street %> "
+			/>
 		</div>
 		<div class="campo">
 			<label for="city">City</label>
-			<input type="text" name="city" id="city" placeholder="City" />
+			<input
+				type="text"
+				name="city"
+				id="city"
+				placeholder="City"
+				value="<%- meeti.address.city %>"
+			/>
 		</div>
 		<div class="campo">
 			<label for="state">State/Province</label>
-			<input type="text" name="state" id="state" placeholder="State/Province" />
+			<input
+				type="text"
+				name="state"
+				id="state"
+				placeholder="State/Province"
+				value="<%- meeti.address.state %>"
+			/>
 		</div>
 		<div class="campo">
 			<label for="country">Country</label>
-			<input type="text" name="country" id="country" placeholder="Country" />
+			<input
+				type="text"
+				name="country"
+				id="country"
+				placeholder="Country"
+				value="<%- meeti.address.country %>"
+			/>
 		</div>
-		<input type="hidden" name="latitude" id="latitude" placeholder="Latitude" readonly />
-		<input type="hidden" name="longitude" id="longitude" placeholder="Longitude" readonly />
+		<input
+			type="hidden"
+			name="latitude"
+			id="latitude"
+			placeholder="Latitude"
+			readonly
+			value="<%- meeti.address.latitude %>"
+		/>
+		<input
+			type="hidden"
+			name="longitude"
+			id="longitude"
+			placeholder="Longitude"
+			readonly
+			value="<%- meeti.address.longitude %>"
+		/>
 		
 		<!-- Submit -->
 		<div class="campo enviar">

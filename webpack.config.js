@@ -16,12 +16,10 @@ module.exports = {
 			],
 			filename: "js/routes/user/meeti/create.js",
 		},
-		// route_user_meeti_create_css: {
-		// 	import: [
-		// 		`src/public/css/routes/user/meeti/create.css`
-		// 	],
-		// 	filename: "css/routes/user/meeti/create.css",
-		// }
+		route_user_meeti_edit: {
+			import: `${publicRoutes}user/meeti/edit.js`,
+			filename: "js/routes/user/meeti/edit.js",
+		},
 	},
     module: {
         rules: [{

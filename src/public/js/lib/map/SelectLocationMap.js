@@ -74,6 +74,15 @@ export default class SelectLocationMap {
 	}
 	
 	/**
+	 * Set marker position
+	 * 
+	 * Alias for update marker which does the same thing
+	 */
+	async setMarkerPosition(lat, lng) {
+		return await this.updateMarker(this, lat, lng);
+	}
+	
+	/**
 	 * Update marker
 	 */
 	async updateMarker(selectLocation, lat, lng) {

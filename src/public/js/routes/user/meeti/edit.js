@@ -3,7 +3,7 @@ import SelectLocationMap from "../../../lib/map/SelectLocationMap";
 const selectLocation = new SelectLocationMap();
 
 // Wait until the website loads
-document.addEventListener("DOMContentLoaded", () => {
+document.addEventListener("DOMContentLoaded", async () => {
 	// Place
 	const street = document.getElementById('street');
 	const city = document.getElementById("city");
@@ -18,6 +18,10 @@ document.addEventListener("DOMContentLoaded", () => {
 	if(!allExist) {
 		throw Error("A element doesn't exists");
 	}
+	
+	const latitude = latitudeElement.value;
+	const longitude = longitudeElement.value;
+	await selectLocation.setMarkerPosition(latitude, longitude);
 	
 	selectLocation.setUpdateCallback(({
 		address,

@@ -20,7 +20,7 @@ adminRouter.get("/", async (req, res) => {
 		const [groups, futureMeetis, pastMeetis] = await Promise.all([
 			Groups.findAll({
 				where: {
-					userId: req.user.id,
+					userId: Number(req.user.id),
 				}
 			}),
 			meetiUtils.meetiAndParticipants({
@@ -40,6 +40,8 @@ adminRouter.get("/", async (req, res) => {
 				pastMeetis,
 			});
 	} catch(err) {
+		console.error(err);
+		
 		req.flash("messages", [{
 			message: "Internal error",
 			type: "error"

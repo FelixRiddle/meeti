@@ -12,6 +12,7 @@ registerRouter.post(
 	REGISTER_VALIDATION,
 	async (req, res) => {
 		try {
+			console.log(`[POST] /rest/auth/register`);
 			const userData = req.body;
 			
 			// Validate data
@@ -82,7 +83,7 @@ registerRouter.post(
 			}
 			
 			// Check if mail is enabled
-			if(!process.env.DISABLE_MAIl) {
+			if(!process.env.DISABLE_MAIL) {
 				try {
 					// Send confirmation email
 					await sendMail({

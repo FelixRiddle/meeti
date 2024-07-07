@@ -34,22 +34,36 @@ module.exports = class MeetiUtils {
 	 */
 	async obtainMeetiParticipants(meetiModel) {
 		const meeti = JSON.parse(JSON.stringify(meetiModel));
-		const participantIds = await this.MeetiParticipants.findAll({
+		const participantsIdData = await this.MeetiParticipants.findAll({
 			where: {
 				meetiId: meeti.id,
 			},
 			raw: true,
 		});
 		
-		meeti.participants = await this.User.findAll({
-			where: {
-				userId: {
-					// Find an array of participants
-					[Op.or]: participantIds,
-				}
-			},
-			raw: true,
-		});
+		const participantIds = participantsIdData.map((participant) => Number(participant.userId));
+		
+		const User = this.user;
+		meeti.participants = await Promise.all(participantIds.map((id) => {
+			return User.findAll({
+				where: {
+					userId: id,
+				},
+				raw: true,
+			});
+		}));
+		
+		// Doesn't work
+		// meeti.participants = await this.User.findAll({
+		// 	where: {
+		// 		userId: {
+		// 			// Find an array of participants
+		// 			// [Op.values]: participantIds,
+		// 			[Op.values]: [1]
+		// 		}
+		// 	},
+		// 	raw: true,
+		// });
 		
 		return meeti;
 	}
@@ -67,6 +81,7 @@ module.exports = class MeetiUtils {
 		meetisTime: "all"
 	}) {
 		let meetiModels = undefined;
+		const userId = Number(this.user.id);
 		switch(options.meetisTime) {
 			case "past": {
 				meetiModels = await this.Meeti.findAll({
@@ -74,7 +89,7 @@ module.exports = class MeetiUtils {
 						date: {
 							[Op.lt]: moment(new Date()).format("YYYY-MM-DD")
 						},
-						userId: this.user.id,
+						userId,
 					},
 				});
 				break;
@@ -85,7 +100,7 @@ module.exports = class MeetiUtils {
 						date: {
 							[Op.gte]: moment(new Date()).format("YYYY-MM-DD")
 						},
-						userId: this.user.id,
+						userId,
 					},
 				});
 				break;
@@ -94,7 +109,7 @@ module.exports = class MeetiUtils {
 				// Considered all too
 				meetiModels = await this.Meeti.findAll({
 					where: {
-						userId: this.user.id
+						userId
 					},
 				});
 				break;

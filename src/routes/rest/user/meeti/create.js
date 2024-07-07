@@ -1,6 +1,8 @@
 const express = require('express');
-const CREATE_MEETI_VALIDATION = require('../../../../lib/routes/validation/createMeetiValidation');
 const { validationResult } = require('express-validator');
+const color = require("ansi-color");
+
+const CREATE_MEETI_VALIDATION = require('../../../../lib/routes/validation/createMeetiValidation');
 const expandData = require('../../../../lib/misc/expandData');
 const { renderDataInternalErrorMessage } = require('../../../../lib/status/messages');
 
@@ -82,8 +84,10 @@ createMeetiRouter.post(
 			const meetiModel = await Meeti.create(meeti);
 			await meetiModel.addUser(user);
 			
+			const message = "Meeti created";
+			console.log(color.set(message, 'green'));
 			req.flash("messages", [{
-				message: "Meeti created",
+				message,
 				type: "success"
 			}]);
 			
@@ -92,6 +96,9 @@ createMeetiRouter.post(
 			});
 		} catch(err) {
 			console.error(err);
+			
+			console.log(color.set(err.message, 'red'));
+			
 			return res.status(500)
 				.send({
 					...renderDataInternalErrorMessage

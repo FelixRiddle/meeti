@@ -43,11 +43,11 @@ module.exports = class MeetiUtils {
 		
 		const participantIds = participantsIdData.map((participant) => Number(participant.userId));
 		
-		const User = this.user;
+		const User = this.User;
 		meeti.participants = await Promise.all(participantIds.map((id) => {
 			return User.findAll({
 				where: {
-					userId: id,
+					id,
 				},
 				raw: true,
 			});

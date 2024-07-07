@@ -92,7 +92,7 @@ createMeetiRouter.post(
 			}]);
 			
 			return res.send({
-				...expandData
+				...expandData(req)
 			});
 		} catch(err) {
 			console.error(err);

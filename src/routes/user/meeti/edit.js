@@ -35,9 +35,7 @@ editRouter.get("/:meetiId", async (req, res) => {
 			
 			return res
 				.status(404)
-				.send({
-					...expandData(req)
-				});
+				.redirect("/user/admin");
 		}
 		
 		const meeti = meetiModel.get({
@@ -54,6 +52,89 @@ editRouter.get("/:meetiId", async (req, res) => {
 			groups,
 			meeti,
 		});
+	} catch(err) {
+		console.error(err);
+		return res.redirect("500");
+	}
+});
+
+editRouter.post("/:meetiId", async (req, res) => {
+	try {
+		const meetiId = req.params.meetiId;
+		console.log(`[POST] /user/meeti/edit/${meetiId}`);
+		
+		const {
+			Address,
+			Meeti
+		} = req.models;
+		
+		// Get model
+		const meetiModel = await Meeti.findByPk(meetiId);
+		if(!meetiModel) {
+			const message = "Meeti does not exists";
+			console.log(color.set(message, "red"));
+			
+			req.flash('messages', [{
+				message,
+				type: "error"
+			}]);
+			
+			return res
+				.status(404)
+				.redirect("/user/admin");
+		}
+		
+		const data = {
+			...req.body,
+		};
+		
+		console.log(`Previous data: `, meetiModel);
+		console.log(`New data: `, data);
+		
+		// Retrieve those I need
+		const {
+			latitude,
+			longitude,
+			street,
+			city,
+			state,
+			country
+		} = data;
+		delete data.latitude;
+		delete data.longitude;
+		delete data.street;
+		delete data.city;
+		delete data.state;
+		delete data.country;
+		
+		// Replace previous data
+		Object.assign(meetiModel, data);
+		console.log(`New meeti model: `, meetiModel);
+		
+		// Find address and update
+		const meetiAddress = await Address.findOne({
+			where: {
+				id: meetiModel.addressId
+			}
+		});
+		Object.assign(
+			meetiAddress,
+			{
+				latitude,
+				longitude,
+				street,
+				city,
+				state,
+				country,
+			}
+		);
+		
+		await Promise.all([
+			meetiModel.save(),
+			meetiAddress.save(),
+		]);
+		
+		return res.redirect("/user/admin");
 	} catch(err) {
 		console.error(err);
 		return res.redirect("500");

@@ -12,7 +12,7 @@
 	
 	<h1><%= title %></h1>
 	
-	<form class="default-form" method="POST" action="/user/meeti/create">
+	<form class="default-form" method="POST" action="/user/meeti/edit/<%- meeti.id %> ">
 		<legend>Edit Meeti</legend>
 		
 		<div class="campo">
@@ -167,7 +167,7 @@
 		
 		<!-- Submit -->
 		<div class="campo enviar">
-			<input type="submit" value="Create Meeti" class="btn btn-rosa" />
+			<input type="submit" value="Save changes" class="btn btn-rosa" />
 		</div>
 	</form>
 	

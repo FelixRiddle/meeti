@@ -10,14 +10,15 @@ export default class SelectLocationMap {
 	
 	// Current information
 	address = undefined;
-	// London coordinates
-	lat = 51.505;
-	lng = -0.09;
 	
 	/**
 	 * 
 	 */
-	constructor() {
+	constructor(options = {}) {
+		// London coordinates
+		this.lat = options.lat || 51.505;
+		this.lng = options.lng || -0.09;
+		
 		// Map
 		const londonCoordinates = [this.lat, this.lng];
 		const map = L.map('map').setView(londonCoordinates, 13);

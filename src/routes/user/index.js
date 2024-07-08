@@ -3,12 +3,14 @@ const adminRouter = require("./admin");
 const authRoutes = require("./auth");
 const groupRouter = require("./group");
 const meetiRouter = require("./meeti");
+const profileRouter = require("./profile");
 
 const userRouter = express.Router();
 
-userRouter.use("/group", groupRouter);
-userRouter.use("/auth", authRoutes);
 userRouter.use("/admin", adminRouter);
+userRouter.use("/auth", authRoutes);
+userRouter.use("/group", groupRouter);
 userRouter.use("/meeti", meetiRouter);
+userRouter.use("/profile", profileRouter);
 
 module.exports = userRouter;

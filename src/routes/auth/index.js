@@ -13,7 +13,7 @@ function authRouter(passport) {
 
 	router.use("/confirm-email", notAuthenticated, confirmEmailRouter);
 	router.use("/login", notAuthenticated, loginRouter(passport));
-	router.use("/register", notAuthenticated, registerRouter);
+	router.use("/register", notAuthenticated, registerRouter());
 	
 	return router;
 }

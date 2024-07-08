@@ -14,6 +14,9 @@ function createUserModel(conn) {
 		name: {
 			type: Sequelize.STRING(64)
 		},
+		description: {
+			type: Sequelize.TEXT,
+		},
 		pfp: {
 			type: Sequelize.STRING(64),
 		},

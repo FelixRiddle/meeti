@@ -111,6 +111,7 @@ export default class SelectLocationMap {
 			const location = [lat, lng];
 			const placeName = place.display_name;
 			
+			// Update location on the object, this was missing and had problems because I forgot to update
 			selectLocation.lat = lat;
 			selectLocation.lng = lng;
 			

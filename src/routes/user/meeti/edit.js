@@ -75,7 +75,7 @@ editRouter.post("/:meetiId", async (req, res) => {
 			console.log(color.set(message, "red"));
 			
 			req.flash('messages', [{
-				message,
+				messages: message,
 				type: "error"
 			}]);
 			
@@ -129,6 +129,14 @@ editRouter.post("/:meetiId", async (req, res) => {
 			meetiModel.save(),
 			meetiAddress.save(),
 		]);
+		
+		// Send message
+		const message = "Meeti updated";
+		console.log(color.set(message, "green"));
+		req.flash("messages", [{
+			messages: message,
+			type: "success"
+		}]);
 		
 		return res.redirect("/user/admin");
 	} catch(err) {

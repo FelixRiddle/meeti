@@ -19,9 +19,9 @@ document.addEventListener("DOMContentLoaded", async () => {
 		throw Error("A element doesn't exists");
 	}
 	
-	const latitude = latitudeElement.value;
-	const longitude = longitudeElement.value;
-	await selectLocation.setMarkerPosition(latitude, longitude);
+	const previousLatitude = latitudeElement.value;
+	const previousLongitude = longitudeElement.value;
+	await selectLocation.setMarkerPosition(Number(previousLatitude), Number(previousLongitude));
 	
 	selectLocation.setUpdateCallback(({
 		address,
@@ -29,11 +29,12 @@ document.addEventListener("DOMContentLoaded", async () => {
 		longitude
 	}) => {
 		// Fill inputs
-		street.value = address.road;
+		street.value = address.road || address.street;
 		city.value = address.city;
 		state.value = address.state;
 		country.value = address.country;
 		
+		// Coordinates
 		latitudeElement.value = latitude;
 		longitudeElement.value = longitude;
 	});

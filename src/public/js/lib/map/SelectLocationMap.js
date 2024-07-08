@@ -110,6 +110,10 @@ export default class SelectLocationMap {
 			// Update marker
 			const location = [lat, lng];
 			const placeName = place.display_name;
+			
+			selectLocation.lat = lat;
+			selectLocation.lng = lng;
+			
 			selectLocation.markerLocation.setLatLng(location)
 				.bindPopup(placeName)
 				.openPopup();

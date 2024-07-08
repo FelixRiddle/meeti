@@ -88,9 +88,6 @@ editRouter.post("/:meetiId", async (req, res) => {
 			...req.body,
 		};
 		
-		console.log(`Previous data: `, meetiModel);
-		console.log(`New data: `, data);
-		
 		// Retrieve those I need
 		const {
 			latitude,
@@ -109,7 +106,6 @@ editRouter.post("/:meetiId", async (req, res) => {
 		
 		// Replace previous data
 		Object.assign(meetiModel, data);
-		console.log(`New meeti model: `, meetiModel);
 		
 		// Find address and update
 		const meetiAddress = await Address.findOne({

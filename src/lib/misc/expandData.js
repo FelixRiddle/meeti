@@ -1,3 +1,5 @@
+const color = require('ansi-color');
+
 /**
  * Expand data
  */
@@ -16,6 +18,14 @@ function expandData(req) {
 	let messages = [];
 	const flashMessages = req.flash().messages;
 	if(flashMessages) {
+		for(const message of messages) {
+			if(message.type === "error" || message.error) {
+				console.log(color.set(message, "red"));	
+			} else {
+				console.log(color.set(message, "green"));	
+			}
+		}
+		
 		messages = messages.concat(flashMessages);
 	}
 	

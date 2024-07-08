@@ -13,7 +13,8 @@ deleteRouter.get("/:meetiId", async (req, res) => {
 		const meeti = await Meeti.findByPk(meetiId, {
 			where: {
 				userId: req.user.id,
-			}
+			},
+			raw: true,
 		});
 		
 		if(!meeti) {
@@ -34,7 +35,7 @@ deleteRouter.get("/:meetiId", async (req, res) => {
 		});
 	} catch(err) {
 		console.error(err);
-		return res.status("500")
+		return res.status(500)
 			.redirect("/500");
 	}
 });
@@ -70,7 +71,7 @@ deleteRouter.post("/:meetiId", async (req, res) => {
 		
 	} catch(err) {
 		console.error(err);
-		return res.status("500")
+		return res.status(500)
 			.redirect("/500");
 	}
 });

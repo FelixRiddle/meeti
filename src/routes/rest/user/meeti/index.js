@@ -4,13 +4,11 @@ const { renderDataInternalErrorMessage } = require("../../../../lib/status/messa
 const expandData = require("../../../../lib/misc/expandData");
 const createMeetiRouter = require("./create");
 const editRouter = require("./edit");
-const deleteRouter = require("./delete");
 
 const meetiRouter = express.Router();
 
 meetiRouter.use("/create", createMeetiRouter);
 meetiRouter.use("/edit", editRouter);
-meetiRouter.use("/delete", deleteRouter);
 
 meetiRouter.get("/:meetiId", async (req, res) => {
 	try {
@@ -44,6 +42,52 @@ meetiRouter.get("/:meetiId", async (req, res) => {
 			...expandData(req),
 			meeti,
 		});
+	} catch(err) {
+		console.error(err);
+		return res.status(500)
+			.send({
+				...renderDataInternalErrorMessage
+			});
+	}
+});
+
+meetiRouter.delete("/:meetiId", async (req, res) => {
+	try {
+		const meetiId = req.params.meetiId;
+		const {
+			Meeti
+		} = req.models;
+		
+		const meeti = await Meeti.findByPk(meetiId, {
+			where: {
+				userId: req.user.id,
+			}
+		});
+		
+		if(!meeti) {
+			req.flash("messages", [{
+				message: "Either the Meeti doesn't exists or you don't own it",
+				type: "error"
+			}]);
+			
+			return res
+				.status(401)
+				.send({
+					...expandData(req)
+				});
+		}
+		
+		await meeti.destroy();
+		
+		req.flash("messages", [{
+			message: "Meeti deleted",
+			type: "success"
+		}]);
+		
+		return res
+			.send({
+				...expandData(req)
+			});
 	} catch(err) {
 		console.error(err);
 		return res.status(500)

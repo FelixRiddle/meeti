@@ -64,11 +64,14 @@ deleteRouter.post("/:meetiId", async (req, res) => {
 				.render("/status");
 		}
 		
+		await meeti.destroy();
+		
 		req.flash("messages", [{
 			message: "Meeti deleted",
 			type: "success"
 		}]);
 		
+		return res.redirect("/user/admin");
 	} catch(err) {
 		console.error(err);
 		return res.status(500)

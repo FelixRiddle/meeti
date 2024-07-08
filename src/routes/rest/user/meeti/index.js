@@ -1,13 +1,16 @@
 const express = require("express");
-const createMeetiRouter = require("./create");
-const editRouter = require("./edit");
+
 const { renderDataInternalErrorMessage } = require("../../../../lib/status/messages");
 const expandData = require("../../../../lib/misc/expandData");
+const createMeetiRouter = require("./create");
+const editRouter = require("./edit");
+const deleteRouter = require("./delete");
 
 const meetiRouter = express.Router();
 
 meetiRouter.use("/create", createMeetiRouter);
 meetiRouter.use("/edit", editRouter);
+meetiRouter.use("/delete", deleteRouter);
 
 meetiRouter.get("/:meetiId", async (req, res) => {
 	try {

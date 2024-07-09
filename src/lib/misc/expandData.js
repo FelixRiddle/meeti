@@ -38,15 +38,15 @@ async function expandData(req, options = {
 	let messages = [];
 	const flashMessages = req.flash().messages;
 	if(flashMessages) {
+		messages = messages.concat(flashMessages);
+		
 		for(const message of messages) {
 			if(message.type === "error" || message.error) {
-				console.log(color.set(message, "red"));	
+				console.log(color.set(message.message, "red"));	
 			} else {
-				console.log(color.set(message, "green"));	
+				console.log(color.set(message.message, "green"));	
 			}
 		}
-		
-		messages = messages.concat(flashMessages);
 	}
 	
 	return {

@@ -4,10 +4,7 @@ const { v4: uuidv4 } = require('uuid');
 
 const sendMail = require("../../lib/handler/emails");
 const REGISTER_VALIDATION = require("../../lib/routes/validation/registerValidation");
-
-	
-const SHORT_STRING_LENGTH = 64;
-exports.SHORT_STRING_LENGTH = SHORT_STRING_LENGTH;
+const expandData = require("../../lib/misc/expandData");
 
 /**
  * Register router
@@ -35,7 +32,6 @@ function registerRouter() {
 		async (req, res) => {
 			const title = "Register";
 			try {
-				const extraData = await expandData(req);
 				const userData = req.body;
 				
 				// Validate data
@@ -50,7 +46,10 @@ function registerRouter() {
 							type: "error"
 						}
 					});
+				
+					req.flash("messages", messages);
 					
+					const extraData = await expandData(req);
 					return res
 						.status(400)
 						.render("auth/register", {
@@ -66,6 +65,7 @@ function registerRouter() {
 				if(!passwordsMatch) {
 					const message = "Passwords don't match";
 					
+					const extraData = await expandData(req);
 					return res
 						.status(400)
 						.render("auth/register", {
@@ -102,6 +102,7 @@ function registerRouter() {
 						};
 					});
 					
+					const extraData = await expandData(req);
 					return res
 						.status(400)
 						.render("auth/register", {
@@ -113,7 +114,7 @@ function registerRouter() {
 				}
 				
 				// Check if mail is enabled
-				if(!process.env.DISABLE_MAIl) {
+				if(!process.env.DISABLE_MAIL) {
 					try {
 						// Send confirmation email
 						await sendMail({
@@ -131,6 +132,7 @@ function registerRouter() {
 					}
 				}
 				
+				const extraData = await expandData(req);
 				const message = "Account created successfully";
 				return res
 					.render("auth/register", {

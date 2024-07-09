@@ -4,21 +4,34 @@
 	<form action="/user/password/reset" class="default-form" method="POST">
 		<div class="campo">
 			<label for="password">Actual password</label>
-			<input type="text" name="password" id="password" placeholder="Actual password" />
+			<input
+				type="password"
+				name="password"
+				id="password"
+				placeholder="Actual password"
+				value="<%- locals.password || "" %>"
+			/>
 		</div>
 		
 		<div class="campo">
 			<label for="newPassword">New password</label>
-			<input type="text" name="newPassword" id="newPassword" placeholder="New password" />
+			<input
+				type="password"
+				name="newPassword"
+				id="newPassword"
+				placeholder="New password"
+				value="<%- locals.newPassword || "" %>"
+			/>
 		</div>
 		
 		<div class="campo">
 			<label for="confirmPassword">Repeat password</label>
 			<input
-				type="text"
+				type="password"
 				name="confirmPassword"
 				id="confirmPassword"
 				placeholder="Confirm password"
+				value="<%- locals.confirmPassword || "" %>"
 			/>
 		</div>
 		

@@ -2,6 +2,13 @@ const Sequelize = require("sequelize");
 const bcrypt = require('bcrypt');
 
 /**
+ * Hash passsword
+ */
+function hashPassword(password) {
+	return bcrypt.hashSync(password, bcrypt.genSaltSync(10), null);
+}
+
+/**
  * User model
  */
 function createUserModel(conn) {
@@ -56,7 +63,7 @@ function createUserModel(conn) {
 	}, {
 		hooks: {
 			beforeCreate(user) {
-				user.password = bcrypt.hashSync(user.password, bcrypt.genSaltSync(10));
+				user.password = hashPassword(user.password);
 			}
 		},
 		logging: false,
@@ -68,6 +75,8 @@ function createUserModel(conn) {
 	User.prototype.validatePassword = function (password) {
 		return bcrypt.compareSync(password, this.password);
 	}
+	
+	User.prototype.hashPassword = hashPassword;
 	
 	return User;
 }

@@ -1,4 +1,5 @@
 const express = require("express");
+const expandData = require("../../lib/misc/expandData");
 
 /**
  * Login router

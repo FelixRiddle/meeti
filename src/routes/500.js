@@ -8,6 +8,7 @@ error500Router.get("/", (req, res) => {
 	return res
 		.status(500)
 		.render("status", {
+			title: "Error 500: Internal error",
 			...renderDataInternalErrorMessage,
 			...expandData(req),
 		});

@@ -1,12 +1,14 @@
 const express = require("express");
 
-const editRouter = require("./edit");
 const { renderDataInternalErrorMessage } = require("../../../../lib/status/messages");
 const expandData = require("../../../../lib/misc/expandData");
+const editRouter = require("./edit");
+const pictureRouter = require("./picture");
 
 const profileRouter = express.Router();
 
 profileRouter.use("/edit", editRouter);
+profileRouter.use("/picture", pictureRouter);
 
 profileRouter.get("/:userId", async (req, res) => {
 	try {

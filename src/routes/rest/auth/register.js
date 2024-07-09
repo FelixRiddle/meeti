@@ -4,6 +4,7 @@ const { body, validationResult } = require("express-validator");
 const { v4: uuidv4 } = require("uuid");
 const sendMail = require("../../../lib/handler/emails");
 const REGISTER_VALIDATION = require("../../../lib/routes/validation/registerValidation");
+const UserFolder = require("../../../lib/public/user/UserFolder");
 
 const registerRouter = express.Router();
 
@@ -100,6 +101,10 @@ registerRouter.post(
 						.send(renderDataInternalErrorMessage);
 				}
 			}
+			
+			// Create user folder
+			const userFolder = new UserFolder(user);
+			userFolder.createFolder();
 			
 			return res.send({
 				messages: [{

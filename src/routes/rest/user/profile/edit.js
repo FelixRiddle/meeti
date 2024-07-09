@@ -1,32 +1,11 @@
 const express = require("express");
 const { validationResult } = require("express-validator");
 
-const expandData = require("../../../lib/misc/expandData");
-const USER_PROFILE_VALIDATION = require('../../../lib/routes/validation/userProfileValidation');
+const USER_PROFILE_VALIDATION = require("../../../../lib/routes/validation/userProfileValidation");
+const expandData = require("../../../../lib/misc/expandData");
+const { renderDataInternalErrorMessage } = require("../../../../lib/status/messages");
 
 const editRouter = express.Router();
-
-editRouter.get("/", async (req, res) => {
-	try {
-		const {
-			User
-		} = req.models;
-		
-		// TODO: Revalidate session and this won't be needed
-		const user = await User.findByPk(req.user.id, {
-			raw: true,
-		});
-		
-		return res.render("user/profile/edit", {
-			title: "Edit profile",
-			...expandData(req),
-			user,
-		});
-	} catch(err) {
-		console.error(err);
-		return res.redirect("500");
-	}
-});
 
 editRouter.post("/", USER_PROFILE_VALIDATION, async(req, res) => {
 	try {
@@ -47,8 +26,7 @@ editRouter.post("/", USER_PROFILE_VALIDATION, async(req, res) => {
 			
 			return res
 				.status(400)
-				.render("user/profile/edit", {
-					title: "Edit profile",
+				.send({
 					...expandData(req)
 				});
 		}
@@ -66,16 +44,20 @@ editRouter.post("/", USER_PROFILE_VALIDATION, async(req, res) => {
 		await user.save();
 		
 		// TODO: Revalidate session
-		
 		req.flash("messages", [{
 			message: "User profile updated",
 			type: "success"
 		}]);
 		
-		return res.redirect("/user/admin");
+		return res.send({
+			...expandData(req)
+		});
 	} catch(err) {
 		console.error(err);
-		return res.redirect("/500");
+		return res.status(500)
+			.send({
+				...renderDataInternalErrorMessage
+			});
 	}
 });
 

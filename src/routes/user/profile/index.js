@@ -2,10 +2,12 @@ const express = require("express");
 
 const editRouter = require("./edit");
 const expandData = require("../../../lib/misc/expandData");
+const pictureRouter = require("./picture");
 
 const profileRouter = express.Router();
 
 profileRouter.use("/edit", editRouter);
+profileRouter.use("/picture", pictureRouter);
 
 profileRouter.get("/", async (req, res) => {
 	try {

@@ -1,0 +1,33 @@
+<main class="contenedor contenedor-formularios">
+	<h1><%- title %></h1>
+	
+	<form class="default-form" method="POST" enctype="multipart/form-data">
+		<legend>
+			Upload a profile picture
+		</legend>
+		
+		<div class="campo">
+			<label for="pfp">Profile picture</label>
+			<input type="file" name="pfp" placeholder="Your profile picture" />
+		</div>
+		
+		<!-- If there's a profile picture show it -->
+		<% if(locals.user.pfp) { %> 
+			<div class="campo">
+				<label for="image">Current profile picture</label>
+				<img
+					src="/public/uploads/user/<%- user.id %>/<%- user.pfp %>"
+					alt="Your profile picture"
+					name="image"
+					width="400"
+				/>
+			</div>
+		<% } else { %>
+			<p>You don't have an profile picture, please upload one.</p>
+		<% } %> 
+			
+		<div class="campo enviar">
+			<input type="submit" value="Save changes" class="btn btn-rosa" />
+		</div>
+	</form>
+</main>

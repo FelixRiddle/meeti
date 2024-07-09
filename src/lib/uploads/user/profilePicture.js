@@ -1,6 +1,8 @@
 const multer = require("multer");
-const { v4: uuidv4 } = require("uuid");
-const { MAX_IMAGE_SIZE } = require("./constants");
+const fs = require("fs");
+
+const { MAX_IMAGE_SIZE } = require("../constants");
+const UserFolder = require("../../public/user/UserFolder");
 
 const upload = multer({
 	limits: {
@@ -8,12 +10,36 @@ const upload = multer({
 	},
 	storage: multer.diskStorage({
 		destination: (req, file, cb) => {
-			return cb(null, `${process.cwd()}/public/uploads/groups`);
+			const userFolder = new UserFolder(req.user);
+			return cb(null, userFolder.get());
 		},
-		filename: (req, file, cb) => {
+		filename: async (req, file, cb) => {
 			const extension = file.mimetype.split("/")[1];
+			const filename = `pfp.${extension}`;
 			
-			return cb(null, `${uuidv4()}.${extension}`);
+			const {
+				User
+			} = req.models;
+			
+			// User information
+			const user = await User.findByPk(req.user.id);
+			const userFolder = new UserFolder(user);
+			
+			// If pfp exists
+			if(user.pfp) {
+				console.log(`User has pfp`);
+				// There's a tiny leak where images of different extensions will be preserved
+				// Guard that there's only one pfp
+				const sameFile = filename === user.pfp;
+				if(!sameFile) {
+					console.log(`Pfp has different extension, deleting previous`);
+					
+					// Delete previous pfp
+					fs.rmSync(userFolder.getPfp());
+				}
+			}
+			
+			return cb(null, filename);
 		},
 	}),
 	fileFilter: (req, file, cb) => {
@@ -34,12 +60,12 @@ const upload = multer({
 		return cb(null, true);
 	}
 })
-	.single("image");
+	.single("pfp");
 
 /**
  * Upload group image
  */
-function uploadGroupImage(req, res, next) {
+function profilePicture(req, res, next) {
 	return upload(req, res, function (err) {
 		if(err) {
 			console.error(err);
@@ -60,4 +86,4 @@ function uploadGroupImage(req, res, next) {
 	});
 }
 
-module.exports = uploadGroupImage;
+module.exports = profilePicture;

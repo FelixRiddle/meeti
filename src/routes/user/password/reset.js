@@ -97,7 +97,7 @@ resetRouter.post(
 				type: "success"
 			}]);
 			
-			return res.redirect("/user/admin");
+			return res.redirect("back");
 		} catch(err) {
 			console.error(err);
 			return res.redirect('500');

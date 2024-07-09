@@ -26,4 +26,11 @@ module.exports = class UserFolder {
 			fs.mkdirSync(userFolder);
 		}
 	}
+	
+	/**
+	 * Get pfp path
+	 */
+	getPfp() {
+		return path.join(this.get(), this.user.pfp);
+	}
 }

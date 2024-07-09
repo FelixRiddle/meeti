@@ -1,10 +1,12 @@
 const express = require("express");
 const { validationResult } = require("express-validator");
 const { v4: uuidv4 } = require('uuid');
+const color = require("ansi-color");
 
 const sendMail = require("../../lib/handler/emails");
 const REGISTER_VALIDATION = require("../../lib/routes/validation/registerValidation");
 const expandData = require("../../lib/misc/expandData");
+const UserFolder = require("../../lib/public/user/UserFolder");
 
 /**
  * Register router
@@ -130,7 +132,13 @@ function registerRouter() {
 							.status(500)
 							.redirect("500");
 					}
+				} else {
+					console.log(color.set(`WARNING: Email is disabled`, 'yellow'));
 				}
+				
+				// Create user folder
+				const userFolder = new UserFolder(user);
+				userFolder.createFolder();
 				
 				const extraData = await expandData(req);
 				const message = "Account created successfully";

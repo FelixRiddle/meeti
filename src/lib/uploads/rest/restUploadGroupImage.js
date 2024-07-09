@@ -1,12 +1,11 @@
 const multer = require("multer");
 const { v4: uuidv4 } = require("uuid");
 const color = require("ansi-color");
-
-const maxFileSize = 1024 * 1024 * 5;
+const { MAX_IMAGE_SIZE } = require("../constants");
 
 const upload = multer({
 	limits: {
-		fileSize: maxFileSize
+		fileSize: MAX_IMAGE_SIZE
 	},
 	storage: multer.diskStorage({
 		destination: (req, file, cb) => {
@@ -20,7 +19,7 @@ const upload = multer({
 	}),
 	fileFilter: (req, file, cb) => {
 		// Check size
-		if(file.size > maxFileSize) {
+		if(file.size > MAX_IMAGE_SIZE) {
 			return cb(null, false);
 		}
 		

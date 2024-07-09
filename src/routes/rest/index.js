@@ -12,7 +12,7 @@ const restRouter = express.Router();
 restRouter.use("/auth", authRouter);
 restRouter.use("/group", groupRouter);
 restRouter.use("/user", authenticateRest, userRouter);
-restRouter.use((req, res) => {
+restRouter.use(async (req, res) => {
 	const message = "Page not found";
 	console.log(color.set(message, "red"));
 	req.flash("messages", [{
@@ -20,8 +20,9 @@ restRouter.use((req, res) => {
 		type: "error"
 	}]);
 	
+	const extraData = await expandData(req);
 	return res.status(404).send({
-		...expandData(req)
+		...extraData
 	});
 });
 

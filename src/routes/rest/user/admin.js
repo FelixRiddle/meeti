@@ -31,10 +31,11 @@ adminRouter.get("/", async (req, res) => {
 			}),
 		]);
 		
+		const extraData = await expandData(req);
 		return res
 			.send({
 				title: "Admin dashboard",
-				...expandData(req),
+				...extraData,
 				groups,
 				futureMeetis,
 				pastMeetis,
@@ -47,11 +48,12 @@ adminRouter.get("/", async (req, res) => {
 			type: "error"
 		}]);
 		
+		const extraData = await expandData(req);
 		return res
 			.status(500)
 			.send({
 				title: "Admin dashboard",
-				...expandData(req),
+				...extraData,
 			});
 	}
 });

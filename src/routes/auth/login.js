@@ -6,13 +6,15 @@ const express = require("express");
 function loginRouter(passport) {
 	const router = express.Router();
 	
-	router.get("/", (req, res) => {
+	router.get("/", async (req, res) => {
+		const extraData = await expandData(req);
 		return res.render("auth/login", {
 			title: "Login",
 			userData: {
 				email: "",
 				password: "",
-			}
+			},
+			...extraData
 		});
 	});
 	

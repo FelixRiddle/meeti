@@ -3,7 +3,7 @@ const expandData = require("../../../../lib/misc/expandData");
 
 const logoutRouter = express.Router();
 
-logoutRouter.get("/", (req, res) => {
+logoutRouter.get("/", async (req, res) => {
 	
 	const message = "Logged out";
 	console.log(color.set(message, "green"));
@@ -14,10 +14,11 @@ logoutRouter.get("/", (req, res) => {
 		}]
 	);
 	
+	const extraData = await expandData(req);
 	return res
 		.clearCookie("token")
 		.send({
-			...expandData(req)
+			...extraData
 		});
 })
 

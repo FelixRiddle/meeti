@@ -2,7 +2,6 @@ const express = require("express");
 const { validationResult } = require("express-validator");
 const { v4: uuidv4 } = require('uuid');
 
-const { renderDataInternalErrorMessage } = require("../../lib/status/messages");
 const sendMail = require("../../lib/handler/emails");
 const REGISTER_VALIDATION = require("../../lib/routes/validation/registerValidation");
 
@@ -16,7 +15,8 @@ exports.SHORT_STRING_LENGTH = SHORT_STRING_LENGTH;
 function registerRouter() {
 	const router = express.Router();
 	
-	router.get("/", (req, res) => {
+	router.get("/", async (req, res) => {
+		const extraData = await expandData(req);
 		return res.render("auth/register", {
 			title: "Register",
 			userData: {
@@ -24,7 +24,8 @@ function registerRouter() {
 				name: "",
 				password: "",
 				confirmPassword: ""
-			}
+			},
+			...extraData
 		});
 	});
 	
@@ -34,6 +35,7 @@ function registerRouter() {
 		async (req, res) => {
 			const title = "Register";
 			try {
+				const extraData = await expandData(req);
 				const userData = req.body;
 				
 				// Validate data
@@ -53,6 +55,7 @@ function registerRouter() {
 						.status(400)
 						.render("auth/register", {
 							title,
+							...extraData,
 							messages,
 							userData,
 						});
@@ -67,6 +70,7 @@ function registerRouter() {
 						.status(400)
 						.render("auth/register", {
 							title,
+							...extraData,
 							messages: [{
 								message,
 								error: true,
@@ -102,6 +106,7 @@ function registerRouter() {
 						.status(400)
 						.render("auth/register", {
 							title,
+							...extraData,
 							messages: [...errorsSequelize],
 							userData,
 						});
@@ -122,7 +127,7 @@ function registerRouter() {
 						console.error(err);
 						return res
 							.status(500)
-							.send(renderDataInternalErrorMessage);
+							.redirect("500");
 					}
 				}
 				
@@ -130,6 +135,7 @@ function registerRouter() {
 				return res
 					.render("auth/register", {
 						title,
+						...extraData,
 						messages: [{
 							message,
 							error: false,
@@ -147,7 +153,7 @@ function registerRouter() {
 				
 				return res
 					.status(500)
-					.render("status", renderDataInternalErrorMessage);
+					.redirect("500");
 			}
 		}
 	);

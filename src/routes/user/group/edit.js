@@ -22,19 +22,21 @@ editRouter.get(
 				SocialCategory.findAll()
 			]);
 			
+			const extraData = await expandData(req);
 			return res.render("user/group/edit", {
 				title: group.name,
 				group,
 				categories,
-				...expandData(req),
+				...extraData,
 			});
 		} catch(err) {
 			console.error(err);
+			const extraData = await expandData(req);
 			return res
 				.status(500)
 				.render("status", {
 					...renderDataInternalErrorMessage,
-					...expandData(req),
+					...extraData,
 				});
 		}
 	}
@@ -64,11 +66,13 @@ editRouter.post(
 				
 				const SocialCategory = req.models.SocialCategory;
 				const categories = await SocialCategory.findAll();
+				
+				const extraData = await expandData(req);
 				return res.render("user/group/edit", {
 					title: group.name,
 					group,
 					categories,
-					...expandData(req),
+					...extraData,
 				});
 			}
 			
@@ -104,10 +108,7 @@ editRouter.post(
 			console.error(err);
 			return res
 				.status(500)
-				.render("status", {
-					...renderDataInternalErrorMessage,
-					...expandData(req),
-				});
+				.redirect("500");
 		}
 	}
 );

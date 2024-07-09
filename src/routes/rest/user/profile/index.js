@@ -10,8 +10,11 @@ profileRouter.use("/edit", editRouter);
 
 profileRouter.get("/:userId", async (req, res) => {
 	try {
+		const extraData = await expandData(req, {
+			useSession: false,
+		});
 		return res.send({
-			...expandData(req)
+			...extraData
 		});
 	} catch(err) {
 		console.error(err);

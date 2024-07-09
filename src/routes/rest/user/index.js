@@ -4,6 +4,7 @@ const groupRouter = require("./group");
 const authRouter = require("../auth");
 const meetiRouter = require("./meeti");
 const adminRouter = require("./admin");
+const passwordRouter = require("./password");
 const profileRouter = require("./profile");
 const expandData = require("../../../lib/misc/expandData");
 
@@ -13,6 +14,7 @@ userRouter.use("/admin", adminRouter);
 userRouter.use("/auth", authRouter);
 userRouter.use("/group", groupRouter);
 userRouter.use("/meeti", meetiRouter);
+userRouter.use("/password", passwordRouter);
 userRouter.use("/profile", profileRouter);
 
 userRouter.get("/", async (req, res) => {
@@ -20,8 +22,9 @@ userRouter.get("/", async (req, res) => {
 		User
 	} = req.models;
 	const user = await User.findByPk(req.user.id);
+	const extraData = await expandData(req);
 	return res.send({
-		...expandData(req),
+		...extraData,
 		user,
 	});
 })

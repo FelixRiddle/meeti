@@ -24,10 +24,11 @@ editRouter.post("/", USER_PROFILE_VALIDATION, async(req, res) => {
 			
 			req.flash("messages", messages);
 			
+			const extraData = await expandData(req);
 			return res
 				.status(400)
 				.send({
-					...expandData(req)
+					...extraData
 				});
 		}
 		
@@ -49,8 +50,9 @@ editRouter.post("/", USER_PROFILE_VALIDATION, async(req, res) => {
 			type: "success"
 		}]);
 		
+		const extraData = await expandData(req);
 		return res.send({
-			...expandData(req)
+			...extraData
 		});
 	} catch(err) {
 		console.error(err);

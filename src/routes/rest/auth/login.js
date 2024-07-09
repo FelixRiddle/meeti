@@ -7,11 +7,13 @@ const loginRouter = express.Router();
 
 loginRouter.post("/", async (req, res) => {
 	try {
+		const extraData = await expandData(req);
 		const {
 			email, password
 		} = req.body;
 		if(!email || !password) {
 			return res.status(400).send({
+				...extraData,
                 messages: [{
                     message: "Both the email and password are required",
                     error: true,
@@ -33,6 +35,7 @@ loginRouter.post("/", async (req, res) => {
 		const passwordOk = validatePassword(password, user.password);
 		if(!passwordOk) {
 			return res.status(401).send({
+				...extraData,
                 messages: [{
                     message: "Email or password incorrect",
                     error: true,
@@ -51,6 +54,7 @@ loginRouter.post("/", async (req, res) => {
 			.cookie("token", token, {
 				httpOnly: false,
 			}).send({
+				...extraData,
 				messages: [{
 					message: "Logged in",
 					error: false,
@@ -61,9 +65,11 @@ loginRouter.post("/", async (req, res) => {
 	} catch(err) {
 		console.error(err);
 		
+		const extraData = await expandData(req);
 		return res
 			.status(500)
 			.send({
+				...extraData,
 				...renderDataInternalErrorMessage
 			});
 	}

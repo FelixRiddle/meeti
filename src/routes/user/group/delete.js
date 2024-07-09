@@ -11,10 +11,11 @@ const deleteRouter = express.Router();
 deleteRouter.get("/:groupId", groupExistsUserOwnsIt, async(req, res) => {
 	const group = req.group.get({ raw: true });
 	
+	const extraData = await expandData(req);
 	return res.render("user/group/delete", {
 		title: `Delete group ${group.name}`,
 		group,
-		...expandData(req),
+		...extraData,
 	});
 });
 
@@ -46,10 +47,7 @@ deleteRouter.post("/:groupId", groupExistsUserOwnsIt, async(req, res) => {
 		console.error(err);
 		return res
 			.status(500)
-			.render("status", {
-				...renderDataInternalErrorMessage,
-				...expandData(req),
-			});
+			.redirect("500");
 	}
 });
 

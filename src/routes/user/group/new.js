@@ -14,9 +14,10 @@ newRouter.get("/", async (req, res) => {
 		raw: true,
 	});
 	
+	const extraData = await expandData(req);
 	return res.render("user/group/new", {
 		title: "Create new group",
-		...expandData(req),
+		...extraData,
 		categories,
 	});
 });
@@ -35,8 +36,6 @@ newRouter.post(
 				socialCategoryId: Number(groupData.category),
 				image: req.file ? req.file.filename : "",
 			};
-			
-			console.log(`Group data: `, group);
 			
 			const SocialCategory = req.models.SocialCategory;
 			const categories = await SocialCategory.findAll({
@@ -59,11 +58,12 @@ newRouter.post(
 				
 				req.flash('messages', [...errorsSequelize]);
 				
+				const extraData = await expandData(req);
 				return res
 					.status(400)
 					.render("user/group/new", {
 						title: "Create new group",
-						...expandData(req),
+						...extraData,
 						categories,
 						groupData,
 					});
@@ -75,18 +75,17 @@ newRouter.post(
 				type: "success"
 			}]);
 			
+			const extraData = await expandData(req);
 			return res
 				.render("user/admin", {
 					title: "Admin dashboard",
-					...expandData(req),
+					...extraData,
 				});
 		} catch(err) {
 			console.error(err);
 			return res
 				.status(500)
-				.render("status", {
-					...renderDataInternalErrorMessage,
-				});
+				.redirect("500");
 		}
 	}
 );

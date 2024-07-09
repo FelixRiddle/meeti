@@ -28,9 +28,13 @@ deleteRouter.get("/:meetiId", async (req, res) => {
 				.render("/status");
 		}
 		
+		// Parts of this may be automatized
+		// 1) The rendering is always the endpoint of the server
+		// 2) And you want to get 'expandData' on every endpoint
+		const extraData = await expandData(req);
 		return res.render("user/meeti/delete", {
 			title: `Delete ${meeti.title}`,
-			...expandData(req),
+			...extraData,
 			meeti,
 		});
 	} catch(err) {
@@ -59,9 +63,12 @@ deleteRouter.post("/:meetiId", async (req, res) => {
 				type: "error"
 			}]);
 			
+			const extraData = await expandData(req);
 			return res
 				.status(401)
-				.render("/status");
+				.render("/status", {
+					extraData
+				});
 		}
 		
 		await meeti.destroy();

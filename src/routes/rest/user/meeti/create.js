@@ -44,10 +44,11 @@ createMeetiRouter.post(
 					raw: true,
 				});
 				
+				const extraData = await expandData(req);
 				return res.status(400).send({
 					title: "Create Meeti",
 					groups,
-					...expandData(req),
+					...extraData,
 				});
 			}
 			
@@ -91,8 +92,9 @@ createMeetiRouter.post(
 				type: "success"
 			}]);
 			
+			const extraData = await expandData(req);
 			return res.send({
-				...expandData(req)
+				...extraData
 			});
 		} catch(err) {
 			console.error(err);

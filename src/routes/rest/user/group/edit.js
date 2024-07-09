@@ -19,16 +19,18 @@ editRouter.get("/:groupId", async (req, res) => {
 			SocialCategory.findAll()
 		]);
 		
+		const extraData = await expandData(req);
 		return res.send({
 			group,
 			categories,
-			...expandData(req),
+			...extraData,
 		});
 	} catch(err) {
 		console.error(err);
+		const extraData = await expandData(req);
 		return res.status(500).send({
 			...renderDataInternalErrorMessage,
-			...expandData(req),
+			...extraData,
 		});
 	}
 });
@@ -54,8 +56,9 @@ editRouter.post(
 				});
 				req.flash("messages", messages);
 				
+				const extraData = await expandData(req);
 				return res.status(400).send({
-					...expandData(req),
+					...extraData,
 				});
 			}
 			
@@ -73,8 +76,9 @@ editRouter.post(
 					type: "error",
 				}]);
 				
+				const extraData = await expandData(req);
 				return res.status(404).send({
-					...expandData(req),
+					...extraData,
 				});
 			}
 			
@@ -88,8 +92,9 @@ editRouter.post(
 					baddie: true,
 				}]);
 				
+				const extraData = await expandData(req);
 				return res.status(403).send({
-					...expandData(req),
+					...extraData,
 				});
 			}
 			
@@ -103,8 +108,9 @@ editRouter.post(
 					baddie: true,
 				}]);
 				
+				const extraData = await expandData(req);
 				return res.status(401).send({
-					...expandData(req),
+					...extraData,
 				});
 			}
 			
@@ -119,16 +125,18 @@ editRouter.post(
 				type: "success"
 			}]);
 			
+			const extraData = await expandData(req);
 			return res.send({
-				...expandData(req),
+				...extraData,
 			});
 		} catch(err) {
 			console.error(err);
+			const extraData = await expandData(req);
 			return res
 				.status(500)
 				.send({
 					...renderDataInternalErrorMessage,
-					...expandData(req),
+					...extraData,
 				});
 		}
 	}

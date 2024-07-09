@@ -46,9 +46,10 @@ editRouter.get("/:meetiId", async (req, res) => {
 			raw: true,
 		});
 		
+		const extraData = await expandData(req);
 		return res.render("user/meeti/edit", {
 			title: `Edit Meeti ${meeti.title}`,
-			...expandData(req),
+			...extraData,
 			groups,
 			meeti,
 		});

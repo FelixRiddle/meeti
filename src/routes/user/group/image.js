@@ -3,7 +3,6 @@ const fs = require("fs");
 const color = require("ansi-color");
 
 const expandData = require("../../../lib/misc/expandData");
-const { renderDataInternalErrorMessage } = require('../../../lib/status/messages');
 const uploadGroupImage = require('../../../lib/uploads/uploadGroupImage');
 const groupExistsUserOwnsIt = require('../../../lib/middleware/groupExistsUserOwnsIt');
 
@@ -20,19 +19,18 @@ imageRouter.get(
 			// Make it raw
 			const group = groupModel.get({ raw: true });
 			
+			const extraData = await expandData(req);
 			return res
 				.render("user/group/image", {
 					title: "Change image",
-					...expandData(req),
+					...extraData,
 					group
 				});
 		} catch(err) {
 			console.error(err);
 			return res
 				.status(500)
-				.render("status", {
-					...renderDataInternalErrorMessage,
-				});
+				.redirect("500");
 		}
 	}
 );
@@ -60,10 +58,11 @@ imageRouter.post(
 					type: "error",
 				}]);
 				
+				const extraData = await expandData(req);
 				return res
 					.render(`user/group/image/${group.id}`, {
 						title: "Change image",
-						...expandData(req),
+						...extraData,
 					});
 			}
 			
@@ -86,9 +85,7 @@ imageRouter.post(
 			console.error(err);
 			return res
 				.status(500)
-				.render("status", {
-					...renderDataInternalErrorMessage,
-				});
+				.redirect("500");
 		}
 	}
 );

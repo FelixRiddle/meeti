@@ -31,15 +31,17 @@ deleteRouter.delete("/:groupId", userGroupRest, async(req, res) => {
 			type: "success"
 		}]);
 		
+		const extraData = await expandData(req);
 		return res.send({
-			...expandData(req),
+			...extraData,
 		});
 	} catch(err) {
 		console.error(err);
+		const extraData = await expandData(req);
 		return res
 			.status(500)
 			.send({
-				...expandData(req),
+				...extraData,
 				...renderDataInternalErrorMessage,
 			});
 	}

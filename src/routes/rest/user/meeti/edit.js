@@ -36,10 +36,11 @@ editRouter.get("/:meetiId", async (req, res) => {
 				type: "error"
 			}]);
 			
+			const extraData = await expandData(req);
 			return res
 				.status(404)
 				.send({
-					...expandData(req)
+					...extraData
 				});
 		}
 		
@@ -51,9 +52,10 @@ editRouter.get("/:meetiId", async (req, res) => {
 			raw: true,
 		});
 		
+		const extraData = await expandData(req);
 		return res.send( {
 			title: `Edit Meeti ${meeti.title}`,
-			...expandData(req),
+			...extraData,
 			groups,
 			meeti,
 		});
@@ -87,10 +89,11 @@ editRouter.post("/:meetiId", async (req, res) => {
 				type: "error"
 			}]);
 			
+			const extraData = await expandData(req);
 			return res
 				.status(404)
 				.send({
-					...expandData(req)
+					...extraData
 				});
 		}
 		
@@ -149,8 +152,9 @@ editRouter.post("/:meetiId", async (req, res) => {
 			type: "success"
 		}]);
 		
+		const extraData = await expandData(req);
 		return res.send({
-			...expandData(req),
+			...extraData,
 		});
 	} catch(err) {
 		console.error(err);

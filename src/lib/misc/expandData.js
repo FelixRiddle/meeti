@@ -2,16 +2,36 @@ const color = require('ansi-color');
 
 /**
  * Expand data
+ * 
+ * Options:
+ * [Option name]: [Default value]
+ * 
+ * - useSession: true
+ * Uses the current session of passport, this is sometimes not recommended because the information
+ * is outdated, and I don't know how to revalidate a session.
  */
-function expandData(req) {
+async function expandData(req, options = {
+	useSession: true
+}) {
 	if(!req) {
 		throw Error("You must pass 'req' for expand data to work");
 	}
 	
+	const {
+		User
+	} = req.models;
+	
 	// User
 	let user = undefined;
 	if(req.user) {
-		user = JSON.parse(JSON.stringify(req.user));
+		// Update session if required
+		if(!options.useSession) {
+			user = await User.findByPk(req.user.id, {
+				raw: true,
+			});
+		} else {
+			user = JSON.parse(JSON.stringify(req.user));
+		}
 	}
 	
 	// Messages

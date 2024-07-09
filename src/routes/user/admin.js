@@ -30,10 +30,11 @@ adminRouter.get("/", async (req, res) => {
 			}),
 		]);
 		
+		const extraData = await expandData(req);
 		return res
 			.render("user/admin", {
 				title: "Admin dashboard",
-				...expandData(req),
+				...extraData,
 				groups,
 				futureMeetis,
 				pastMeetis,
@@ -47,11 +48,12 @@ adminRouter.get("/", async (req, res) => {
 			type: "error"
 		}]);
 		
+		const extraData = await expandData(req);
 		return res
 			.status(500)
 			.render("user/admin", {
 				title: "Admin dashboard",
-				...expandData(req),
+				...extraData,
 				moment,
 			});
 	}

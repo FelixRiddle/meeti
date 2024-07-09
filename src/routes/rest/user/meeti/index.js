@@ -30,16 +30,17 @@ meetiRouter.get("/:meetiId", async (req, res) => {
 				type: "error"
 			}]);
 			
+			const extraData = await expandData(req);
 			return res
 				.status(401)
 				.send({
-					...expandData(req)
+					...extraData
 				});
 		}
 		
 		return res.send({
 			title: `Delete ${meeti.title}`,
-			...expandData(req),
+			...extraData,
 			meeti,
 		});
 	} catch(err) {
@@ -70,10 +71,11 @@ meetiRouter.delete("/:meetiId", async (req, res) => {
 				type: "error"
 			}]);
 			
+			const extraData = await expandData(req);
 			return res
 				.status(401)
 				.send({
-					...expandData(req)
+					...extraData
 				});
 		}
 		
@@ -84,9 +86,10 @@ meetiRouter.delete("/:meetiId", async (req, res) => {
 			type: "success"
 		}]);
 		
+		const extraData = await expandData(req);
 		return res
 			.send({
-				...expandData(req)
+				...extraData
 			});
 	} catch(err) {
 		console.error(err);

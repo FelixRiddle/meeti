@@ -1,10 +1,13 @@
 const express = require("express");
+const expandData = require("../../../lib/misc/expandData");
 
 const resetRouter = express.Router();
 
-resetRouter.get("/", (req, res) => {
+resetRouter.get("/", async (req, res) => {
+	const extraData = await expandData(req);
 	return res.render("user/password/reset", {
-		title: "Change password"
+		title: "Change password",
+		...extraData
 	});
 });
 

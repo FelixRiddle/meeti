@@ -55,10 +55,11 @@ createMeetiRouter.post(
 					raw: true,
 				});
 				
+				const extraData = await expandData(req);
 				return res.render("user/meeti/create", {
 					title: "Create Meeti",
 					groups,
-					...expandData(req),
+					...extraData,
 				});
 			}
 			

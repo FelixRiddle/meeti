@@ -37,10 +37,11 @@ newRouter.post(
 					type: "error"
 				}]);
 				
+				const extraData = await expandData(req);
 				return res
 					.status(400)
 					.send({
-						...expandData(req),
+						...extraData,
 					});
 			}
 			
@@ -50,9 +51,10 @@ newRouter.post(
 				type: "success"
 			}]);
 			
+			const extraData = await expandData(req);
 			return res
 				.send({
-					...expandData(req),
+					...extraData,
 				});
 		} catch(err) {
 			console.error(err);

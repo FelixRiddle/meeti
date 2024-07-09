@@ -4,13 +4,14 @@ const { renderDataInternalErrorMessage } = require("../lib/status/messages");
 
 const error500Router = express.Router();
 
-error500Router.get("/", (req, res) => {
+error500Router.get("/", async (req, res) => {
+	const extraData = await expandData(req);
 	return res
 		.status(500)
 		.render("status", {
 			title: "Error 500: Internal error",
 			...renderDataInternalErrorMessage,
-			...expandData(req),
+			...extraData,
 		});
 });
 

@@ -25,20 +25,22 @@ function mainRouter(passport) {
 	);
 	router.use("/500", error500Router);
 	
-	const renderHome = (req, res) => {
+	const renderHome = async (req, res) => {
+		const extraData = await expandData(req);
 		return res.render("home", {
 			title: "Home",
-			...expandData(req)
+			...extraData
 		});
 	}
 	router.get("/home", renderHome);
 	router.get("/", renderHome);
 	
 	// 404
-	router.use((req, res, next) => {
+	router.use(async (req, res, next) => {
+		const extraData = await expandData(req);
 		return res.render("status", {
 			title: pageNotFoundMessage.message,
-			...expandData(req),
+			...extraData,
 			messages: [pageNotFoundMessage],
 		});
 	});

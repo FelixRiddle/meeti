@@ -17,9 +17,10 @@ editRouter.get("/", async (req, res) => {
 			raw: true,
 		});
 		
+		const extraData = await expandData(req);
 		return res.render("user/profile/edit", {
 			title: "Edit profile",
-			...expandData(req),
+			...extraData,
 			user,
 		});
 	} catch(err) {
@@ -45,11 +46,12 @@ editRouter.post("/", USER_PROFILE_VALIDATION, async(req, res) => {
 			
 			req.flash("messages", messages);
 			
+			const extraData = await expandData(req);
 			return res
 				.status(400)
 				.render("user/profile/edit", {
 					title: "Edit profile",
-					...expandData(req)
+					...extraData
 				});
 		}
 		

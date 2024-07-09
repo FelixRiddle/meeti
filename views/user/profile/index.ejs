@@ -1,0 +1,43 @@
+<main class="contenedor contenedor-formularios no-padding">
+	<!-- Trix -->
+	<link rel="stylesheet" href="/public/package/trix@2.1.1/dist/trix.css">
+	<script src="/public/package/trix@2.1.1/dist/trix.umd.js"></script>
+	
+	<h1><%- title %></h1>
+	
+	<!-- User account -->
+	<div class="contenedor-botones">
+		<a href="/user/profile/edit" class="btn btn-rosa">Edit profile</a>
+		<a href="/user/password/reset" class="btn btn-verde">Change password</a>
+		<a href="/user/profile/image/edit" class="btn btn-amarillo">Change pfp</a>
+	</div>
+	
+	<h3>Change profile information</h3>
+	
+	<form action="/user/profile/edit" method="POST" class="default-form">
+		<div class="campo">
+			<label for="name">Name</label>
+			<input type="text" name="name" placeholder="Name" value="<%- user.name %>"/>
+		</div>
+		<div class="campo descripcion">
+			<label for="description">A brief of you</label>
+			<div class="contenedor-editor">
+				<input
+					type="hidden"
+					name="description"
+					placeholder="Description"
+					id="description"
+					value="<%- user.description %>"
+				/>
+				<trix-editor input="description"></trix-editor>
+			</div>
+		</div>
+		<div class="campo">
+			<label for="email">Email</label>
+			<input type="text" name="email" placeholder="Email" value="<%- user.email %>" />
+		</div>
+		<div class="campo enviar">
+			<input type="submit" value="Save changes" class="btn btn-rosa" />
+		</div>
+	</form>
+</main>

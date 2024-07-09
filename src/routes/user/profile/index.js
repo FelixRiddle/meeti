@@ -7,11 +7,15 @@ const profileRouter = express.Router();
 
 profileRouter.use("/edit", editRouter);
 
-profileRouter.get("/:userId", async (req, res) => {
+profileRouter.get("/", async (req, res) => {
 	try {
 		
-		return res.render("user/profile/show", {
-			...expandData(req)
+		const extraData = await expandData(req, {
+			useSession: false,
+		});
+		return res.render("user/profile/index", {
+			title: "Your profile",
+			...extraData
 		});
 	} catch(err) {
 		console.error(err);

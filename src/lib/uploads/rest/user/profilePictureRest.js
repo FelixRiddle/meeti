@@ -1,8 +1,10 @@
 const multer = require("multer");
 const fs = require("fs");
+const color = require('ansi-color');
 
-const { MAX_IMAGE_SIZE } = require("../constants");
-const UserFolder = require("../../public/user/UserFolder");
+const expandData = require("../../../misc/expandData");
+const { MAX_IMAGE_SIZE } = require("../../constants");
+const UserFolder = require("../../../public/user/UserFolder");
 
 const upload = multer({
 	limits: {
@@ -31,8 +33,12 @@ const upload = multer({
 				// Guard that there's only one pfp
 				const sameFile = filename === user.pfp;
 				if(!sameFile) {
-					// Delete previous pfp
-					fs.rmSync(userFolder.getPfp());
+					// Just in case check for its existence
+					const pfpPath = userFolder.getPfp();
+					if(fs.existsSync(pfpPath)) {
+						// Delete previous pfp
+						fs.rmSync();
+					}
 				}
 			}
 			
@@ -56,31 +62,46 @@ const upload = multer({
 		
 		return cb(null, true);
 	}
-})
-	.single("pfp");
+}).single("pfp");
 
 /**
  * Upload group image
  */
-function profilePicture(req, res, next) {
-	return upload(req, res, function (err) {
+function profilePictureRest(req, res, next) {
+	return upload(req, res, async function (err) {
 		if(err) {
 			console.error(err);
 			if(err instanceof multer.MulterError) {
 				if(err.code === "LIMIT_FILE_SIZE") {
-					req.flash("error", "File size is too big");
+					const message = "File size is too big";
+					console.log(color.set(message, "red"));
+					req.flash("error", message);
 				} else {
-					req.flash("error", err.message);
+					const message = err.message;
+					console.log(color.set(message, "red"));
+					req.flash("error", message);
 				}
 			} else if(err.hasOwnProperty("message")) {
-				req.flash("error", err.message);
+				const message = err.message;
+				console.log(color.set(message, "red"));
+				req.flash("error", message);
 			}
 			
-			return res.redirect("back");
+			req.flash("messages", [{
+				message: "Profile picture updated",
+				type: "success"
+			}]);
+			
+			const extra = await expandData(req);
+			return res
+				.status(400)
+				.send({
+					...extra
+				});
 		} else {
 			return next();
 		}
 	});
 }
 
-module.exports = profilePicture;
+module.exports = profilePictureRest;

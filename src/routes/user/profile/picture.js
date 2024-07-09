@@ -48,6 +48,11 @@ pictureRouter.post("/", profilePicture, async(req, res) => {
 		user.pfp = req.file.filename;
 		await user.save();
 		
+		req.flash("messages", [{
+			message: "Profile picture updated",
+			type: "success"
+		}]);
+		
 		return res.redirect("back");
 	} catch(err) {
 		console.error(err);

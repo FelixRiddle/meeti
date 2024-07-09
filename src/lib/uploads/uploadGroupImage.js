@@ -1,5 +1,7 @@
 const multer = require("multer");
 const { v4: uuidv4 } = require("uuid");
+const color = require('ansi-color');
+
 const { MAX_IMAGE_SIZE } = require("./constants");
 
 const upload = multer({
@@ -45,12 +47,18 @@ function uploadGroupImage(req, res, next) {
 			console.error(err);
 			if(err instanceof multer.MulterError) {
 				if(err.code === "LIMIT_FILE_SIZE") {
-					req.flash("error", "File size is too big");
+					const message = "File size is too big";
+					console.log(color.set(message, "red"));
+					req.flash("error", message);
 				} else {
-					req.flash("error", err.message);
+					const message = err.message;
+					console.log(color.set(message, "red"));
+					req.flash("error", message);
 				}
 			} else if(err.hasOwnProperty("message")) {
-				req.flash("error", err.message);
+				const message = err.message;
+				console.log(color.set(message, "red"));
+				req.flash("error", message);
 			}
 			
 			return res.redirect("back");

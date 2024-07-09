@@ -39,19 +39,7 @@
 			</div>
 		</a>
 		
-		<!-- This is pretty useful for debugging too -->
-		<% if (!locals.user) { %>
-			<nav class="nav">
-				<a href="#">Create group</a>
-				<a href="/auth/login">Login</a>
-				<a href="/auth/register">Register</a>
-			</nav>
-		<% } else { %>
-			<nav class="nav">
-				<a href="/user/admin">Admin panel</a>
-				<a href="/user/auth/logout">Logout</a>
-			</nav>
-		<% } %> 
+		<%- include('components/userNavbar'); %>
 	</header>
 	
 	<!-- Show messages -->

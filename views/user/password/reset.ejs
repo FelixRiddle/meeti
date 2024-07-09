@@ -1,0 +1,29 @@
+<main class="contenedor contenedor-formularios no-padding">
+	<h1><%- title %></h1>
+	
+	<form action="/user/password/reset" class="default-form" method="POST">
+		<div class="campo">
+			<label for="password">Actual password</label>
+			<input type="text" name="password" id="password" placeholder="Actual password" />
+		</div>
+		
+		<div class="campo">
+			<label for="newPassword">New password</label>
+			<input type="text" name="newPassword" id="newPassword" placeholder="New password" />
+		</div>
+		
+		<div class="campo">
+			<label for="confirmPassword">Repeat password</label>
+			<input
+				type="text"
+				name="confirmPassword"
+				id="confirmPassword"
+				placeholder="Confirm password"
+			/>
+		</div>
+		
+		<div class="campo enviar">
+			<input type="submit" value="Save changes" class="btn btn-rosa" />
+		</div>
+	</form>
+</main>

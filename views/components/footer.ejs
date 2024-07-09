@@ -1,17 +1,6 @@
 <footer class="site-footer contenedor">
 	<!-- User navbar -->
-	<% if (!locals.user) { %>
-		<nav class="nav">
-			<a href="#">Create group</a>
-			<a href="/auth/login">Login</a>
-			<a href="/auth/register">Register</a>
-		</nav>
-	<% } else { %>
-		<nav class="nav">
-			<a href="/user/admin">Admin panel</a>
-			<a href="/user/auth/logout">Logout</a>
-		</nav>
-	<% } %> 
+	<%- include('userNavbar'); %>
 	
 	<!-- I question the legality of <% year %> haha -->
 	<div class="copyright">All rights reserved Meeti <%- year %> &copy;</div>

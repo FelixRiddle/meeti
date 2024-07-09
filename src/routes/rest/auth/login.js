@@ -2,16 +2,17 @@ const express = require("express");
 const { renderDataInternalErrorMessage } = require("../../../lib/status/messages");
 const validatePassword = require("../../../lib/auth/validatePassword");
 const generateJwtToken = require("../../../lib/auth/generateToken");
+const expandData = require("../../../lib/misc/expandData");
 
 const loginRouter = express.Router();
 
 loginRouter.post("/", async (req, res) => {
 	try {
-		const extraData = await expandData(req);
 		const {
 			email, password
 		} = req.body;
 		if(!email || !password) {
+			const extraData = await expandData(req);
 			return res.status(400).send({
 				...extraData,
                 messages: [{
@@ -34,6 +35,7 @@ loginRouter.post("/", async (req, res) => {
 		// Validate password
 		const passwordOk = validatePassword(password, user.password);
 		if(!passwordOk) {
+			const extraData = await expandData(req);
 			return res.status(401).send({
 				...extraData,
                 messages: [{
@@ -50,6 +52,7 @@ loginRouter.post("/", async (req, res) => {
 		
 		const token = generateJwtToken(user);
 		
+		const extraData = await expandData(req);
 		return res
 			.cookie("token", token, {
 				httpOnly: false,

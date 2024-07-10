@@ -50,13 +50,12 @@
 										src="/public/user/<%- meeti.user.id %>/<%- meeti.user.pfp %>"
 										alt="<%- meeti.title %> owner profile picture"
 									/>
-								<% } else { %>
 								<% } %>
 							</div>
 							<div class="informacion">
 								<p>Organized by:</p>
 								<p class="autor">
-									Felix Riddle
+									<%= meeti.user.name %>
 								</p>
 							</div>
 						</div>

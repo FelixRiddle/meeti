@@ -30,7 +30,7 @@ homeRouter.get("/", async(req, res) => {
 					}
 				},
 				attributes: [
-					"slug", "title", "date", "time"
+					"slug", "title", "date", "time", "id"
 				],
 				limit: 3,
 				order: [
@@ -41,7 +41,7 @@ homeRouter.get("/", async(req, res) => {
 					attributes: ["image"]
 				}, {
 					model: User,
-					attributes: ['name', 'pfp']
+					attributes: ['id', 'name', 'pfp']
 				}]
 			})
 		]);

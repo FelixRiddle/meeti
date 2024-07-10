@@ -36,7 +36,7 @@ async function renderHome(req, res) {
 					}
 				},
 				attributes: [
-					"slug", "title", "date", "time"
+					"slug", "title", "date", "time", "id"
 				],
 				limit: 3,
 				order: [

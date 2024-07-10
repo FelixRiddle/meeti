@@ -91,6 +91,9 @@ module.exports = class MeetiUtils {
 						},
 						userId,
 					},
+					order: [
+						["date", "ASC"]
+					]
 				});
 				break;
 			}
@@ -102,6 +105,9 @@ module.exports = class MeetiUtils {
 						},
 						userId,
 					},
+					order: [
+						["date", "ASC"]
+					]
 				});
 				break;
 			}
@@ -111,6 +117,9 @@ module.exports = class MeetiUtils {
 					where: {
 						userId
 					},
+					order: [
+						["date", "ASC"]
+					]
 				});
 				break;
 			}

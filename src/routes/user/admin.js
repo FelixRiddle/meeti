@@ -21,9 +21,6 @@ adminRouter.get("/", async (req, res) => {
 				where: {
 					userId: req.user.id,
 				},
-				order: [
-					["date", "ASC"]
-				]
 			}),
 			meetiUtils.meetiAndParticipants({
 				meetisTime: "future"

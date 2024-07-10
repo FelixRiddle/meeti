@@ -1,0 +1,84 @@
+<link rel="stylesheet" href="/public/css/meeti/index.css" />
+
+<div class="encabezado-evento">
+	<div class="contenedor">
+		<div class="resumen-evento">
+			<h1>
+				Event name
+			</h1>
+			
+			<div class="info-autor">
+				<div class="imagen">
+					<img
+						src="/public/user/<%- meeti.user.id %>/<%- meeti.user.pfp %>"
+						alt="User profile picture"
+					/>
+				</div>
+				<div class="informacion">
+					<p>By:</p>
+					<p class="autor">
+						<a href=""><%- meeti.user.name %></a> creator of:
+						<a href=""><%- meeti.title %></a>
+					</p>
+				</div>
+			</div>
+		</div>
+		
+		<div class="pregunta-asistencia">
+			<p>Will you participate?</p>
+			<a href="#" class="btn btn-azul">Yes</a>
+		</div>
+	</div>
+</div>
+
+<main class="contenedor-evento">
+	<div class="contenedor">
+		<div class="contenedor-evento">
+			<div class="descripcion">
+				<img src="/public/uploads/groups/<%- meeti.group.image %>" alt="Meeti image">
+				
+				<p>
+					<%- meeti.description %>
+				</p>
+			</div>
+			
+			<div class="asistentes">
+				<div class="title">
+					<h3>Participants</h3>
+				</div>
+			</div>
+			
+			<div class="comentarios">
+				<h2>Comments</h2>
+				<div class="comentario">
+					<div class="image"></div>
+					<div class="texto">
+						<p>Hello</p>
+						<p>Written by: <span></span></p>
+						<input type="button" value="Delete">
+					</div>
+				</div>
+				
+				<form action="" class="default-form comentarios">
+					<legend>Create comment</legend>
+					<div class="campo">
+						<label for="comment">Comment</label>
+						<textarea name="comment" id="comment" placeholder="Comment"></textarea>
+					</div>
+					<div class="campo enviar">
+						<input type="submit" value="Create comment" class="btn btn-rosa" />
+					</div>
+				</form>
+			</div>
+		</div>
+		
+		<aside class="informacion">
+			<div class="date">
+				<p></p>
+			</div>
+			<div class="location">
+				<p></p>
+			</div>
+		</aside>
+	</div>
+</main>

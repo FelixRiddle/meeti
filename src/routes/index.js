@@ -3,12 +3,13 @@ const moment = require("moment");
 const Sequelize = require("sequelize");
 
 const authRouter = require("./auth");
-const { pageNotFoundMessage } = require("../lib/status/messages");
+const meetiRouter = require("./meeti");
 const restRouter = require("./rest");
 const userRouter = require("./user");
+const error500Router = require("./500");
+const { pageNotFoundMessage } = require("../lib/status/messages");
 const userIsAuthenticated = require("../lib/auth/userIsAuthenticated");
 const expandData = require("../lib/misc/expandData");
-const error500Router = require("./500");
 
 const Op = Sequelize.Op;
 
@@ -83,6 +84,7 @@ function mainRouter(passport) {
 	const router = express.Router();
 	
 	router.use("/auth", authRouter(passport));
+	router.use("/meeti", meetiRouter);
 	router.use("/rest", restRouter);
 	router.use(
 		"/user",

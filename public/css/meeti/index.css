@@ -1,0 +1,10 @@
+
+aside .date {
+    background-image: url(../../img/timeIcon.svg);
+    margin-bottom: 2rem;
+}
+
+aside .location {
+    background-image: url(../../img/locationIcon.svg);
+}
+

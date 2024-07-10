@@ -101,86 +101,17 @@
 	
 	<div class="contenedor">
 		<ul class="lista-categorias grid columnas-2 columnas-md-3">
-			<li>
-				<a href="#">
-					<img src="/public/img/category/programming.jpg" alt="Tech and programming" />
-					<p>Tech and programming</p>
-				</a>
-			</li>
-			<li>
-				<a href="#">
-					<img src="/public/img/category/design.jpg" alt="Design" />
-					<p>Design</p>
-				</a>
-			</li>
-			<li>
-				<a href="#">
-					<img
-						src="/public/img/category/business.jpg"
-						alt="Business and Entrepneurship"
-					/>
-					<p>
-						Business and Entrepneurship
-					</p>
-				</a>
-			</li>
-			<li>
-				<a href="#">
-					<img
-						src="/public/img/category/modelling.jpg"
-						alt="Modelling and style"
-					/>
-					<p>Modelling and style</p>
-				</a>
-			</li>
-			<li>
-				<a href="#">
-					<img src="/public/img/category/health.jpg" alt="Health and exercise" />
-					<p>Health and exercise</p>
-				</a>
-			</li>
-			<li>
-				<a href="#">
-					<img src="/public/img/category/photography.jpg" alt="Photography and travel" />
-					<p>Photography and travel</p>
-				</a>
-			</li>
-			<li>
-				<a href="#">
-					<img src="/public/img/category/food.jpg" alt="Food and drinks" />
-					<p>Food and drinks</p>
-				</a>
-			</li>
-			<li>
-				<a href="#">
-					<img src="/public/img/category/architecture.jpg" alt="Design and architecture" />
-					<p>Design and architecture</p>
-				</a>
-			</li>
-			<li>
-				<a href="#">
-					<img src="/public/img/category/coffee.jpg" alt="Coffee" />
-					<p>Coffee</p>
-				</a>
-			</li>
-			<li>
-				<a href="#">
-					<img src="/public/img/category/movies.jpg" alt="Movies and theater" />
-					<p>Movies and theater</p>
-				</a>
-			</li>
-			<li>
-				<a href="#">
-					<img src="/public/img/category/books.jpg" alt="Books" />
-					<p>Books</p>
-				</a>
-			</li>
-			<li>
-				<a href="#">
-					<img src="/public/img/category/learning.jpg" alt="Learning" />
-					<p>Learning</p>
-				</a>
-			</li>
+			<% categories.forEach((category) => { %>
+				<li>
+					<a href="#">
+						<img
+							src="/public/img/category/<%- category.nameId %>.jpg"
+							alt="<%- category.name %>"
+						/>
+						<p><%- category.name %></p>
+					</a>
+				</li>
+			<% }); %>
 		</ul>
 	</div>
 </main>

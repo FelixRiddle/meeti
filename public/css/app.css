@@ -500,23 +500,7 @@ trix-toolbar .trix-button--icon-strike {
     width: 100%;
 }
 
-/** Single Eventos **/
 
-.encabezado-evento {
-    border-top: 4px solid #EAEAEA;
-    padding: 5rem 0;
-}
-@media (min-width:768px) {
-    .encabezado-evento .contenedor {
-        display: flex;
-        justify-content: space-between;
-    }   
-}
-.resumen-evento h1 {
-    font-family: 'Raleway', sans-serif;
-    text-align: left;
-    font-size: 2rem;
-}
 /** Asistencia **/
 .pregunta-asistencia {
     display: flex;
@@ -597,23 +581,6 @@ trix-toolbar .trix-button--icon-strike {
     background-color: white;
 }
 .comentario .texto p {
-    margin: 0;
-}
-
-
-/** Sidebar **/
-.contenido-evento aside {
-    background-color: white;
-    border: 1px solid #C7C7C7;
-}
-.contenido-evento aside > div {
-    padding: 1rem  0 1rem 5rem;
-    background-size: 50px;
-    background-position: center left;
-    background-repeat: no-repeat;
-    margin: 2rem;
-}
-.contenido-evento aside  p {
     margin: 0;
 }
 

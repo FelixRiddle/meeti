@@ -8,3 +8,39 @@ aside .location {
     background-image: url(../../img/locationIcon.svg);
 }
 
+/** Single Eventos **/
+/* .encabezado-evento { */
+.eventHeader {
+    border-top: 4px solid #EAEAEA;
+    padding: 5rem 0;
+}
+@media (min-width:768px) {
+    .eventHeader .contenedor {
+        display: flex;
+        justify-content: space-between;
+    }   
+}
+.eventSummary h1 {
+    font-family: 'Raleway', sans-serif;
+    text-align: left;
+    font-size: 2rem;
+}
+
+/** Sidebar **/
+/* All of this previously had the name:  .contenido-evento*/
+.eventContainer aside {
+    background-color: white;
+    border: 1px solid #C7C7C7;
+}
+
+.eventContainer aside > div {
+    padding: 1rem  0 1rem 5rem;
+    background-size: 50px;
+    background-position: center left;
+    background-repeat: no-repeat;
+    margin: 2rem;
+}
+
+.eventContainer aside  p {
+    margin: 0;
+}

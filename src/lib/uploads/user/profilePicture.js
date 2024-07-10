@@ -31,8 +31,12 @@ const upload = multer({
 				// Guard that there's only one pfp
 				const sameFile = filename === user.pfp;
 				if(!sameFile) {
-					// Delete previous pfp
-					fs.rmSync(userFolder.getPfp());
+					// Just in case check for its existence
+					const pfpPath = userFolder.getPfp();
+					if(fs.existsSync(pfpPath)) {
+						// Delete previous pfp
+						fs.rmSync();
+					}
 				}
 			}
 			

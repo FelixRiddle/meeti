@@ -47,7 +47,7 @@ async function renderHome(req, res) {
 					attributes: ["image"]
 				}, {
 					model: User,
-					attributes: ['name', 'pfp']
+					attributes: ['id', 'name', 'pfp']
 				}]
 			})
 		]);

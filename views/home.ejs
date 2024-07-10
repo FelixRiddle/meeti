@@ -28,71 +28,39 @@
 <div class="contenedor">
 	<h2>Upcoming Meeti's</h2>
 	<div class="grid columnas-md-3">
-		<div class="card">
-			<img src="/public/img/imagen1.jpg" alt="Business and Entrepneurship" />
-			<div class="card-texto">
-				<p class="fecha">Thursday, September 11, 2025 10:35 AM</p>
-				<a href="#">
-					<h3>
-						Business and Entrepneurship
-					</h3>
-				</a>
-				<div class="info-autor">
-					<div class="image">
-					</div>
-					<div class="informacion">
-						<p>Organized by:</p>
-						<p class="autor">
-							Felix Riddle
-						</p>
-					</div>
-				</div>
-			</div>
-		</div>
-		
-		<div class="card">
-			<img src="/public/img/imagen2.jpg" alt="Bitcoin and cryptocurrencies" />
-			<div class="card-texto">
-				<p class="fecha"> Thursday, December 18, 2025 10:44 AM </p>
-				<a href="#">
-					<h3>
-						Bitcoin and cryptocurrencies
-					</h3>
-				</a>
-				<div class="info-autor">
-					<div class="image">
-					</div>
-					<div class="informacion">
-						<p>Organized by:</p>
-						<p class="autor">
-							Felix Riddle
-						</p>
+		<% if(locals.meetis && locals.meetis > 0) { %>
+			<% meetis.forEach((meeti) => { %>
+				<div class="card">
+					<img
+						src="/public/uploads/groups/<%- meeti.group.image %>"
+						alt="<%- meeti.name %>" />
+					<div class="card-texto">
+						<% moment.locale("en"); %>
+						<% const date = `${meeti.date} ${meeti.time}`; %>
+						<p class="fecha"><%= moment(date).format("LLLL"); %></p>
+						<a href="#">
+							<h3>
+								Business and Entrepneurship
+							</h3>
+						</a>
+						<div class="info-autor">
+							<div class="image">
+							</div>
+							<div class="informacion">
+								<p>Organized by:</p>
+								<p class="autor">
+									Felix Riddle
+								</p>
+							</div>
+						</div>
 					</div>
 				</div>
-			</div>
-		</div>
-		
-		<div class="card">
-			<img src="/public/img/imagen3.jpg" alt="Food and drinks" />
-			<div class="card-texto">
-				<p class="fecha"> Thursday, December 12, 2025 10:44 AM </p>
-				<a href="#">
-					<h3>
-						Food and drinks
-					</h3>
-				</a>
-				<div class="info-autor">
-					<div class="image">
-					</div>
-					<div class="informacion">
-						<p>Organized by:</p>
-						<p class="autor">
-							Felix Riddle
-						</p>
-					</div>
-				</div>
-			</div>
-		</div>
+			<% }); %>
+		<% } else { %>
+			<p>
+				Sorry, there are no Meeti's
+			</p>
+		<% } %>
 	</div>
 </div>
 

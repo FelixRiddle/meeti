@@ -20,7 +20,10 @@ adminRouter.get("/", async (req, res) => {
 			Groups.findAll({
 				where: {
 					userId: req.user.id,
-				}
+				},
+				order: [
+					["date", "ASC"]
+				]
 			}),
 			meetiUtils.meetiAndParticipants({
 				meetisTime: "future"

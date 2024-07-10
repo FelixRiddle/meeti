@@ -1,4 +1,6 @@
 const express = require("express");
+const moment = require("moment");
+const Sequelize = require("sequelize");
 
 const authRouter = require("./auth");
 const { pageNotFoundMessage } = require("../lib/status/messages");
@@ -8,26 +10,60 @@ const userIsAuthenticated = require("../lib/auth/userIsAuthenticated");
 const expandData = require("../lib/misc/expandData");
 const error500Router = require("./500");
 
+const Op = Sequelize.Op;
+
 /**
  * Render home
  */
 async function renderHome(req, res) {
-	const {
-		SocialCategory
-	} = req.models;
-	
-	const [
-		categories
-	] = await Promise.all([
-		SocialCategory.findAll()
-	]);
-	
-	const extraData = await expandData(req);
-	return res.render("home", {
-		title: "Home",
-		...extraData,
-		categories,
-	});
+	try {
+		const {
+			Groups,
+			Meeti,
+			SocialCategory,
+			User,
+		} = req.models;
+		
+		const [
+			categories,
+			meetis
+		] = await Promise.all([
+			SocialCategory.findAll(),
+			Meeti.findAll({
+				where: {
+					date: {
+						[Op.gte]: moment(new Date()).format("YYYY-MM-DD")
+					}
+				},
+				attributes: [
+					"slug", "title", "date", "time"
+				],
+				limit: 3,
+				order: [
+					["date", "ASC"]
+				],
+				include: [{
+					model: Groups,
+					attributes: ["image"]
+				}, {
+					model: User,
+					attributes: ['name', 'pfp']
+				}]
+			})
+		]);
+		
+		const extraData = await expandData(req);
+		return res.render("home", {
+			title: "Home",
+			...extraData,
+			categories,
+			meetis,
+			moment,
+		});
+	} catch(err) {
+		console.error(err);
+		return res.redirect('500');
+	}
 }
 
 /**

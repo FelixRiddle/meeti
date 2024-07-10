@@ -1,5 +1,3 @@
-<h1><%- title %></h1>
-
 <!-- Introduction -->
 <div class="hero">
 	<h1>Find or create a group to share what you like</h1>
@@ -13,9 +11,11 @@
 		<form action="#">
 			<select name="category" id="category" class="categoria">
 				<option value="" disabled selected>-- Select one --</option>
-				<option value="programming" class="programacion">Programming</option>
-				<option value="design" class="diseno">Design</option>
-				<option value="books" class="libros">Books</option>
+				<% categories.forEach((category) => { %>
+					<option
+						value="<%- category.id %>"
+					><%- category.name %></option>
+				<% }); %>
 			</select>
 			<input type="text" name="name" id="name" placeholder="Meeti name" />
 			<input type="text" name="city" placeholder="City" />

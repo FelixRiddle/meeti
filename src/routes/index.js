@@ -9,6 +9,28 @@ const expandData = require("../lib/misc/expandData");
 const error500Router = require("./500");
 
 /**
+ * Render home
+ */
+async function renderHome(req, res) {
+	const {
+		SocialCategory
+	} = req.models;
+	
+	const [
+		categories
+	] = await Promise.all([
+		SocialCategory.findAll()
+	]);
+	
+	const extraData = await expandData(req);
+	return res.render("home", {
+		title: "Home",
+		...extraData,
+		categories,
+	});
+}
+
+/**
  * Should all routes be functions?
  * 
  * I think they should've been from the start
@@ -25,13 +47,6 @@ function mainRouter(passport) {
 	);
 	router.use("/500", error500Router);
 	
-	const renderHome = async (req, res) => {
-		const extraData = await expandData(req);
-		return res.render("home", {
-			title: "Home",
-			...extraData
-		});
-	}
 	router.get("/home", renderHome);
 	router.get("/", renderHome);
 	

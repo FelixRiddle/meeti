@@ -5,6 +5,7 @@ const flash = require("connect-flash");
 const session = require("express-session");
 const SequelizeStore = require("connect-session-sequelize")(session.Store);
 const cookieParser = require("cookie-parser");
+const cors = require("cors");
 
 const { PORT } = require("../lib/config/env");
 const mainRouter = require("../routes");
@@ -46,6 +47,20 @@ async function startServer(sequelizeModels) {
 	
 	// Use flash
 	app.use(flash());
+	
+	app.use(cors({
+		origin: function(origin, callback) {
+			let frontUrl = process.env.FRONTEND_URL;
+			if(!frontUrl && process.env.NODE_ENV === 'development') {
+				// NextJS frontend
+				frontUrl = "http://localhost:3007";
+			}
+			
+			return callback(null, [
+				frontUrl,
+			]);
+		}
+	}));
 	
 	// Enable EJS
 	app.use(expressEjsLayouts);

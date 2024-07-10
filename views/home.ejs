@@ -1,1 +1,205 @@
 <h1><%- title %></h1>
+
+<!-- Introduction -->
+<div class="hero">
+	<h1>Find or create a group to share what you like</h1>
+	<a href="/auth/register" class="btn btn-amarillo">Create account</a>
+</div>
+
+<!-- Search bar -->
+<div class="buscador-inicio">
+	<div class="contenedor">
+		<h2>Find a group in your city</h2>
+		<form action="#">
+			<select name="category" id="category" class="categoria">
+				<option value="" disabled selected>-- Select one --</option>
+				<option value="programming" class="programacion">Programming</option>
+				<option value="design" class="diseno">Design</option>
+				<option value="books" class="libros">Books</option>
+			</select>
+			<input type="text" name="name" id="name" placeholder="Meeti name" />
+			<input type="text" name="city" placeholder="City" />
+			<input type="text" name="country" placeholder="Country" />
+			<input type="submit" value="Search" class="btn btn-rosa" />
+		</form>
+	</div>
+</div>
+
+<div class="contenedor">
+	<h2>Upcoming Meeti's</h2>
+	<div class="grid columnas-md-3">
+		<div class="card">
+			<img src="/public/img/imagen1.jpg" alt="Business and Entrepneurship" />
+			<div class="card-texto">
+				<p class="fecha">Thursday, September 11, 2025 10:35 AM</p>
+				<a href="#">
+					<h3>
+						Business and Entrepneurship
+					</h3>
+				</a>
+				<div class="info-autor">
+					<div class="image">
+					</div>
+					<div class="informacion">
+						<p>Organized by:</p>
+						<p class="autor">
+							Felix Riddle
+						</p>
+					</div>
+				</div>
+			</div>
+		</div>
+		
+		<div class="card">
+			<img src="/public/img/imagen2.jpg" alt="Bitcoin and cryptocurrencies" />
+			<div class="card-texto">
+				<p class="fecha"> Thursday, December 18, 2025 10:44 AM </p>
+				<a href="#">
+					<h3>
+						Bitcoin and cryptocurrencies
+					</h3>
+				</a>
+				<div class="info-autor">
+					<div class="image">
+					</div>
+					<div class="informacion">
+						<p>Organized by:</p>
+						<p class="autor">
+							Felix Riddle
+						</p>
+					</div>
+				</div>
+			</div>
+		</div>
+		
+		<div class="card">
+			<img src="/public/img/imagen3.jpg" alt="Food and drinks" />
+			<div class="card-texto">
+				<p class="fecha"> Thursday, December 12, 2025 10:44 AM </p>
+				<a href="#">
+					<h3>
+						Food and drinks
+					</h3>
+				</a>
+				<div class="info-autor">
+					<div class="image">
+					</div>
+					<div class="informacion">
+						<p>Organized by:</p>
+						<p class="autor">
+							Felix Riddle
+						</p>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<main class="bg-gris categorias">
+	<h2>Find group by categories</h2>
+	
+	<div class="contenedor">
+		<ul class="lista-categorias grid columnas-2 columnas-md-3">
+			<li>
+				<a href="#">
+					<img src="/public/img/category/programming.jpg" alt="Tech and programming" />
+					<p>Tech and programming</p>
+				</a>
+			</li>
+			<li>
+				<a href="#">
+					<img src="/public/img/category/design.jpg" alt="Design" />
+					<p>Design</p>
+				</a>
+			</li>
+			<li>
+				<a href="#">
+					<img
+						src="/public/img/category/business.jpg"
+						alt="Business and Entrepneurship"
+					/>
+					<p>
+						Business and Entrepneurship
+					</p>
+				</a>
+			</li>
+			<li>
+				<a href="#">
+					<img
+						src="/public/img/category/modelling.jpg"
+						alt="Modelling and style"
+					/>
+					<p>Modelling and style</p>
+				</a>
+			</li>
+			<li>
+				<a href="#">
+					<img src="/public/img/category/health.jpg" alt="Health and exercise" />
+					<p>Health and exercise</p>
+				</a>
+			</li>
+			<li>
+				<a href="#">
+					<img src="/public/img/category/photography.jpg" alt="Photography and travel" />
+					<p>Photography and travel</p>
+				</a>
+			</li>
+			<li>
+				<a href="#">
+					<img src="/public/img/category/food.jpg" alt="Food and drinks" />
+					<p>Food and drinks</p>
+				</a>
+			</li>
+			<li>
+				<a href="#">
+					<img src="/public/img/category/architecture.jpg" alt="Design and architecture" />
+					<p>Design and architecture</p>
+				</a>
+			</li>
+			<li>
+				<a href="#">
+					<img src="/public/img/category/coffee.jpg" alt="Coffee" />
+					<p>Coffee</p>
+				</a>
+			</li>
+			<li>
+				<a href="#">
+					<img src="/public/img/category/movies.jpg" alt="Movies and theater" />
+					<p>Movies and theater</p>
+				</a>
+			</li>
+			<li>
+				<a href="#">
+					<img src="/public/img/category/books.jpg" alt="Books" />
+					<p>Books</p>
+				</a>
+			</li>
+			<li>
+				<a href="#">
+					<img src="/public/img/category/learning.jpg" alt="Learning" />
+					<p>Learning</p>
+				</a>
+			</li>
+		</ul>
+	</div>
+</main>
+
+<!-- Footer -->
+<div class="meeti-bg">
+	<div class="contenedor meeti grid columnas-md-2">
+		<section>
+			<h3>Create a group</h3>
+			<p>
+				Share your passions and what you like with people,
+				create your group today free of charge
+			</p>
+		</section>
+		<section>
+			<h3>Join a group</h3>
+			<p>
+				Meet people alike, join a group and receive notifications about upcoming events
+			</p>
+		</section>
+	</div>
+</div>

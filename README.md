@@ -32,6 +32,8 @@ These are the environment variables that can be configured.
 DISABLE_MAIL=
 # Email sender / App main mail user
 SERVICE_EMAIL=
+# Frontend url
+FRONTEND_URL=
 
 # Server configuration
 PORT=

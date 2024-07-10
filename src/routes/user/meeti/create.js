@@ -105,7 +105,7 @@ createMeetiRouter.post(
 				type: "success"
 			}]);
 			
-			return res.redirect("back");
+			return res.redirect("/user/admin");
 		} catch(err) {
 			console.error(err);
 			return res.redirect('500');

@@ -69,6 +69,13 @@ function parseArguments() {
  * Run commands
  */
 async function runCommands() {
+	// Check environment variable and set
+	const nodeEnv = process.env.NODE_ENV;
+	if(!nodeEnv) {
+		// Set to development
+		process.env.NODE_ENV = 'development';
+	}
+	
 	// Directories
 	createPublicDirectories();
 	

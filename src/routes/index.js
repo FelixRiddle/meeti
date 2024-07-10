@@ -26,7 +26,7 @@ async function renderHome(req, res) {
 		
 		const [
 			categories,
-			meetis
+			lastMeetis
 		] = await Promise.all([
 			SocialCategory.findAll(),
 			Meeti.findAll({
@@ -51,6 +51,14 @@ async function renderHome(req, res) {
 				}]
 			})
 		]);
+		
+		let meetis = [];
+		for(const meeti of lastMeetis) {
+			const newMeeti = meeti.get({raw: true});
+			newMeeti.group = newMeeti.group.get({raw: true});
+			newMeeti.user = newMeeti.user.get({raw: true});
+			meetis.push(newMeeti);
+		}
 		
 		const extraData = await expandData(req);
 		return res.render("home", {

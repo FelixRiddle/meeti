@@ -1,16 +1,19 @@
 const express = require("express");
 const color = require("ansi-color");
 
-const authRouter = require("./auth");
-const groupRouter = require("./group");
-const userRouter = require("./user");
 const authenticateRest = require("../../lib/auth/rest/authenticateRest");
 const expandData = require("../../lib/misc/expandData");
+
+const authRouter = require("./auth");
+const groupRouter = require("./group");
+const homeRouter = require("./home");
+const userRouter = require("./user");
 
 const restRouter = express.Router();
 
 restRouter.use("/auth", authRouter);
 restRouter.use("/group", groupRouter);
+restRouter.use("/home", homeRouter);
 restRouter.use("/user", authenticateRest, userRouter);
 restRouter.use(async (req, res) => {
 	const message = "Page not found";

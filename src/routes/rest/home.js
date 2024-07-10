@@ -1,8 +1,11 @@
 const express = require("express");
 const moment = require("moment");
+const Sequelize = require("sequelize");
 
 const expandData = require("../../lib/misc/expandData");
 const { renderDataInternalErrorMessage } = require("../../lib/status/messages");
+
+const Op = Sequelize.Op;
 
 const homeRouter = express.Router();
 
@@ -12,6 +15,7 @@ homeRouter.get("/", async(req, res) => {
 			Groups,
 			Meeti,
 			SocialCategory,
+			User,
 		} = req.models;
 		
 		const [

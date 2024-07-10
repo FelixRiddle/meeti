@@ -38,14 +38,20 @@
 						<% moment.locale("en"); %>
 						<% const date = `${meeti.date} ${meeti.time}`; %>
 						<p class="fecha"><%= moment(date).format("LLLL"); %></p>
-						<a href="#">
+						<a href="/meeti/<%= meeti.slug %>">
 							<h3>
-								Business and Entrepneurship
+								<%= meeti.title %>
 							</h3>
 						</a>
 						<div class="info-autor">
 							<div class="imagen">
-								<img src="/public/user/<%- meeti.user.id %>/<%- meeti.user.pfp %>" alt="">
+								<% if(meeti.user.pfp) { %>
+									<img
+										src="/public/user/<%- meeti.user.id %>/<%- meeti.user.pfp %>"
+										alt="<%- meeti.title %> owner profile picture"
+									/>
+								<% } else { %>
+								<% } %>
 							</div>
 							<div class="informacion">
 								<p>Organized by:</p>

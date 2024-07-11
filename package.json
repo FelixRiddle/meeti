@@ -23,6 +23,7 @@
 	"dependencies": {
 		"ansi-color": "^0.2.1",
 		"argparse": "^2.0.1",
+		"axios": "^1.7.2",
 		"bcrypt": "^5.1.1",
 		"concurrently": "^8.2.2",
 		"connect-flash": "^0.1.1",

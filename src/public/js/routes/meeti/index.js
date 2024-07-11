@@ -1,5 +1,5 @@
+const axios = require('axios');
 const { OpenStreetMapProvider } = require("leaflet-geosearch");
-
 
 document.addEventListener("DOMContentLoaded", (event) => {
 	const latitudeEl = document.getElementById("latitude");
@@ -30,4 +30,15 @@ document.addEventListener("DOMContentLoaded", (event) => {
 	L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
 		attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
 	}).addTo(map);
+	
+	// Participate button
+	const participateButton = document.getElementById("participateButton");
+	if(participateButton) {
+		participateButton.addEventListener("submit", async (e) => {
+			e.preventDefault();
+			
+			const response = axios.post(this.action);
+			console.log(`Response: `, response.data);
+		});
+	}
 });

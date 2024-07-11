@@ -25,10 +25,18 @@
 		</div>
 		
 		<div class="participate">
-			<% if(meeti.user) { %>
-				<p>Will you participate?</p>
-				<a href="#" class="btn btn-azul">Yes</a>
-			<% } %> 
+			<% if(locals.user) { %>
+				<form action="/user/participate/<%- meeti.id %>" method="POST">
+					<p>Will you participate?</p>
+					<input type="hidden" value="<%- locals.user.id %>" name="userId" />
+					<input type="hidden" value="<%- meeti.id %>" name="meetiId" />
+					<input type="submit" class="btn btn-azul" id="participateButton" value="Participate"/>
+				</form>
+			<% } else { %>
+				<p>
+					Log in to participate in this Meeti
+				</p>
+			<% } %>
 		</div>
 	</div>
 </div>

@@ -1,3 +1,5 @@
+<link rel="stylesheet" href="/public/css/meeti/index.css" />
+
 <!-- Introduction -->
 <div class="hero">
 	<h1>Find or create a group to share what you like</h1>
@@ -43,8 +45,8 @@
 								<%= meeti.title %>
 							</h3>
 						</a>
-						<div class="info-autor">
-							<div class="imagen">
+						<div class="infoAuthor">
+							<div class="image">
 								<% if(meeti.user.pfp) { %>
 									<img
 										src="/public/user/<%- meeti.user.id %>/<%- meeti.user.pfp %>"
@@ -54,7 +56,7 @@
 							</div>
 							<div class="informacion">
 								<p>Organized by:</p>
-								<p class="autor">
+								<p class="author">
 									<%= meeti.user.name %>
 								</p>
 							</div>

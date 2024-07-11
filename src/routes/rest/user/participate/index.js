@@ -1,4 +1,6 @@
 const express = require("express");
+const { renderDataInternalErrorMessage } = require("../../../../lib/status/messages");
+const expandData = require("../../../../lib/misc/expandData");
 
 const participateRouter = express.Router();
 
@@ -16,10 +18,16 @@ participateRouter.post("/", async (req, res) => {
 			userId: req.user.id,
 		});
 		
-		return res.redirect('back');
+		const extra = await expandData(req);
+		return res.send({
+			...extra
+		});
 	} catch(err) {
 		console.error(err);
-		return res.redirect('500');
+		return res.status(500)
+			.send({
+				...renderDataInternalErrorMessage
+			});
 	}
 });
 

@@ -26,9 +26,8 @@
 		
 		<div class="participate">
 			<% if(locals.user) { %>
-				<form action="/user/participate/<%- meeti.id %>" method="POST">
+				<form action="/user/participate" method="POST">
 					<p>Will you participate?</p>
-					<input type="hidden" value="<%- locals.user.id %>" name="userId" />
 					<input type="hidden" value="<%- meeti.id %>" name="meetiId" />
 					<input type="submit" class="btn btn-azul" id="participateButton" value="Participate"/>
 				</form>

@@ -16,12 +16,21 @@ meetiRouter.get("/:slug", async (req, res, next) => {
 			return next();
 		}
 		
+		let userParticipates = false;
+		for(const participant of completeMeetiModel.participants) {
+			if(req.user.id === participant.id) {
+				userParticipates = true;
+				break;
+			}
+		}
+		
 		const extra = await expandData(req);
 		return res.render("meeti/index", {
 			...extra,
 			meeti: completeMeetiModel,
 			title: completeMeetiModel.title,
 			moment,
+			userParticipates,
 		});
 	} catch(err) {
 		console.error(err);

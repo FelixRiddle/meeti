@@ -26,10 +26,21 @@
 		
 		<div class="participate">
 			<% if(locals.user) { %>
-				<form action="/user/participate" method="POST">
+				<form action="/user/participate" id="participateForm">
 					<p>Will you participate?</p>
 					<input type="hidden" value="<%- meeti.id %>" name="meetiId" />
-					<input type="submit" class="btn btn-azul" id="participateButton" value="Participate"/>
+					<input
+						type="hidden"
+						value="<%- userParticipates ? "yes" : "no" %>"
+						name="participate"
+						id="participate"
+					/>
+					<input
+						type="button"
+						class="btn <%- userParticipates ? "btn-rojo" : "btn-azul" %>"
+						id="participateButton"
+						value="<%- userParticipates ? "Cancel" : "Participate" %>"
+					/>
 				</form>
 			<% } else { %>
 				<p>
@@ -104,6 +115,6 @@
 			</div>
 		</aside>
 	</div>
-	
-	<script src="/public/js/routes/meeti/index.js"></script>
 </main>
+
+<script src="/public/js/routes/meeti/index.js"></script>

@@ -33,12 +33,32 @@ document.addEventListener("DOMContentLoaded", (event) => {
 	
 	// Participate button
 	const participateButton = document.getElementById("participateButton");
-	if(participateButton) {
-		participateButton.addEventListener("submit", async (e) => {
+	const participateInput = document.getElementById('participate');
+	const formElement = document.getElementById("participateForm");
+	if(participateButton && participateInput && formElement) {
+		participateButton.addEventListener("click", async (e) => {
 			e.preventDefault();
 			
-			const response = axios.post(this.action);
-			console.log(`Response: `, response.data);
+			const response = await axios.post(formElement.action, formElement, {
+				headers: {
+					"Content-Type": "application/json"
+				}
+			})
+				.then((res) => {
+					if(participateInput.value === 'yes') {
+						participateInput.value = "no";
+						participateButton.value = "Participate";
+						participateButton.classList.remove("btn-rojo");
+						participateButton.classList.add("btn-azul");
+					} else {
+						participateInput.value = "yes";
+						participateButton.value = "Cancel";
+						participateButton.classList.remove("btn-azul");
+						participateButton.classList.add("btn-rojo");
+					}
+				});
 		});
+	} else {
+		throw Error("An element wasn't found!");
 	}
 });

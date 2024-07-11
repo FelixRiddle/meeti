@@ -1,43 +1,25 @@
 const express = require('express');
+const MeetiUtils = require('../../lib/models/MeetiUtils');
+const expandData = require('../../lib/misc/expandData');
 
 const meetiRouter = express.Router();
 
 meetiRouter.get("/:slug", async (req, res, next) => {
 	try {
-		const {
-			Meeti,
-			Groups,
-			User,
-		} = req.models;
+		const slug = req.params.slug;
 		
-		const meetiModel = await Meeti.findOne({
-			where: {
-				slug: req.params.slug,
-			},
-			// attributes: ["slug", "title", "date", "time", "id"],
-			order: [
-				["date", "ASC"]
-			],
-			include: [{
-				model: Groups,
-				// attributes: ["image"]
-			}, {
-				model: User,
-				// attributes: ['id', 'name', 'pfp']
-			}]
-		});
+		const meetiUtils = new MeetiUtils(req.models, req.user);
+		const completeMeetiModel = await meetiUtils.completeMeetiInformation(slug);
 		
-		if(!meetiModel) {
+		if(!completeMeetiModel) {
 			return next();
 		}
 		
-		const meeti = meetiModel.get({raw: true});
-		meeti.group = meeti.group.get({raw: true});
-		meeti.user = meeti.user.get({raw: true});
-		
+		const extra = await expandData(req);
 		return res.render("meeti/index", {
-			meeti,
-			title: meeti.title,
+			...extra,
+			meeti: completeMeetiModel,
+			title: completeMeetiModel.title,
 		});
 	} catch(err) {
 		console.error(err);

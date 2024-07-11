@@ -1,13 +1,4 @@
 
-aside .date {
-    background-image: url(../../img/timeIcon.svg);
-    margin-bottom: 2rem;
-}
-
-aside .location {
-    background-image: url(../../img/locationIcon.svg);
-}
-
 /** Single Eventos **/
 /* .encabezado-evento { */
 .eventHeader {
@@ -44,3 +35,50 @@ aside .location {
 .eventContainer aside  p {
     margin: 0;
 }
+
+/* .contenido-evento { */
+.eventContent {
+    background-color: #F2F2F2;
+    padding: 5rem 0;
+}
+@media (min-width:768px) {
+    .eventContent .contenedor{
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start;
+    }
+    .eventContent .eventInformation {
+        flex: 0 0 60%;
+    }
+    .eventContent .informacion{
+        flex: 0 0 calc(40% - 2rem);
+    }
+}
+
+
+/* .pregunta-asistencia { */
+.participate {
+	display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+.participate p {
+    font-size: 2rem;
+    font-weight: 700;
+    margin: 0;
+    text-align: center;
+}
+
+aside .date {
+    background-image: url(../../img/timeIcon.svg);
+    margin-bottom: 2rem;
+}
+
+aside .location {
+    background-image: url(../../img/locationIcon.svg);
+}
+
+aside img {
+    display: block;
+}
+

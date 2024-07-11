@@ -3,43 +3,42 @@
 <div class="eventHeader">
 	<div class="contenedor">
 		<div class="eventSummary">
-			<h1>
-				Event name
-			</h1>
-			
+			<h1><%= meeti.title %></h1>
 			<div class="info-autor">
 				<div class="imagen">
-					<img
-						src="/public/user/<%- meeti.user.id %>/<%- meeti.user.pfp %>"
-						alt="User profile picture"
-					/>
+					<% if(meeti.user.pfp) { %>
+						<img
+							src="/public/user/<%- meeti.user.id %>/<%- meeti.user.pfp %>"
+							alt="User profile picture"
+						/>
+					<% } %>
 				</div>
 				<div class="informacion">
 					<p>By:</p>
 					<p class="autor">
-						<a href=""><%- meeti.user.name %></a> creator of:
-						<a href=""><%- meeti.title %></a>
+						<a href="/user-profile/<%- meeti.user.id %>"><%= meeti.user.name %></a> creator of:
+						<a href="/group/<%- meeti.group.id %>"><%= meeti.title %></a>
 					</p>
 				</div>
 			</div>
 		</div>
 		
-		<div class="pregunta-asistencia">
-			<p>Will you participate?</p>
-			<a href="#" class="btn btn-azul">Yes</a>
+		<div class="participate">
+			<% if(meeti.user) { %>
+				<p>Will you participate?</p>
+				<a href="#" class="btn btn-azul">Yes</a>
+			<% } %> 
 		</div>
 	</div>
 </div>
 
 <main class="eventContainer">
 	<div class="contenedor">
-		<div class="eventContainer">
+		<div class="eventInformation">
 			<div class="descripcion">
 				<img src="/public/uploads/groups/<%- meeti.group.image %>" alt="Meeti image">
 				
-				<p>
-					<%- meeti.description %>
-				</p>
+				<%- meeti.description %>
 			</div>
 			
 			<div class="asistentes">

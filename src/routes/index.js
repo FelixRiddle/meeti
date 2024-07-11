@@ -91,6 +91,7 @@ function mainRouter(passport) {
 		userIsAuthenticated,
 		userRouter
 	);
+	// router.use("/user-profile", );
 	router.use("/500", error500Router);
 	
 	router.get("/home", renderHome);

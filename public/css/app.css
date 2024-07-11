@@ -502,17 +502,6 @@ trix-toolbar .trix-button--icon-strike {
 
 
 /** Asistencia **/
-.pregunta-asistencia {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-}
-.pregunta-asistencia p {
-    font-size: 2rem;
-    font-weight: 700;
-    margin: 0;
-    text-align: center;
-}
 .opciones-asistencia {
     display: flex;
     justify-content: space-between;
@@ -522,23 +511,6 @@ trix-toolbar .trix-button--icon-strike {
 }
 .opciones-asistencia a:first-of-type{
     margin-right: 2rem;
-}
-.contenido-evento {
-    background-color: #F2F2F2;
-    padding: 5rem 0;
-}
-@media (min-width:768px) {
-    .contenido-evento .contenedor{
-        display: flex;
-        justify-content: space-between;
-        align-items: flex-start;
-    }
-    .contenido-evento .informacion-evento {
-        flex: 0 0 60%;
-    }
-    .contenido-evento .informacion{
-        flex: 0 0 calc(40% - 2rem);
-    }
 }
 
 /** Asistentes **/
@@ -582,8 +554,4 @@ trix-toolbar .trix-button--icon-strike {
 }
 .comentario .texto p {
     margin: 0;
-}
-
-aside img {
-    display: block;
 }

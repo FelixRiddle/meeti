@@ -16,11 +16,13 @@ module.exports = class MeetiUtils {
 		this.user = user;
 		
 		const {
+			Address,
 			Groups,
 			Meeti,
 			MeetiParticipants,
 			User,
 		} = Models;
+		this.Address = Address;
 		this.Groups = Groups;
 		this.Meeti = Meeti;
 		this.MeetiParticipants = MeetiParticipants;
@@ -44,26 +46,46 @@ module.exports = class MeetiUtils {
 		const participantIds = participantsIdData.map((participant) => Number(participant.userId));
 		
 		const User = this.User;
-		meeti.participants = await Promise.all(participantIds.map((id) => {
-			return User.findAll({
-				where: {
-					id,
-				},
+		const participantsResult = await Promise.all(participantIds.map((id) => {
+			return User.findByPk(id, {
 				raw: true,
 			});
 		}));
 		
-		// Doesn't work
-		// meeti.participants = await this.User.findAll({
-		// 	where: {
-		// 		userId: {
-		// 			// Find an array of participants
-		// 			// [Op.values]: participantIds,
-		// 			[Op.values]: [1]
-		// 		}
-		// 	},
-		// 	raw: true,
-		// });
+		meeti.participants = participantsResult;
+		
+		return meeti;
+	}
+	
+	/**
+	 * Get meeti with owner user, group, participants and address
+	 */
+	async completeMeetiInformation(slug) {
+		const meetiModel = await this.Meeti.findOne({
+			where: {
+				slug,
+			},
+			// attributes: ["slug", "title", "date", "time", "id"],
+			order: [
+				["date", "ASC"]
+			],
+			include: [{
+				model: this.Groups,
+				// attributes: ["image"]
+			}, {
+				model: this.User,
+				// attributes: ['id', 'name', 'pfp']
+			}, {
+				model: this.Address
+			}]
+		});
+		
+		// If the meeti wasn't found return undefined
+		if(!meetiModel) {
+			return;
+		}
+		
+		const meeti = await this.obtainMeetiParticipants(meetiModel);
 		
 		return meeti;
 	}

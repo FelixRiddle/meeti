@@ -1,6 +1,7 @@
 const express = require('express');
 const MeetiUtils = require('../../lib/models/MeetiUtils');
 const expandData = require('../../lib/misc/expandData');
+const moment = require("moment");
 
 const meetiRouter = express.Router();
 
@@ -11,6 +12,8 @@ meetiRouter.get("/:slug", async (req, res, next) => {
 		const meetiUtils = new MeetiUtils(req.models, req.user);
 		const completeMeetiModel = await meetiUtils.completeMeetiInformation(slug);
 		
+		console.log(`Complete meeti model: `, completeMeetiModel);
+		
 		if(!completeMeetiModel) {
 			return next();
 		}
@@ -20,6 +23,7 @@ meetiRouter.get("/:slug", async (req, res, next) => {
 			...extra,
 			meeti: completeMeetiModel,
 			title: completeMeetiModel.title,
+			moment,
 		});
 	} catch(err) {
 		console.error(err);

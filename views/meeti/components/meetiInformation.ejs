@@ -1,0 +1,22 @@
+<!-- FIXME: Meeti date is not working, the error says
+that meeti doesn't exists, but it does. -->
+<!-- Note: This works doing it directly without declaring 'date' -->
+<% moment.locale("en"); %>
+<% const date = meeti.date + " " meeti.time; %>
+<aside class="informacion">
+	<div class="date">
+		<% moment.locale("en"); %>
+		<% const date = meeti.date + " " meeti.time; %>
+		<p><%= moment(date).format("LLLL"); %></p>
+	</div>
+	<div class="location">
+		<div class="location">
+			<p>
+				<%= meeti.address.street %>,
+				<%= meeti.address.city %>,
+				<%= meeti.address.state %>,
+				<%= meeti.address.country %>
+			</p>
+		</div>
+	</div>
+</aside>

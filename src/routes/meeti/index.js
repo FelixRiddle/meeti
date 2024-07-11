@@ -12,8 +12,6 @@ meetiRouter.get("/:slug", async (req, res, next) => {
 		const meetiUtils = new MeetiUtils(req.models, req.user);
 		const completeMeetiModel = await meetiUtils.completeMeetiInformation(slug);
 		
-		console.log(`Complete meeti model: `, completeMeetiModel);
-		
 		if(!completeMeetiModel) {
 			return next();
 		}

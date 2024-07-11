@@ -1,11 +1,12 @@
+<link rel="stylesheet" href="/public/package/leaflet@1.9.4/dist/leaflet.css">
 <link rel="stylesheet" href="/public/css/meeti/index.css" />
 
 <div class="eventHeader">
 	<div class="contenedor">
 		<div class="eventSummary">
 			<h1><%= meeti.title %></h1>
-			<div class="info-autor">
-				<div class="imagen">
+			<div class="infoAuthor">
+				<div class="image">
 					<% if(meeti.user.pfp) { %>
 						<img
 							src="/public/user/<%- meeti.user.id %>/<%- meeti.user.pfp %>"
@@ -13,9 +14,9 @@
 						/>
 					<% } %>
 				</div>
-				<div class="informacion">
+				<div class="information">
 					<p>By:</p>
-					<p class="autor">
+					<p class="author">
 						<a href="/user-profile/<%- meeti.user.id %>"><%= meeti.user.name %></a> creator of:
 						<a href="/group/<%- meeti.group.id %>"><%= meeti.group.name %></a>
 					</p>
@@ -73,7 +74,7 @@
 		</div>
 		
 		<% moment.locale("en"); %>
-		<aside class="informacion">
+		<aside class="information">
 			<div class="date">
 				<p>
 					<% moment.locale("en"); %>
@@ -88,6 +89,14 @@
 					<%= meeti.address.country %>
 				</p>
 			</div>
+			
+			<input type="hidden" id="latitude" value="<%- meeti.address.latitude %>" />
+			<input type="hidden" id="longitude" value="<%- meeti.address.longitude %>" />
+			
+			<div class="ubicacion-meeti" id="map">
+			</div>
 		</aside>
 	</div>
+	
+	<script src="/public/js/routes/meeti/index.js"></script>
 </main>

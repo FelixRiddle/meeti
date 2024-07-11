@@ -152,30 +152,6 @@ p {
     margin: 0;
 }
 
-.info-autor {
-    display: flex;
-    justify-content: space-between;
-}
-.info-autor .informacion {
-    flex: 1;
-    margin-left: 2rem;
-}
-
-.info-autor .imagen {
-    border-radius: 50%;
-    background-color: #e1e1e1;
-    height: 50px;
-    width: 50px;
-}
-.info-autor .autor {
-    font-weight: 700;
-    margin-top: .5rem;
-}
-.info-autor p {
-    margin: 0;
-}
-
-
 /** layout**/
 .site-header {
    text-align: center;

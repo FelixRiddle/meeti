@@ -10,6 +10,12 @@ module.exports = {
 	devtool: "source-map",
 	mode: "development",
 	entry: {
+		route_meeti_index: {
+			import: [
+				`${publicRoutes}meeti/index.js`
+			],
+			filename: "js/routes/meeti/index.js",
+		},
 		route_user_meeti_create: {
 			import: [
 				`${publicRoutes}user/meeti/create.js`

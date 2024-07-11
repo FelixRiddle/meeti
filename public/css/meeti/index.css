@@ -41,6 +41,7 @@
     background-color: #F2F2F2;
     padding: 5rem 0;
 }
+
 @media (min-width:768px) {
     .eventContent .contenedor{
         display: flex;
@@ -50,11 +51,36 @@
     .eventContent .eventInformation {
         flex: 0 0 60%;
     }
-    .eventContent .informacion{
+    .eventContent .information {
         flex: 0 0 calc(40% - 2rem);
     }
 }
 
+.infoAuthor {
+    display: flex;
+    justify-content: space-between;
+}
+
+.infoAuthor .information {
+    flex: 1;
+    margin-left: 2rem;
+}
+
+.infoAuthor .image {
+    border-radius: 50%;
+    background-color: #e1e1e1;
+    height: 50px;
+    width: 50px;
+}
+
+.infoAuthor .author {
+    font-weight: 700;
+    margin-top: .5rem;
+}
+
+.infoAuthor p {
+    margin: 0;
+}
 
 /* .pregunta-asistencia { */
 .participate {

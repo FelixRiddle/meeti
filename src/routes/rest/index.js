@@ -6,6 +6,7 @@ const expandData = require("../../lib/misc/expandData");
 
 const authRouter = require("./auth");
 const groupRouter = require("./group");
+const meetiRouter = require("./meeti");
 const homeRouter = require("./home");
 const userRouter = require("./user");
 
@@ -13,6 +14,7 @@ const restRouter = express.Router();
 
 restRouter.use("/auth", authRouter);
 restRouter.use("/group", groupRouter);
+restRouter.use("/meeti", meetiRouter);
 restRouter.use("/home", homeRouter);
 restRouter.use("/user", authenticateRest, userRouter);
 restRouter.use(async (req, res) => {

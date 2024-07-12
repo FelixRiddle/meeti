@@ -1,7 +1,8 @@
 const express = require("express");
 const color = require("ansi-color");
 
-const authenticateRest = require("../../lib/auth/rest/authenticateRest");
+const authenticateRest = require("../../lib/middleware/rest/authenticateRest");
+const optionalAuthenticateRest = require("../../lib/middleware/rest/optionalAuthenticateRest");
 const expandData = require("../../lib/misc/expandData");
 
 const authRouter = require("./auth");
@@ -14,7 +15,7 @@ const restRouter = express.Router();
 
 restRouter.use("/auth", authRouter);
 restRouter.use("/group", groupRouter);
-restRouter.use("/meeti", meetiRouter);
+restRouter.use("/meeti", optionalAuthenticateRest, meetiRouter);
 restRouter.use("/home", homeRouter);
 restRouter.use("/user", authenticateRest, userRouter);
 restRouter.use(async (req, res) => {

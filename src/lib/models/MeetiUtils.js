@@ -30,6 +30,23 @@ module.exports = class MeetiUtils {
 	}
 	
 	/**
+	 * Check if the user participates
+	 */
+	userParticipates(meetiModel) {
+		if(!this.user) {
+			return false;
+		}
+		
+		for(const participant of meetiModel.participants) {
+			if(this.user.id === participant.id) {
+				return true;
+			}
+		}
+		
+		return false;
+	}
+	
+	/**
 	 * Obtain meeti participants
 	 * 
 	 * Removes model abstraction of sequelize

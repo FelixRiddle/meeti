@@ -16,12 +16,15 @@ meetiRouter.get("/:slug", async (req, res, next) => {
 			return next();
 		}
 		
+		const userParticipates = meetiUtils.userParticipates(completeMeetiModel);
+		
 		const extra = await expandData(req);
 		return res.send({
 			...extra,
 			meeti: completeMeetiModel,
 			title: completeMeetiModel.title,
 			moment,
+			userParticipates,
 		});
 	} catch(err) {
 		console.error(err);

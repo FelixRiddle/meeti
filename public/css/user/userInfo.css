@@ -1,0 +1,86 @@
+/* User info and group info */
+.userInfo,
+.groupInfo {
+	margin-top: 2rem;
+}
+
+.groupInfo a.url {
+    margin-top: 1rem;
+    display: block;
+}
+
+@media (min-width: 660px) {
+    .userInfo,
+    .groupInfo {
+        display: flex;
+        justify-content: space-between;
+    }
+	
+    .userInfo .image,
+    .groupInfo .image {
+        flex: 0 0 40%;
+    }
+	
+    .userInfo .text,
+    .groupInfo .text {
+        flex: 0 0 calc(60% - 3rem);
+    }
+}
+
+.userInfo div,
+.groupInfo div  {
+    font-size: 1.2rem;
+    text-align: left;
+    line-height: 2;
+    font-weight: 400;
+    font-family:  'Raleway', sans-serif;
+}
+
+/* Text */
+.comment .text {
+    padding: 2rem;
+    flex: 1;
+    border: 1px solid #C7C7C7;
+    background-color: white;
+}
+
+.comment .text p {
+    margin: 0;
+}
+
+.participantsList .text {
+    flex: 1;
+    font-size: 2rem;
+}
+
+/* Group list */
+.groupList  {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+}
+
+.groupList li {
+    flex: 0 0 calc(50% - 1rem);
+    margin-bottom: 2rem;
+}
+
+@media (min-width: 768px) {
+    .groupList li {
+        flex: 0 0 calc(33.3% - 2rem);
+        
+    }
+}
+
+/** Participants **/
+.participants .title {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.participants .participants a {
+    color: #068D9D;
+    font-weight: 700;
+    font-size: 1.4rem;
+}

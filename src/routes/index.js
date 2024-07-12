@@ -6,6 +6,7 @@ const authRouter = require("./auth");
 const meetiRouter = require("./meeti");
 const restRouter = require("./rest");
 const userRouter = require("./user");
+const usersRouter = require("./users");
 const error500Router = require("./500");
 const { pageNotFoundMessage } = require("../lib/status/messages");
 const userIsAuthenticated = require("../lib/auth/userIsAuthenticated");
@@ -91,7 +92,7 @@ function mainRouter(passport) {
 		userIsAuthenticated,
 		userRouter
 	);
-	// router.use("/user-profile", );
+	router.use("/users", usersRouter);
 	router.use("/500", error500Router);
 	
 	router.get("/home", renderHome);

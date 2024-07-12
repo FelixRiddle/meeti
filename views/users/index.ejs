@@ -1,0 +1,50 @@
+<link rel="stylesheet" href="/public/css/user/userInfo.css" />
+
+<main class="participants contenedor">
+	<h1><%= title %></h1>
+	<div class="userInfo">
+		<div class="image">
+			<% if(userProfile.pfp) { %>
+				<img
+					src="/public/user/<%- userProfile.id %>/<%- userProfile.pfp %>"
+					alt="<%- userProfile.name %> profile picture"
+				/>
+			<% } %>
+		</div>
+		
+		<div class="text">
+			<%- userProfile.description %>
+		</div>
+	</div>
+	
+	<div class="groupInfo">
+		<% if(groups.length > 0) { %>
+			<h2>Groups of this user</h2>
+			<ul class="groupList">
+				<% groups.forEach((group) => { %>
+					<li>
+						<div class="image">
+							<% if(group.image) { %>
+								<img
+									src="/public/uploads/groups/<%- group.id %>"
+									alt="<%- group.name %> image"
+								/>
+							<% } else { %>
+								<img
+									src="/public/img/meeti.png"
+									alt="Meeti logo"
+								/>
+							<% } %>
+						</div>
+						
+						<div class="text">
+							<a href="/groups/<%- group.id %>">
+								<%- group.name %>
+							</a>
+						</div>
+					</li>
+				<% }); %>
+			</ul>
+		<% } %>
+	</div>
+</main>

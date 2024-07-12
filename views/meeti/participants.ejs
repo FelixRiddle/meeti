@@ -16,7 +16,9 @@
 						<% } %>
 					</div>
 					<div class="texto">
-						<%= participant.name %>
+						<a href="/users/<%- participant.id %>">
+							<%= participant.name %>
+						</a>
 					</div>
 				</li>
 			<% }); %>

@@ -5,12 +5,14 @@
     border-top: 4px solid #EAEAEA;
     padding: 5rem 0;
 }
+
 @media (min-width:768px) {
     .eventHeader .contenedor {
         display: flex;
         justify-content: space-between;
     }   
 }
+
 .eventSummary h1 {
     font-family: 'Raleway', sans-serif;
     text-align: left;
@@ -48,9 +50,11 @@
         justify-content: space-between;
         align-items: flex-start;
     }
+	
     .eventContent .eventInformation {
         flex: 0 0 60%;
     }
+	
     .eventContent .information {
         flex: 0 0 calc(40% - 2rem);
     }

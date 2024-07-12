@@ -1,9 +1,13 @@
 const express = require('express');
-const MeetiUtils = require('../../lib/models/MeetiUtils');
-const expandData = require('../../lib/misc/expandData');
 const moment = require("moment");
 
+const MeetiUtils = require('../../lib/models/MeetiUtils');
+const expandData = require('../../lib/misc/expandData');
+const participantsRouter = require("./participants");
+
 const meetiRouter = express.Router();
+
+meetiRouter.use("/participants", participantsRouter);
 
 meetiRouter.get("/:slug", async (req, res, next) => {
 	try {

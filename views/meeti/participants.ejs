@@ -1,0 +1,27 @@
+<link rel="stylesheet" href="/public/css/meeti/index.css" />
+<link rel="stylesheet" href="/public/css/image.css" />
+
+<main class="contenedor participants">
+	<h1><%= meeti.title %> participants</h1>
+	<% if(meeti.participants.length > 0) { %>
+		<ul class="participantsList">
+			<% meeti.participants.forEach((participant) => { %>
+				<li>
+					<div class="image">
+						<% if(participant.pfp) { %>
+							<img
+								src="/public/user/<%- participant.id %>/<%- participant.pfp %>"
+								alt="<%- participant.name %> profile picture"
+							>
+						<% } %>
+					</div>
+					<div class="texto">
+						<%= participant.name %>
+					</div>
+				</li>
+			<% }); %>
+		</ul>
+	<% } else { %>
+		<p class="no-asistentes">There are no participants for this meeti</p>
+	<% } %>
+</main>

@@ -37,13 +37,8 @@ module.exports = class MeetiUtils {
 			return false;
 		}
 		
-		for(const participant of meetiModel.participants) {
-			if(this.user.id === participant.id) {
-				return true;
-			}
-		}
-		
-		return false;
+		const participates = meetiModel.participants.find((e) => e.id === this.user.id);
+		return participates ? true : false;
 	}
 	
 	/**

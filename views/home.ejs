@@ -33,9 +33,18 @@
 		<% if(locals.meetis && locals.meetis.length > 0) { %>
 			<% meetis.forEach((meeti) => { %>
 				<div class="card">
-					<img
-						src="/public/uploads/groups/<%- meeti.group.image %>"
-						alt="<%- meeti.title %>" />
+					<% if(meeti.group.image) { %>
+						<img
+							src="/public/uploads/groups/<%- meeti.group.id %>"
+							alt="<%- meeti.group.name %> image"
+						/>
+					<% } else { %>
+						<img
+							src="/public/img/meeti.png"
+							alt="Meeti logo"
+						/>
+					<% } %>
+					
 					<div class="card-texto">
 						<% moment.locale("en"); %>
 						<% const date = `${meeti.date} ${meeti.time}`; %>

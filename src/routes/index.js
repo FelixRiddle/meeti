@@ -3,6 +3,7 @@ const moment = require("moment");
 const Sequelize = require("sequelize");
 
 const authRouter = require("./auth");
+const groupsRouter = require("./groups");
 const meetiRouter = require("./meeti");
 const restRouter = require("./rest");
 const userRouter = require("./user");
@@ -85,6 +86,7 @@ function mainRouter(passport) {
 	const router = express.Router();
 	
 	router.use("/auth", authRouter(passport));
+	router.use("/gropus", groupsRouter);
 	router.use("/meeti", meetiRouter);
 	router.use("/rest", restRouter);
 	router.use(

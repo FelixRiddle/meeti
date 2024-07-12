@@ -10,14 +10,17 @@ const groupRouter = require("./group");
 const meetiRouter = require("./meeti");
 const homeRouter = require("./home");
 const userRouter = require("./user");
+const usersRouter = require("./users");
 
 const restRouter = express.Router();
 
 restRouter.use("/auth", authRouter);
 restRouter.use("/group", groupRouter);
-restRouter.use("/meeti", optionalAuthenticateRest, meetiRouter);
 restRouter.use("/home", homeRouter);
+restRouter.use("/meeti", optionalAuthenticateRest, meetiRouter);
 restRouter.use("/user", authenticateRest, userRouter);
+restRouter.use("/users", usersRouter);
+
 restRouter.use(async (req, res) => {
 	const message = "Page not found";
 	console.log(color.set(message, "red"));

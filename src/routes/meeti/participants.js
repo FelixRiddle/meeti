@@ -16,8 +16,6 @@ participantsRouter.get("/:slug", async (req, res, next) => {
 			return next();
 		}
 		
-		console.log(`Meeti: `, meeti);
-		
 		const extra = await expandData(req);
 		return res.render("meeti/participants", {
 			...extra,

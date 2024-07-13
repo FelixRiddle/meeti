@@ -6,6 +6,7 @@ const optionalAuthenticateRest = require("../../lib/middleware/rest/optionalAuth
 const expandData = require("../../lib/misc/expandData");
 
 const authRouter = require("./auth");
+const categoryRouter = require("./category");
 const groupRouter = require("./group");
 const groupsRouter = require("./groups");
 const meetiRouter = require("./meeti");
@@ -16,6 +17,7 @@ const usersRouter = require("./users");
 const restRouter = express.Router();
 
 restRouter.use("/auth", authRouter);
+restRouter.use("/category", categoryRouter);
 restRouter.use("/group", groupRouter);
 restRouter.use("/groups", groupsRouter);
 restRouter.use("/home", homeRouter);

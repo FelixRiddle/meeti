@@ -1,4 +1,5 @@
 <link rel="stylesheet" href="/public/css/user/userInfo.css" />
+<link rel="stylesheet" href="/public/css/group/group.css" />
 
 <main class="participants contenedor">
 	<h1><%= title %></h1>
@@ -17,22 +18,26 @@
 		</div>
 	</div>
 	
-	<div class="groupInfo">
+	<div>
 		<% if(groups.length > 0) { %>
 			<h2>Groups of this user</h2>
-			<ul class="groupList">
+			<ul>
 				<% groups.forEach((group) => { %>
-					<li>
-						<div class="image">
+					<li class="group">
+						<div class="groupImage">
 							<% if(group.image) { %>
 								<img
-									src="/public/uploads/groups/<%- group.id %>"
+									src="/public/uploads/groups/<%- group.image %>"
 									alt="<%- group.name %> image"
+									width="360"
+									height="180"
 								/>
 							<% } else { %>
 								<img
 									src="/public/img/meeti.png"
 									alt="Meeti logo"
+									width="360"
+									height="180"
 								/>
 							<% } %>
 						</div>

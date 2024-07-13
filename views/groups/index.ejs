@@ -1,0 +1,38 @@
+<link rel="stylesheet" href="/public/css/user/userInfo.css" />
+
+<div class="contenedor">
+	<h1><%= title %></h1>
+	<div class="groupInfo">
+		<div class="image">
+			<% if(group.image) { %>
+				<img src="/public/uplodas/groups/<%= group.image %>" alt="<%- group.name %> group image" />
+			<% } else { %>
+				<img src="/public/img/meeti.png" alt="Meeti image" />
+			<% } %>
+		</div>
+		
+		<div class="text">
+			<%- group.description %>
+			
+			<% if(group.url) { %>
+				<a href="<%- group.url %>" class="url" target="_blank">Visit our website</a>
+			<% } %>
+			
+			<% if(meetis.length > 0) { %>
+				<h2>Upcoming Meeti's</h2>
+				<ul class="lista-meetis">
+					<% meetis.forEach((meeti) => { %>
+						<li>
+							<a href="/meeti/<%- meeti.slug %>">
+								<h3><%= meeti.title %></h3>
+								<% moment.locale("en"); %>
+								<% const date = meeti.date + " " + meeti.time; %>
+								<p><%= moment(date).format("LLLL") %></p>
+							</a>
+						</li>
+					<% }); %>
+				</ul>
+			<% } %>
+		</div>
+	</div>
+</div>

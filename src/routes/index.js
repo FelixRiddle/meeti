@@ -86,7 +86,7 @@ function mainRouter(passport) {
 	const router = express.Router();
 	
 	router.use("/auth", authRouter(passport));
-	router.use("/gropus", groupsRouter);
+	router.use("/groups", groupsRouter);
 	router.use("/meeti", meetiRouter);
 	router.use("/rest", restRouter);
 	router.use(

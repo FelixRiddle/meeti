@@ -14,7 +14,7 @@ groupsRouter.get("/:id", async(req, res) => {
 		
 		const groupId = req.params.id;
 		
-		const [group, meeti] = Promise.all([
+		const [group, meetis] = await Promise.all([
 			Groups.findByPk(groupId, {
 				raw: true,
 			}),
@@ -41,12 +41,12 @@ groupsRouter.get("/:id", async(req, res) => {
 			...extra,
 			title: `Showing group ${group.name}`,
 			group,
-			meeti,
+			meetis: meetis ? meetis : [],
 			moment,
 		});
 	} catch(err) {
 		console.error(err);
-		return res.redirect("500");
+		return res.redirect("/500");
 	}
 });
 

@@ -3,6 +3,7 @@
 	border: 2px solid gray;
 	border-radius: 2px;
 	margin-bottom: 5px;
+	min-height: 180px;
 }
 
 .groupImage {

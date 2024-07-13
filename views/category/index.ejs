@@ -1,27 +1,54 @@
 <div class="contenedor proximos-eventos">
 	<h1><%= title %></h1>
-	<div class="grid columnas-md-3">
-		<div class="card">
-			<img src="/public/img/imagen1.jpg" alt="Business development" />
-			
-			<div class="card-texto">
-				<div class="fecha">Monday, August 11, 2025 7:02 PM</div>
-				
-				<a href="#">
-					<h3>Business development</h3>
-				</a>
-				
-				<div class="info-author">
-					<div class="image"></div>
-					<div class="informacion">
-						<p>Organized by:</p>
-						<p class="autor">
-							Felix Riddle
-						</p>
+	
+	<% if(meetis.length > 0) { %>
+		<div class="grid columnas-md-3">
+			<% meetis.forEach((meeti) => { %>
+				<div class="card">
+					<% if(meeti.group.image) { %>
+						<img
+							src="/public/uploads/groups/<%= meeti.group.image %>"
+							alt="<%= meeti.name %> group image"
+						/>
+					<% } else { %>
+						<img
+							src="/public/img/meeti.png"
+							alt="Meeti logo"
+						/>
+					<% } %>
+					
+					<% moment.locale('en'); %>
+					<% const date = meeti.date + ' ' + meeti.time; %>
+					
+					<div class="card-texto">
+						<div class="fecha"><%- moment(date).format("LLLL"); %></div>
+						
+						<a href="/meeti/<%- meeti.slug %>">
+							<h3><%= meeti.title %></h3>
+						</a>
+						
+						<div class="info-author">
+							<div class="image">
+								<% if(meeti.user.pfp) { %>
+									<img
+										src="/public/user/<%- meeti.user.id %>/<% meeti.user.pfp %>"
+										alt="<%- meeti.user.name %> profile picture"
+									/>
+								<% } %>
+							</div>
+							<div class="informacion">
+								<p>Organized by:</p>
+								<p class="autor">
+									<%= meeti.user.name %>
+								</p>
+							</div>
+						</div>
+						
 					</div>
 				</div>
-				
-			</div>
+			<% }); %>
 		</div>
-	</div>
+	<% } else { %>
+		<p>There are no meetis in this category</p>
+	<% } %>
 </div>

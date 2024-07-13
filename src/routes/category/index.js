@@ -34,16 +34,28 @@ categoryRouter.get("/:nameId", async (req, res, next) => {
 			return next();
 		}
 		
-		const meetis = await Meeti.findAll({
+		const meetiModels = await Meeti.findAll({
+			order: [
+				["date", "ASC"],
+				["time", "ASC"]
+			],
 			include: [{
 				model: Groups,
 				where: {
 					socialCategoryId: category.id,
-				}
+				},
+				include: [{
+					model: SocialCategory,
+				}]
 			}, {
 				model: User
 			}]
 		});
+		
+		let meetis = [];
+		for(const meeti of meetiModels) {
+			meetis.push(JSON.parse(JSON.stringify(meeti)));
+		}
 		
 		const extra = await expandData(req);
 		return res

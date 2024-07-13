@@ -1,6 +1,5 @@
 const express = require("express");
 
-const moment = require("moment");
 const expandData = require("../../../lib/misc/expandData");
 const { renderDataInternalErrorMessage } = require("../../../lib/status/messages");
 
@@ -47,7 +46,6 @@ groupsRouter.get("/:id", async(req, res) => {
 			title: `Showing group ${group.name}`,
 			group,
 			meetis: meetis ? meetis : [],
-			moment,
 		});
 	} catch(err) {
 		console.error(err);

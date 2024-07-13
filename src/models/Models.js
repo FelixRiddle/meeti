@@ -5,6 +5,7 @@ const createMeetiParticipantsModel = require("./MeetiParticipants");
 const createMeetiModel = require("./Meeti");
 const createSocialCategoryModel = require("./SocialCategory");
 const createUserModel = require("./User");
+const createCommentModel = require("./Comment");
 
 /**
  * Models
@@ -23,6 +24,7 @@ class Models {
 		
 		// Meeti participants
 		this.MeetiParticipants = createMeetiParticipantsModel(this.conn, this.Meeti, this.User);
+		this.Comment = createCommentModel(this.conn, this.User, this.Meeti);
 	}
 	
 	/**
@@ -57,9 +59,11 @@ class Models {
 			this.User,
 			this.SocialCategory,
 			this.Address,
+			
 			this.Groups,
 			this.Meeti,
 			this.MeetiParticipants,
+			this.Comment,
 		];
 	}
 }

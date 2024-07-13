@@ -83,16 +83,24 @@
 					</div>
 				</div>
 				
-				<form action="" class="default-form comentarios">
-					<legend>Create comment</legend>
-					<div class="campo">
-						<label for="comment">Comment</label>
-						<textarea name="comment" id="comment" placeholder="Comment"></textarea>
-					</div>
-					<div class="campo enviar">
-						<input type="submit" value="Create comment" class="btn btn-rosa" />
-					</div>
-				</form>
+				<% if(locals.user) { %>
+					<form
+						action="/user/meeti/comment/<%- meeti.id %>"
+						method="POST"
+						class="default-form comentarios"
+					>
+						<legend>Create comment</legend>
+						<div class="campo">
+							<label for="comment">Comment</label>
+							<textarea name="comment" id="comment" placeholder="Comment"></textarea>
+						</div>
+						<div class="campo enviar">
+							<input type="submit" value="Create comment" class="btn btn-rosa" />
+						</div>
+					</form>
+				<% } else { %>
+					<p>You are not authenticated, please authenticate to create a comment.</p>
+				<% } %>
 			</div>
 		</div>
 		

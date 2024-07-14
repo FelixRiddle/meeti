@@ -8,7 +8,8 @@ const deleteRouter = express.Router();
 deleteRouter.delete("/:commentId", async (req, res, next) => {
 	try {
 		const {
-			Comment
+			Comment,
+			Meeti
 		} = req.models;
 		const commentId = req.params.commentId;
 		
@@ -31,9 +32,18 @@ deleteRouter.delete("/:commentId", async (req, res, next) => {
 		// This is an extra feature.
 		// TODO: The same could be applied to creation.
 		
+		// Get meeti
+		const meeti = await Meeti.findOne({
+			where: {
+				id: comment.meetiId
+			}
+		});
+		
+		const isMeetiOwner = meeti.userId === req.user.id;
+		
 		// Check if the user owns it
 		const userOwnsComment = req.user.id === comment.userId;
-		if(!userOwnsComment) {
+		if(!userOwnsComment && !isMeetiOwner) {
 			req.flash('messages', [{
 				message: "You are not the owner of this comment",
 				type: "error",

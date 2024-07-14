@@ -2,11 +2,13 @@ const express = require("express");
 
 const { renderDataInternalErrorMessage } = require("../../../../lib/status/messages");
 const expandData = require("../../../../lib/misc/expandData");
+const commentRouter = require("./comment");
 const createMeetiRouter = require("./create");
 const editRouter = require("./edit");
 
 const meetiRouter = express.Router();
 
+meetiRouter.use("/comment", commentRouter);
 meetiRouter.use("/create", createMeetiRouter);
 meetiRouter.use("/edit", editRouter);
 

@@ -42,7 +42,8 @@ async function groupExistsUserOwnsIt(req, res, next) {
 			req.flash('messages', [{
 				message,
 				type: "error",
-				baddie: true,
+				// This is endpoint tampering
+				tampering: true,
 			}]);
 			
 			return res

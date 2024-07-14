@@ -89,7 +89,8 @@ editRouter.post(
 				req.flash('messages', [{
 					message: "You're not the owner of this property, reputation -1",
 					type: "error",
-					baddie: true,
+					// This is endpoint tampering
+					tampering: true,
 				}]);
 				
 				const extraData = await expandData(req);
@@ -104,8 +105,8 @@ editRouter.post(
 				req.flash("messages", [{
 					message: "Incorrect object given",
 					type: "error",
-					// This won't happen without intervention
-					baddie: true,
+					// This is endpoint tampering
+					tampering: true,
 				}]);
 				
 				const extraData = await expandData(req);

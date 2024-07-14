@@ -68,6 +68,54 @@ function createMap() {
 }
 
 /**
+ * Delete comment
+ */
+async function deleteComment(e, form) {
+	e.preventDefault();
+	
+	// Ask for confirmation
+	Swal.fire({
+		title: "Are you sure?",
+		text: "You won't be able to revert this!",
+		icon: "warning",
+		showCancelButton: true,
+		confirmButtonColor: "#3085d6",
+		cancelButtonColor: "#d33",
+		confirmButtonText: "Yes, delete it!",
+		cancelButtonText: "Cancel",
+	}).then(async (result) => {
+		if (result.isConfirmed) {
+			// Delete comment on the database
+			const data = new FormData(form);
+			const dataResponse = await axios.post(
+				form.action,
+				data,
+				{
+					headers: {
+						"Content-Type": "application/json"
+					}
+			}).then((res) => {
+				// Show success message
+				Swal.fire({
+					title: "Deleted!",
+					text: "Your comment has been deleted.",
+					icon: "success"
+				});
+				
+				// Delete comment from the view
+				form.parentElement.parentElement.remove();
+			}).catch((err) => {
+				Swal.fire({
+					title: "Error",
+					text: "Couldn't delete comment",
+					icon: "error"
+				});
+			});
+		}
+	});
+}
+
+/**
  * Delete comments
  */
 function deleteCommentsBehavior() {
@@ -78,21 +126,7 @@ function deleteCommentsBehavior() {
 	}
 	
 	deleteCommentForms.forEach((form) => {
-		form.addEventListener("submit", async (e) => {
-			e.preventDefault();
-			
-			const data = new FormData(form);
-			const dataResponse = await axios.post(
-				form.action,
-				data,
-				{
-					headers: {
-						"Content-Type": "application/json"
-					}
-				}).then((res) => {
-					
-				});
-		});
+		form.addEventListener("submit", (e) => deleteComment(e, form));
 	});
 }
 

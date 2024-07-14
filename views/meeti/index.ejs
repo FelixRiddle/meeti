@@ -94,7 +94,7 @@
 										href="/users/<%= comment.user.id %>"
 									><%= comment.user.name %></a>
 								</p>
-								<% if(comment.user.id === user.id) { %>
+								<% if(meeti.userId === user.id || comment.user.id === user.id) { %>
 									<form
 										action="/user/meeti/comment/delete/<%- comment.id %>"
 										class="eliminar-comentario"

@@ -41,7 +41,6 @@ meetiRouter.get("/:slug", async (req, res, next) => {
 		
 		// Remove ORM properties
 		const comments = JSON.parse(JSON.stringify(commentsModel));
-		console.log(`Comments: `, comments);
 		
 		const extra = await expandData(req);
 		return res.render("meeti/index", {

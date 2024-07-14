@@ -7,6 +7,7 @@ const categoryRouter = require("./category");
 const groupsRouter = require("./groups");
 const meetiRouter = require("./meeti");
 const restRouter = require("./rest");
+const searchRouter = require('./search');
 const userRouter = require("./user");
 const usersRouter = require("./users");
 const error500Router = require("./500");
@@ -91,6 +92,7 @@ function mainRouter(passport) {
 	router.use("/groups", groupsRouter);
 	router.use("/meeti", meetiRouter);
 	router.use("/rest", restRouter);
+	router.use("/search", searchRouter);
 	router.use(
 		"/user",
 		userIsAuthenticated,

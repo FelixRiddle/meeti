@@ -10,18 +10,27 @@
 <div class="buscador-inicio">
 	<div class="contenedor">
 		<h2>Find a group in your city</h2>
-		<form action="#">
+		<form action="/search" method="POST">
 			<select name="category" id="category" class="categoria">
-				<option value="" disabled selected>-- Select one --</option>
+				<option value="" selected>All categories</option>
 				<% categories.forEach((category) => { %>
 					<option
 						value="<%- category.id %>"
 					><%- category.name %></option>
 				<% }); %>
 			</select>
-			<input type="text" name="name" id="name" placeholder="Meeti name" />
+			<input type="text" name="title" id="title" placeholder="Meeti title" />
 			<input type="text" name="city" placeholder="City" />
-			<input type="text" name="country" placeholder="Country" />
+			<!-- <input type="text" name="country" placeholder="Country" /> -->
+			<select name="country" id="country">
+				<option value="" selected>Todos</option>
+				<option value="MEX">Mexico</option>
+				<option value="COL">Colombia</option>
+				<option value="ARG">Argentina</option>
+				<option value="ESP">Spain</option>
+				<option value="USA">United States</option>
+				<option value="PER">Peru</option>
+			</select>
 			<input type="submit" value="Search" class="btn btn-rosa" />
 		</form>
 	</div>

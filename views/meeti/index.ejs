@@ -74,14 +74,36 @@
 			
 			<div class="comentarios">
 				<h2>Comments</h2>
-				<div class="comentario">
-					<div class="image"></div>
-					<div class="texto">
-						<p>Hello</p>
-						<p>Written by: <span></span></p>
-						<input type="button" value="Delete">
-					</div>
-				</div>
+				<% if(comments.length > 0) { %>
+					<% comments.forEach((comment) => { %>
+						<div class="comentario">
+							<div class="image">
+								<% if(comment.user.pfp) { %>
+									<img
+										src="/public/user/<% comment.user.id %>/<% comment.user.pfp %>"
+										alt="User <% comment.user.name %> profile picture"
+									/>
+								<% } %>
+							</div>
+							<div class="texto">
+								<p><%= comment.message %></p>
+								<p>
+									Written by:
+									<a
+										href="/users/<%= comment.user.id %>"
+									><%= comment.user.name %></a>
+								</p>
+								<% if(comment.user.id === user.id) { %>
+									<form action="/user/meeti/comment/delete/<%- comment.id %>">
+										<input type="button" value="Delete" />
+									</form>
+								<% } %>
+							</div>
+						</div>
+					<% }); %>
+				<% } else { %>
+					<p>There are no comments for this Meeti</p>
+				<% } %>
 				
 				<% if(locals.user) { %>
 					<form

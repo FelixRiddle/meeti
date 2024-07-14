@@ -1,6 +1,10 @@
 const express = require("express");
 
+const deleteRouter = require("./delete");
+
 const commentRouter = express.Router();
+
+commentRouter.use("/delete", deleteRouter);
 
 commentRouter.post("/:meetiId", async (req, res, next) => {
 	try {

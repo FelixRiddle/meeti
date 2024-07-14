@@ -1,7 +1,11 @@
 const axios = require('axios');
 const { OpenStreetMapProvider } = require("leaflet-geosearch");
+const Swal = require("sweetalert2");
 
-document.addEventListener("DOMContentLoaded", (event) => {
+/**
+ * Create map
+ */
+function createMap() {
 	const latitudeEl = document.getElementById("latitude");
 	const longitudeEl = document.getElementById("longitude");
 	
@@ -61,4 +65,39 @@ document.addEventListener("DOMContentLoaded", (event) => {
 	} else {
 		throw Error("An element wasn't found!");
 	}
+}
+
+/**
+ * Delete comments
+ */
+function deleteCommentsBehavior() {
+	const deleteCommentForms = document.querySelectorAll(".eliminar-comentario");
+	
+	if(deleteCommentForms.length === 0) {
+		return;
+	}
+	
+	deleteCommentForms.forEach((form) => {
+		form.addEventListener("submit", async (e) => {
+			e.preventDefault();
+			
+			const data = new FormData(form);
+			const dataResponse = await axios.post(
+				form.action,
+				data,
+				{
+					headers: {
+						"Content-Type": "application/json"
+					}
+				}).then((res) => {
+					
+				});
+		});
+	});
+}
+
+document.addEventListener("DOMContentLoaded", (event) => {
+	createMap();
+	
+	deleteCommentsBehavior();
 });

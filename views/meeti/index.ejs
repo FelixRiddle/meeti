@@ -1,5 +1,6 @@
 <link rel="stylesheet" href="/public/package/leaflet@1.9.4/dist/leaflet.css">
 <link rel="stylesheet" href="/public/css/meeti/index.css" />
+<link rel="stylesheet" href="/public/css/comment.css" />
 
 <div class="eventHeader">
 	<div class="contenedor">
@@ -76,16 +77,16 @@
 				<h2>Comments</h2>
 				<% if(comments.length > 0) { %>
 					<% comments.forEach((comment) => { %>
-						<div class="comentario">
+						<div class="comment">
 							<div class="image">
 								<% if(comment.user.pfp) { %>
 									<img
-										src="/public/user/<% comment.user.id %>/<% comment.user.pfp %>"
-										alt="User <% comment.user.name %> profile picture"
+										src="/public/user/<%- comment.user.id %>/<%= comment.user.pfp %>"
+										alt="User <%= comment.user.name %> profile picture"
 									/>
 								<% } %>
 							</div>
-							<div class="texto">
+							<div class="text">
 								<p><%= comment.message %></p>
 								<p>
 									Written by:
@@ -94,8 +95,17 @@
 									><%= comment.user.name %></a>
 								</p>
 								<% if(comment.user.id === user.id) { %>
-									<form action="/user/meeti/comment/delete/<%- comment.id %>">
-										<input type="button" value="Delete" />
+									<form
+										action="/user/meeti/comment/delete/<%- comment.id %>"
+										class="eliminar-comentario"
+									>
+										<input
+											type="hidden"
+											name="commentId"
+											id="commentId"
+											value="<%- comment.id %>"
+										/>
+										<input type="submit" value="Delete" />
 									</form>
 								<% } %>
 							</div>

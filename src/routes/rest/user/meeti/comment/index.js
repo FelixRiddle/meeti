@@ -2,8 +2,11 @@ const express = require("express");
 
 const expandData = require("../../../../../lib/misc/expandData");
 const { renderDataInternalErrorMessage } = require("../../../../../lib/status/messages");
+const deleteRouter = require("./delete");
 
 const commentRouter = express.Router();
+
+commentRouter.use("/delete", deleteRouter);
 
 commentRouter.post("/:meetiId", async (req, res, next) => {
 	try {

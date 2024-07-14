@@ -1,8 +1,11 @@
 const express = require("express");
 
+const { renderDataInternalErrorMessage } = require("../../../../../lib/status/messages");
+const expandData = require("../../../../../lib/misc/expandData");
+
 const deleteRouter = express.Router();
 
-deleteRouter.post("/:commentId", async (req, res, next) => {
+deleteRouter.delete("/:commentId", async (req, res, next) => {
 	try {
 		const {
 			Comment
@@ -16,9 +19,11 @@ deleteRouter.post("/:commentId", async (req, res, next) => {
 				message: "The comment doesn't exists",
 				type: "error"
 			}]);
-			res.redirect("back");
 			
-			return next();
+			const extra = await expandData(req);
+			return res.send({
+				...extra
+			});
 		}
 		
 		// TODO: The same user could delete its own commets of other meetis whilst not seeing them.
@@ -35,17 +40,29 @@ deleteRouter.post("/:commentId", async (req, res, next) => {
 				// This is endpoint tampering
 				tampering: true,
 			}]);
-			res.redirect("back");
 			
-			return next();
+			const extra = await expandData(req);
+			return res.send({
+				...extra
+			});
 		}
 		
 		await comment.destroy();
 		
-		return res.redirect('back');
+		req.flash('messages', [{
+			message: "Comment deleted",
+			type: "success"
+		}]);
+		const extra = await expandData(req);
+		return res.send({
+			...extra
+		});
 	} catch(err) {
 		console.error(err);
-		return res.redirect("/500");
+		return res.status(500)
+			.send({
+				...renderDataInternalErrorMessage
+			});
 	}
 });
 

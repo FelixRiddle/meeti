@@ -32,46 +32,8 @@
 	<div class="grid columnas-md-3">
 		<% if(locals.meetis && locals.meetis.length > 0) { %>
 			<% meetis.forEach((meeti) => { %>
-				<div class="card">
-					<% if(meeti.group.image) { %>
-						<img
-							src="/public/uploads/groups/<%- meeti.group.id %>"
-							alt="<%- meeti.group.name %> image"
-						/>
-					<% } else { %>
-						<img
-							src="/public/img/meeti.png"
-							alt="Meeti logo"
-						/>
-					<% } %>
-					
-					<div class="card-texto">
-						<% moment.locale("en"); %>
-						<% const date = `${meeti.date} ${meeti.time}`; %>
-						<p class="fecha"><%= moment(date).format("LLLL"); %></p>
-						<a href="/meeti/<%= meeti.slug %>">
-							<h3>
-								<%= meeti.title %>
-							</h3>
-						</a>
-						<div class="infoAuthor">
-							<div class="image">
-								<% if(meeti.user.pfp) { %>
-									<img
-										src="/public/user/<%- meeti.user.id %>/<%- meeti.user.pfp %>"
-										alt="<%- meeti.title %> owner profile picture"
-									/>
-								<% } %>
-							</div>
-							<div class="informacion">
-								<p>Organized by:</p>
-								<p class="author">
-									<%= meeti.user.name %>
-								</p>
-							</div>
-						</div>
-					</div>
-				</div>
+				<!-- Use meeti card partial -->
+				<%- include("components/cardMeeti", { meeti: meeti }); %>
 			<% }); %>
 		<% } else { %>
 			<p>
@@ -100,6 +62,19 @@
 		</ul>
 	</div>
 </main>
+
+<h2>
+	Nearby Meeti's
+</h2>
+<div class="contenedor cercanos">
+	<% if(locals.nearbyMeetis?.length > 0) { %>
+		<% locals.nearbyMeetis.forEach((meeti) => { %>
+			<%- include("components/cardMeeti", { meeti: meeti }); %>
+		<% }); %>
+	<% } else { %>
+		<p>There are no nearby Meetis</p>
+	<% } %>
+</div>
 
 <!-- Footer -->
 <div class="meeti-bg">

@@ -6,6 +6,8 @@ Meetup clone
 
 These are the setup steps
 
+<!-- In the tutorial PostGis is used, but it doesn't works for me, so I don't use it -->
+
 ## Manually installing dependencies(Required)
 
 The reason for doing it this way is because styles are not imported from Javascript, and neither are the images.

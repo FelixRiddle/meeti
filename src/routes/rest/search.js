@@ -1,7 +1,7 @@
 const express = require('express');
 const moment = require("moment");
 const Sequelize = require("sequelize");
-const expandData = require('../lib/misc/expandData');
+const expandData = require('../../lib/misc/expandData');
 
 const Op = Sequelize.Op;
 
@@ -22,6 +22,8 @@ searchRouter.post("/", async(req, res) => {
 			country,
 			category
 		} = req.body;
+		
+		console.log(`Given data: `, req.body);
 		
 		let query = {};
 		if(category) {
@@ -57,7 +59,7 @@ searchRouter.post("/", async(req, res) => {
 		});
 		
 		const extra = await expandData(req);
-		return res.render("search", {
+		return res.send({
 			...extra,
 			title: `Search for ${title}`,
 			meetis,
@@ -65,7 +67,11 @@ searchRouter.post("/", async(req, res) => {
 		});
 	} catch(err) {
 		console.error(err);
-		return res.redirect('/500');
+		const extra = await expandData(req);
+		return res.status(500)
+			.send({
+				...extra
+			});
 	}
 });
 

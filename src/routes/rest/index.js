@@ -11,6 +11,7 @@ const groupRouter = require("./group");
 const groupsRouter = require("./groups");
 const meetiRouter = require("./meeti");
 const homeRouter = require("./home");
+const searchRouter = require("./search");
 const userRouter = require("./user");
 const usersRouter = require("./users");
 
@@ -22,6 +23,7 @@ restRouter.use("/group", groupRouter);
 restRouter.use("/groups", groupsRouter);
 restRouter.use("/home", homeRouter);
 restRouter.use("/meeti", optionalAuthenticateRest, meetiRouter);
+restRouter.use("/search", searchRouter);
 restRouter.use("/user", authenticateRest, userRouter);
 restRouter.use("/users", usersRouter);
 

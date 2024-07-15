@@ -6,7 +6,30 @@ Meetup clone
 
 These are the setup steps
 
-<!-- In the tutorial PostGis is used, but it doesn't works for me, so I don't use it -->
+## Fix postgis error
+
+When creating postgis with 'CREATE EXTENSION postgis;' I had an error that said that the control file doesn't exists, for that I have had to install postgis manually, this command will do:
+
+```bash
+apt-get install postgis*
+```
+
+(Will install documentation too)
+
+A less space-heavy installation would be:
+
+```bash
+sudo apt-get install postgis postgresql-9.5-postgis-scripts
+```
+
+To check if it was successful run
+
+```bash
+find /usr -name postgis.control
+```
+
+Reference/s:
+- [Postgis create extension error](https://gis.stackexchange.com/questions/71302/running-create-extension-postgis-gives-error-could-not-open-extension-control-fi)
 
 ## Manually installing dependencies(Required)
 

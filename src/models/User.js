@@ -33,12 +33,12 @@ function createUserModel(conn) {
 			validate: {
 				isEmail: {
 					msg: "Email is incorrect",
+				},
+				unique: {
+					args: true,
+					msg: "The email is already registered"
 				}
 			},
-			unique: {
-				args: true,
-				msg: "The email is already registered"
-			}
 		},
 		password: {
 			type: Sequelize.STRING(64),
